@@ -7,9 +7,29 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "run-p lint:*",
+    "lint:eslint": "eslint src/**/*.{js,astro} --ignore-path .gitignore",
+    "lint:prettier": "prettier --check src/**/*.{js,astro} --ignore-path .gitignore",
+    "fix": "run-s fix:*",
+    "fix:eslint": "eslint --fix src/**/*.{js,astro} --ignore-path .gitignore",
+    "fix:prettier": "prettier --write src/**/*.{js,astro} --ignore-path .gitignore",
+    "prepare": "husky install"
   },
   "dependencies": {
     "astro": "^2.2.3"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.5.1",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@typescript-eslint/parser": "^5.58.0",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-astro": "^0.26.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "husky": "^8.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.7",
+    "prettier-plugin-astro": "^0.8.0"
   }
 }

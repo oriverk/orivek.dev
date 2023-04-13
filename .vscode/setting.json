@@ -1,0 +1,11 @@
+{
+  "editor.formatOnSave": true,
+  "editor.deafultFormatter": "esbenp.prettier-vscode",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "astro",
+    "typescript",
+    "typescriptreact"
+  ]
+}
