@@ -1,0 +1,34 @@
+---
+import packageJson from '../../package.json'
+
+const year = new Date().getFullYear()
+const astro = 'https://astro.build/'
+const svelte = 'https://svelte.dev/'
+const astroVersion = packageJson.dependencies.astro.replace('^', '')
+const svelteVersion = packageJson.dependencies.svelte.replace('^', '')
+---
+
+<div class="footerContent">
+  <small>@{year} Kawano Yudai.</small>
+  <br />
+  <small>
+    This site build with
+    <a href={astro} target="_blank" rel="noopener noreferrer"
+      >Astro@{astroVersion}</a
+    > and
+    <a href={svelte} target="_blank" rel="noopener noreferrer"
+      >Svelte@{svelteVersion}</a
+    >.
+  </small>
+</div>
+
+<style lang="scss">
+  .footerContent {
+    margin-inline: auto;
+    padding: 0.5rem 0;
+    max-width: 60ch;
+    width: 100%;
+    color: rgb(var(--color-gray));
+    text-align: center;
+  }
+</style>

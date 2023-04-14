@@ -1,35 +1,85 @@
 ---
+import '../styles/global.scss'
+import Header from './Header.astro'
+import Footer from './Footer.astro'
 export interface Props {
-	title: string;
+  title: string
 }
 
-const { title } = Astro.props;
+const { title } = Astro.props
 ---
 
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
+    <meta name="format-detection" content="email=no,telephone=no,address=no" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/image/icon16x.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/image/icon32x.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/image/icon180x.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Kawano Yudai" />
+    <meta name="author" content="Kawano Yudai" />
+    <meta name="theme-color" content="#00e1ee" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Kawano Yudai" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div id="astro">
+      <header>
+        <Header />
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+    </div>
+  </body>
 </html>
-<style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
+
+<style lang="scss">
+  #astro {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > * {
+      width: 100%;
+    }
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: rgba(var(--color-black) / 0.1);
+    backdrop-filter: blur(5.4px);
+  }
+
+  main {
+    flex: 1;
+    // margin-top: 1rem;
+    // margin-bottom: 1rem;
+  }
 </style>
