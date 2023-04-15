@@ -57,6 +57,13 @@ const { title } = Astro.props
   </body>
 </html>
 
+<style is:global>
+  main > * {
+    border: 1px solid lemonchiffon;
+    scroll-snap-align: end;
+  }
+</style>
+
 <style lang="scss">
   #astro {
     min-height: 100vh;
@@ -70,7 +77,7 @@ const { title } = Astro.props
   }
 
   header {
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 1;
     background-color: rgba(var(--color-black) / 0.1);
@@ -79,6 +86,7 @@ const { title } = Astro.props
 
   main {
     flex: 1;
+    scroll-snap-type: y mandatory;
     // margin-top: 1rem;
     // margin-bottom: 1rem;
   }

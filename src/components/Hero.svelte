@@ -1,7 +1,7 @@
 <script lang="ts">
-import GithubIcon from "./icons/GithubIcon.svelte";
-import TwitterIcon from "./icons/TwitterIcon.svelte";
-import PencilIcon from "./icons/PencilIcon.svelte";
+import GithubIcon from "./ui/icons/GithubIcon.svelte";
+import TwitterIcon from "./ui/icons/TwitterIcon.svelte";
+import PencilIcon from "./ui/icons/PencilIcon.svelte";
 </script>
 
 <div class="hero">
@@ -26,7 +26,7 @@ import PencilIcon from "./icons/PencilIcon.svelte";
 <style lang="scss">
 .hero {
   margin-inline: auto;
-  width: 60ch;
+  // width: 60ch;
   height: 100vh;
   display: flex;
   flex-direction: column;
