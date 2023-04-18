@@ -1,13 +1,14 @@
 ---
+import type { UserContent } from '../types/github'
 import Layout from '../layouts/Layout.astro'
 import Hero from '../components/Hero.svelte'
-import GitHubContainer from '../components/GitHubContainer.svelte';
+import GitHubContainer from '../components/GitHubContainer.svelte'
+import { getUserContent } from '../utils/github/getUserContent'
+
+const userContent: UserContent = await getUserContent()
 ---
 
-<Layout title="Welcome to Astro.">
-  <!-- <Hero /> -->
-  <GitHubContainer />
+<Layout title="Home">
   <Hero />
-  <Hero />
-  <Hero />
+  <GitHubContainer {...userContent} />
 </Layout>
