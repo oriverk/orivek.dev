@@ -19,11 +19,14 @@
   "dependencies": {
     "@astrojs/svelte": "^2.1.0",
     "@octokit/graphql": "^5.0.5",
-    "astro": "^2.2.3",
+    "astro": "^2.3.0",
     "autoprefixer": "^10.4.14",
     "clsx": "^1.2.1",
     "cssnano": "^6.0.0",
     "date-fns": "^2.29.3",
+    "gray-matter": "^4.0.3",
+    "micromark": "^3.1.0",
+    "micromark-extension-gfm": "^2.0.1",
     "svelte": "^3.58.0",
     "url-join": "^5.0.0"
   },

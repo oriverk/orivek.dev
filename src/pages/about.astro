@@ -1,0 +1,69 @@
+---
+import matter from 'gray-matter'
+
+import { getRepoRawContent } from '../utils/github/getRepoRawContent'
+import Layout from '../layouts/Layout.astro'
+import Markdown from '../components/ui/Markdown.svelte'
+
+const token = import.meta.env.GITHUB_TOKEN
+const raw = await getRepoRawContent(
+  token,
+  'oriverk',
+  'oriverk-docs',
+  'cv/index.md'
+)
+const { content, data } = matter(raw)
+---
+
+<Layout title="About" noindex>
+  <div class="about">
+    <h1>About</h1>
+    <table>
+      <caption>Frontmatter</caption>
+      <thead>
+        {Object.keys(data).map((key) => <th>{key.toUpperCase()}</th>)}
+      </thead>
+      <tbody>
+        <tr>
+          {Object.values(data).map((value) => <td>{value}</td>)}
+        </tr>
+      </tbody>
+    </table>
+    <Markdown markdown={content} />
+  </div>
+</Layout>
+
+<style lang="scss">
+  .about {
+    margin-inline: auto;
+    max-width: 120ch;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+
+  table {
+    margin: 0;
+    border-collapse: collapse;
+
+    caption {
+      color: rgb(var(--color-lightgray));
+      font-size: 1rem;
+      padding: 0.5rem 0;
+    }
+
+    th {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    td {
+      padding: 0.25rem 0.5rem;
+      border: 1px solid #ccc;
+    }
+  }
+</style>
