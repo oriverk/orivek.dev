@@ -2,7 +2,7 @@
   import type { FeedItem } from "../types/feed"
   import FeedCard from "./FeedCard.svelte";
   export let items: FeedItem[];
-  const displayItemsCount = 10;
+  const displayItemsCount = 12;
 </script>
 
 <div class='feed'>

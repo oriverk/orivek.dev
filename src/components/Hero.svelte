@@ -27,7 +27,7 @@ import PencilIcon from "./ui/icons/PencilIcon.svelte";
 .hero {
   margin-inline: auto;
   // width: 60ch;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,6 +51,10 @@ p {
   -webkit-text-fill-color: transparent;
   background-size: 400%;
   // background-position: 0%;
+  transition: background-size 0.2s var(--cubic-bezier);
+  &:hover {
+    background-size: 100%;
+  }
 }
 
 .links {

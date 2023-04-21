@@ -8,7 +8,7 @@
   <h2>GitHub</h2>
   <div class='pinnedItems'>
     <h3>Pinned</h3>
-    <ol>
+    <ol class='grid'>
       {#each pinnedItems.nodes as item}
         <li>
           <PinnedRepo {...item} />
@@ -36,21 +36,18 @@
     text-align: center;
   }
 
-  .pinnedItems > ol {
+  .grid {
+    margin: 0;
     padding: 0;
-    list-style: none;
     display: grid;
-    gap: 1rem;
+    gap: 1.5rem;
     grid-template-columns: repeat(1, 1fr);
+    list-style: none;
   }
 
   @media (min-width: 640px) {
-    .pinnedItems > ol {
+    .grid {
       grid-template-columns: repeat(2, 1fr);
     }
-  }
-
-  .pinnedItems li {
-    width: 100%;
   }
 </style>

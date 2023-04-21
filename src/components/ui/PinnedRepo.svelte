@@ -3,10 +3,10 @@
 <!-- [Emotion – Best Practices](https://emotion.sh/docs/best-practices#advanced-css-variables-with-style) -->
 
 <script lang="ts">
-  import urlJoin from 'url-join';
   import type { Repository, Language } from '@octokit/graphql-schema';
   import StarIcon from './icons/StarIcon.svelte'
   import RepoIcon from './icons/RepoIcon.svelte';
+  import Card from '../ui/Card.svelte';
 
   export let name: Repository['name'];
   export let description: Repository['description'] = '';
@@ -19,59 +19,50 @@
   }
 </script>
 
-<div class='box'>
-  <div class='pinnedItem'>
-  <div class='title'>
-    <RepoIcon />
-    <a href={url} target="_blank" rel='noopener noreferrer'>
-      {name}
-    </a>
-    {#if isArchived}
-      <span class='public archived'>Public archive</span>
-    {:else}
-      <span class='public'>Public</span>
-    {/if}
-  </div>
-  <p class='description'>{description || ""}</p>
-  <div class='information'>
-    {#if !!primaryLanguage.name}
-      <div class='primaryLanguage'>
-        <span class='color' style:--color-language={primaryLanguage.color} />
-        <span class='name'>
-          {primaryLanguage.name}
-        </span>
+<a href={url} target="_blank" rel='noopener noreferrer'>
+  <Card>
+    <div class='pinnedItem'>
+      <div class='title'>
+        <RepoIcon />
+        <span>{name}</span>
+        {#if isArchived}
+          <span class='public archived'>Public archive</span>
+        {:else}
+          <span class='public'>Public</span>
+        {/if}
       </div>
-    {/if}
-    {#if !!stargazerCount}
-      <a href={urlJoin(url, 'stargazers')} class='stargazerCount' target="_blank" rel='noopener noreferrer'>
-        <StarIcon />
-        {stargazerCount}
-      </a>
-    {/if}
-  </div>
-</div>
-</div>
+      <p class='description'>{description || ""}</p>
+      <div class='information'>
+        {#if !!primaryLanguage.name}
+          <div class='primaryLanguage'>
+            <span class='color' style:--color-language={primaryLanguage.color} />
+            <span class='name'>
+              {primaryLanguage.name}
+            </span>
+          </div>
+        {/if}
+        {#if !!stargazerCount}
+          <span class='stargazerCount'>
+            <StarIcon />
+            {stargazerCount}
+          </span>
+        {/if}
+      </div>
+    </div>
+  </Card>
+</a>
+
 
 <style lang="scss">
-  .box:has(.pinnedItem) {
-    width: 100%;
-    height: 100%;
-    border: 1px solid rgb(var(--color-lightgray));
-    border-radius: 0.5rem;
+  a {
+    text-decoration: none;
   }
+
   .pinnedItem {
-    margin: .8rem;
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: .5rem;
-    font-size: .9rem;
-  }
-
-  .pinnedItem > * {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    margin: 0;
   }
 
   .pinnedItem :global(svg) {
@@ -80,17 +71,17 @@
     color: rgb(var(--color-lightgray));
   }
 
-  .title {
+  .title, .information {
+    display: flex;
+    align-items: center;
     gap: .5rem;
   }
 
-  .title a {
+  .title {
+    gap: .5rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: rgb(var(--color-miku));
-    text-decoration: none;
-    &:hover{
-      text-decoration: underline;
-    }
   }
 
   .public {
@@ -105,8 +96,10 @@
     border-color: yellow;
   }
 
-  .pinnedItem > .description {
-    color: rgb(var(--color-gray));
+  .description {
+    margin: 0;
+    flex-grow: 1;
+    color: rgb(var(--color-lightgray));
   }
 
   .information {
@@ -122,24 +115,18 @@
 
   .primaryLanguage > .color {
     display: inline-block;
-    width: 12px;
+    width: 14px;
     aspect-ratio: 1;
     border-radius: 50%;
     // Advanced styling: https://svelte.jp/tutorial/style-directive
     background-color: var(--color-language);
   }
 
-  .information > .stargazerCount {
+  .stargazerCount {
     display: flex;
     align-items: center;
     gap: .25rem;
     color: rgb(var(--color-lightgray));
     text-decoration: none;
-    &:hover {
-      color: rgb(var(--color-miku));
-      &:hover > :global(svg) {
-        color: rgb(var(--color-miku));
-      }
-    }
   }
 </style>

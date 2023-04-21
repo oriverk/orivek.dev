@@ -1,74 +1,52 @@
 ---
-import UserIcon from '../components/ui/icons/UserIcon.svelte'
-import PencilIcon from '../components/ui/icons/PencilIcon.svelte'
+import OriverIcon from '../components/ui/icons/OriverIcon.svelte';
 ---
 
-<nav class="headerContent">
-  <a href="/" class="title">
-    <div>oriverk.dev</div>
-    <span class="sr-only">Home</span>
+<nav>
+  <a href="/" class="home">
+    <OriverIcon />
+    <span class='sr-only'>home</span>
   </a>
-  <div class="links">
-    <a href="/about" title="about">
-      <UserIcon />
-      <span class="sr-only">about</span>
-    </a>
-    <a href="/astro" title="blog">
-      <PencilIcon />
-      <span class="sr-only">blog</span>
-    </a>
-  </div>
+  <a href="/about" class="about">About me</a>
 </nav>
 
-<style is:global>
-  .links svg {
+<style is:global lang='scss'>
+  .home div {
     width: 2rem;
-    height: 2rem;
-    color: rgb(var(--color-lightgray));
+    margin: .5rem;
+    background-size: 100%;
+    transition: background-size 0.6s var(--cubic-bezier);
+    &:hover {
+      background-size: 400%;
+    }
   }
 </style>
 
 <style lang="scss">
-  .headerContent {
-    height: 3rem;
-    padding: 0.5rem 0;
+  nav {
+    height: 4rem;
+    padding: 0 1rem;
     margin-inline: auto;
-    max-width: 60ch;
+    max-width: 120ch;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  .title {
+  .home {
+    text-decoration: none;
+  }
+
+  .about {
     font-size: 1.5rem;
     line-height: 2rem;
     color: rgb(var(--color-white));
     text-decoration-color: transparent;
-    transition: text-decoration-color 100ms ease-in;
+    transition: text-decoration-color 200ms var(--cubic-bezier);
 
     &:hover {
       text-decoration-color: rgb(var(--color-miku));
-    }
-  }
-
-  .links {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .links > a {
-    width: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: 1;
-    border-radius: 0.5rem;
-    transition: background-color 100ms ease-in;
-    background-color: rgba(0 0 0 / 0);
-
-    &:hover {
-      background-color: rgb(var(--color-hover));
     }
   }
 </style>
