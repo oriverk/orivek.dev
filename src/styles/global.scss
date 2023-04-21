@@ -1,7 +1,15 @@
+// TailwindCSS default breakpoints
+// xs => @media (min-width: 320px) { ... }
+// sm => @media (min-width: 640px) { ... }
+// md => @media (min-width: 768px) { ... }
+// lg => @media (min-width: 1024px) { ... }
+// xl => @media (min-width: 1280px) { ... }
+// 2xl => @media (min-width: 1536px) { ... }
+
 :root {
   --color-white: 250 250 250;
-  --color-lightgray: 156 163 175;
-  --color-gray: 179 179 179;
+  --color-gray: 156 163 175;
+  --color-lightgray: 179 179 179;
   --color-black: 26 32 44;
   --color-miku: 0 225 238;
   --color-tiwtter: 29 161 242;
@@ -30,8 +38,15 @@
       hsl(207.41, 100%, 44.43%) 79.4%,
       hsl(209.31, 100%, 44.92%) 88.9%,
       hsl(210, 100%, 45%) 100%);
+  --cubic-bezier: cubic-bezier(0.22, 1, 0.36, 1);
+}
 
+:where(*, *::before, *::after) {
   color: rgb(var(--color-white));
+  border-width: 0;
+  border-style: solid;
+  box-sizing: border-box;
+  word-wrap: break-word;
 }
 
 html {
@@ -52,16 +67,6 @@ a {
     text-decoration-line: underline;
   }
 }
-
-code {
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-
-/* a {
-  color: var(--color-miku);
-} */
 
 .sr-only {
   position: absolute;

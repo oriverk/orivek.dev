@@ -3,12 +3,16 @@ import type { UserContent } from '../types/github'
 import Layout from '../layouts/Layout.astro'
 import Hero from '../components/Hero.svelte'
 import GitHubContainer from '../components/GitHubContainer.svelte'
+import FeedContainer from '../components/FeedContainer.svelte'
 import { getUserContent } from '../utils/github/getUserContent'
+import { getFeedItems } from '../utils/feed'
 
 const userContent: UserContent = await getUserContent()
+const items = await getFeedItems()
 ---
 
 <Layout title="Home">
   <Hero />
   <GitHubContainer {...userContent} />
+  <FeedContainer items={items} />
 </Layout>
