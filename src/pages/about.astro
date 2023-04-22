@@ -1,8 +1,13 @@
 ---
 import matter from 'gray-matter'
+import { format } from 'date-fns'
+import ja from 'date-fns/locale/ja/index.js'
 
+import { getAge } from '../utils/getAge'
 import { getRepoRawContent } from '../utils/github/getRepoRawContent'
+import { parseMarkdown } from '../utils/markdown/'
 import Layout from '../layouts/Layout.astro'
+import ContentWrapper from '../components/ui/ContentWrapper.svelte'
 import Markdown from '../components/ui/Markdown.svelte'
 
 const token = import.meta.env.GITHUB_TOKEN
@@ -13,33 +18,36 @@ const raw = await getRepoRawContent(
   'cv/index.md'
 )
 const { content, data } = matter(raw)
+const today = format(new Date(), 'yyyy年MM月dd日', { locale: ja });
+const markdown = content
+  .replace("{{ age }}", getAge('1993-09-11').toString())
+  .replace("{{ date }}", today);
+const html = parseMarkdown(markdown);
 ---
 
 <Layout title="About" noindex>
-  <div class="about">
-    <h1>About</h1>
-    <table>
-      <caption>Frontmatter</caption>
-      <thead>
-        {Object.keys(data).map((key) => <th>{key.toUpperCase()}</th>)}
-      </thead>
-      <tbody>
-        <tr>
-          {Object.values(data).map((value) => <td>{value}</td>)}
-        </tr>
-      </tbody>
-    </table>
-    <Markdown markdown={content} />
-  </div>
+  <article>
+    <ContentWrapper>
+      <div class="about">
+        <h1>About</h1>
+        <table>
+          <caption>Frontmatter</caption>
+          <tbody>
+            {Object.entries(data).map(([key, value]) => (
+              <tr>
+                <th>{key.toUpperCase()}</th>
+                <td>{value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <Markdown set:html={html} />
+      </div>
+    </ContentWrapper>
+  </article>
 </Layout>
 
 <style lang="scss">
-  .about {
-    margin-inline: auto;
-    max-width: 120ch;
-    min-height: 100vh;
-  }
-
   h1 {
     font-size: 2.5rem;
     font-weight: 700;

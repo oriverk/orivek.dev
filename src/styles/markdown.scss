@@ -1,7 +1,4 @@
 .markdown {
-  // line-height: 1.75;
-  // font-size: 1rem;
-
   h1 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -53,8 +50,8 @@
 
   blockquote {
     padding: 0.5rem 1rem;
-    background-color: #f5f5f5;
-    border-left: 0.25rem solid #ccc;
+    background-color: rgba(var(--color-gray) / .1);
+    border-left: 0.25rem solid rgb(var(--color-lightgray));
   }
 
   code {
@@ -64,7 +61,7 @@
     border-radius: 0.25rem;
   }
 
-  :not(pre)>code {
+  :not(pre) > code {
     padding: 0;
     margin: 0 .1rem;
 
@@ -92,7 +89,7 @@
     th {
       padding: 0.25rem 0.5rem;
       border: 1px solid #ccc;
-      text-align: left;
+      text-align: center;
     }
 
     td {
