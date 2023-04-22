@@ -11,9 +11,9 @@
   const { hostname, origin} = new URL(link);
 </script>
 
-<a href={link} target='_blank' rel='noopenner noreferrer'>
+<a class='feed-card' href={link} target='_blank' rel='noopenner noreferrer'>
   <Card>
-    <div class='feedItem'>
+    <div class='feed'>
       <time>{timeString}</time>
       <h3 class='title'>{title}</h3>
       <div class='info'>
@@ -25,11 +25,11 @@
 </a>
 
 <style lang='scss'>
-  a {
+  .feed-card {
     text-decoration: none;
   }
 
-  .feedItem {
+  .feed {
     display: flex;
     flex-direction: column;
     gap: .5rem;

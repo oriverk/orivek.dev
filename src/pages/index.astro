@@ -1,18 +1,67 @@
 ---
 import type { UserContent } from '../types/github'
-import Layout from '../layouts/Layout.astro'
-import Hero from '../components/Hero.svelte'
-import GitHubContainer from '../components/GitHubContainer.svelte'
-import FeedContainer from '../components/FeedContainer.svelte'
 import { getUserContent } from '../utils/github/getUserContent'
 import { getFeedItems } from '../utils/feed'
+import Layout from '../layouts/Layout.astro'
+import ContentWrapper from '../components/ui/ContentWrapper.svelte'
+import Hero from '../components/Hero.svelte'
+import RepositoryList from '../components/RepositoryList.svelte'
+import FeedList from '../components/FeedList.svelte'
 
-const userContent: UserContent = await getUserContent()
+const { pinnedItems }: UserContent = await getUserContent()
+const repositryItems = pinnedItems.nodes;
 const items = await getFeedItems()
 ---
 
 <Layout title="Home">
-  <Hero />
-  <GitHubContainer {...userContent} />
-  <FeedContainer items={items} />
+  <section class='home-hero'>
+    <ContentWrapper>
+      <div class='hero'>
+        <Hero />
+      </div>
+    </ContentWrapper>
+  </section>
+  <section class='home-github'>
+    <ContentWrapper>
+      <div class='github'>
+        <h2>GitHub</h2>
+        <div>
+          <h3>Repository</h3>
+          <RepositoryList repositryItems={repositryItems} />
+        </div>
+        <div>
+          <h3>Contributions</h3>
+          <p>COMING SOON...</p>
+        </div>
+      </div>
+    </ContentWrapper>
+  </section>
+  <section class='home-feed'>
+    <ContentWrapper>
+      <div class='feed'>
+        <h2>Feed</h2>
+        <FeedList items={items} displayItemsCount={12} />
+      </div>
+    </ContentWrapper>
+  </section>
 </Layout>
+
+<style lang='scss'>
+  .hero, .github, .feed {
+    padding: 1rem 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero {
+    min-height: calc(100vh - var(--header-height));
+  }
+  h3 {
+    text-align: left;
+  }
+  .github > div {
+    width: 100%;
+  }
+</style>

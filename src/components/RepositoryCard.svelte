@@ -4,9 +4,9 @@
 
 <script lang="ts">
   import type { Repository, Language } from '@octokit/graphql-schema';
-  import StarIcon from './icons/StarIcon.svelte'
-  import RepoIcon from './icons/RepoIcon.svelte';
-  import Card from '../ui/Card.svelte';
+  import Card from './ui/Card.svelte';
+  import StarIcon from './ui/icons/StarIcon.svelte'
+  import RepoIcon from './ui/icons/RepoIcon.svelte';
 
   export let name: Repository['name'];
   export let description: Repository['description'] = '';
@@ -19,9 +19,9 @@
   }
 </script>
 
-<a href={url} target="_blank" rel='noopener noreferrer'>
+<a class='repository-card' href={url} target="_blank" rel='noopener noreferrer'>
   <Card>
-    <div class='pinnedItem'>
+    <div class='repository'>
       <div class='title'>
         <RepoIcon />
         <span>{name}</span>
@@ -54,18 +54,18 @@
 
 
 <style lang="scss">
-  a {
+  .repository-card {
     text-decoration: none;
   }
 
-  .pinnedItem {
+  .repository {
     height: 100%;
     display: flex;
     flex-direction: column;
     gap: .5rem;
   }
 
-  .pinnedItem :global(svg) {
+  .repository :global(svg) {
     width: 1rem;
     aspect-ratio: 1;
     color: rgb(var(--color-lightgray));

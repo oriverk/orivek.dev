@@ -77,7 +77,7 @@ export async function fetchUserContent(githubToken: string, owner: string, pinne
 }
 
 export async function getUserContent(): Promise<UserContent> {
-  const isDev = import.meta.env.DEV;
+  // const isDev = import.meta.env.DEV;
   const token = import.meta.env.GITHUB_TOKEN
 
   if (!token) {

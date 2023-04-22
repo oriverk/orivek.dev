@@ -4,14 +4,14 @@ import OriverIcon from '../components/ui/icons/OriverIcon.svelte';
 
 <nav>
   <a href="/" class="home">
-    <OriverIcon />
+    <OriverIcon className='icon' />
     <span class='sr-only'>home</span>
   </a>
   <a href="/about" class="about">About me</a>
 </nav>
 
 <style is:global lang='scss'>
-  .home div {
+  .home .icon {
     width: 2rem;
     margin: .5rem;
     background-size: 100%;
@@ -24,10 +24,7 @@ import OriverIcon from '../components/ui/icons/OriverIcon.svelte';
 
 <style lang="scss">
   nav {
-    height: 4rem;
-    padding: 0 1rem;
-    margin-inline: auto;
-    max-width: 120ch;
+    height: var(--header-height);
     width: 100%;
     display: flex;
     justify-content: space-between;

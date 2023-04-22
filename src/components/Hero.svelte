@@ -1,7 +1,7 @@
 <script lang="ts">
-import GithubIcon from "./ui/icons/GithubIcon.svelte";
-import TwitterIcon from "./ui/icons/TwitterIcon.svelte";
-import PencilIcon from "./ui/icons/PencilIcon.svelte";
+  import GithubIcon from "./ui/icons/GithubIcon.svelte";
+  import TwitterIcon from "./ui/icons/TwitterIcon.svelte";
+  import PencilIcon from "./ui/icons/PencilIcon.svelte";
 </script>
 
 <div class="hero">
@@ -25,12 +25,8 @@ import PencilIcon from "./ui/icons/PencilIcon.svelte";
 
 <style lang="scss">
 .hero {
-  margin-inline: auto;
-  // width: 60ch;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -50,7 +46,6 @@ p {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 400%;
-  // background-position: 0%;
   transition: background-size 0.2s var(--cubic-bezier);
   &:hover {
     background-size: 100%;
@@ -63,7 +58,6 @@ p {
 }
 
 .links a {
-  // padding: .625rem;
   width: 3rem;
   display: flex;
   justify-content: center;

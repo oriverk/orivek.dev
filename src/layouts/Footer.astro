@@ -8,27 +8,24 @@ const astroVersion = packageJson.dependencies.astro.replace('^', '')
 const svelteVersion = packageJson.dependencies.svelte.replace('^', '')
 ---
 
-<div class="footerContent">
+<div class="footer-content">
   <small>@{year} Kawano Yudai.</small>
   <br />
   <small>
     This site build with
-    <a href={astro} target="_blank" rel="noopener noreferrer"
-      >Astro@{astroVersion}</a
-    > and
-    <a href={svelte} target="_blank" rel="noopener noreferrer"
-      >Svelte@{svelteVersion}</a
-    >.
+    <a href={astro} target="_blank" rel="noopener noreferrer">Astro@{astroVersion}</a> and
+    <a href={svelte} target="_blank" rel="noopener noreferrer">Svelte@{svelteVersion}</a>.
   </small>
 </div>
 
 <style lang="scss">
-  .footerContent {
-    margin-inline: auto;
-    padding: 0.5rem 0;
-    max-width: 60ch;
+  .footer-content {
+    padding: 1rem;
     width: 100%;
     color: rgb(var(--color-gray));
     text-align: center;
+  }
+  small {
+    font-size: 1rem;
   }
 </style>

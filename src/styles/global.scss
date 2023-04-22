@@ -7,6 +7,8 @@
 // 2xl => @media (min-width: 1536px) { ... }
 
 :root {
+  --header-height: 4rem;
+  --max-width: 850px;
   --color-white: 250 250 250;
   --color-gray: 156 163 175;
   --color-lightgray: 179 179 179;
