@@ -1,33 +1,33 @@
-on:
-  push:
-    branches:
-      - main
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
-    name: Publish to Cloudflare Pages
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Install dependencies
-        run: npm install
-      - name: Pre-build
-        run: npm run generate
-      - name: Build and output to dist
-        run: npm run build
-      - name: Publish to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: astro-site
-          directory: dist
-          # Optional: Enable this if you want to have GitHub Deployments triggered
-          # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+# on:
+#   push:
+#     branches:
+#       - main
+# jobs:
+#   publish:
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: read
+#       deployments: write
+#     name: Publish to Cloudflare Pages
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+#       - name: Setup
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 18
+#       - name: Install dependencies
+#         run: npm install
+#       - name: Pre-build
+#         run: npm run generate
+#       - name: Build and output to dist
+#         run: npm run build
+#       - name: Publish to Cloudflare Pages
+#         uses: cloudflare/pages-action@v1
+#         with:
+#           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+#           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+#           projectName: astro-site
+#           directory: dist
+#           Optional: Enable this if you want to have GitHub Deployments triggered
+#           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
