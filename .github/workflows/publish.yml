@@ -12,8 +12,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      # Run a build step here if your project requires
       - name: Setup
         uses: actions/setup-node@v3
         with:
@@ -29,7 +27,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: YOUR_PROJECT_NAME
-          directory: YOUR_ASSET_DIRECTORY
+          projectName: astro-site
+          directory: dist
           # Optional: Enable this if you want to have GitHub Deployments triggered
           # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
