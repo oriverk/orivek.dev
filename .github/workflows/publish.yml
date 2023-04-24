@@ -18,6 +18,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+      - name: Install dependencies
+        run: npm install
       - name: Pre-build
         run: npm run generate
       - name: Build and output to dist
@@ -30,4 +32,4 @@ jobs:
           projectName: YOUR_PROJECT_NAME
           directory: YOUR_ASSET_DIRECTORY
           # Optional: Enable this if you want to have GitHub Deployments triggered
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
