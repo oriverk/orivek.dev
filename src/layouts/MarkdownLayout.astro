@@ -6,7 +6,7 @@ import Markdown from '../components/ui/Markdown.svelte';
 export interface Props {
   title: string;
   noindex?: boolean;
-  markdown: string;
+  markdown?: string;
   frontmatter?: Record<string, any>;
 }
 const {frontmatter} = Astro.props as Props;
