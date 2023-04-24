@@ -1,14 +1,16 @@
 ---
 import '../styles/global.scss'
+import siteConfig from '../../site.config'
 import ContentWrapper from '../components/ui/ContentWrapper.svelte'
 import Header from './Header.astro'
 import Footer from './Footer.astro'
 
 export interface Props {
-  title: string
+  title?: string
   noindex?: boolean
 }
 const { title, noindex } = Astro.props
+const siteTitle = title ? `${title} | ${siteConfig.title}` : siteConfig.title
 ---
 
 <!DOCTYPE html>
@@ -34,15 +36,14 @@ const { title, noindex } = Astro.props
       sizes="180x180"
       href="/assets/image/icon180x.png"
     />
-    <meta name="apple-mobile-web-app-title" content="Kawano Yudai" />
-    <meta name="author" content="Kawano Yudai" />
+    <meta name="apple-mobile-web-app-title" content={siteConfig.title} />
     <meta name="theme-color" content="#00e1ee" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="Kawano Yudai" />
+    <meta property="og:site_name" content={siteConfig.title} />
     <meta name="generator" content={Astro.generator} />
     {noindex && <meta name="robots" content="noindex" />}
-    <title>{title}</title>
+    <title>{siteTitle}</title>
   </head>
   <body>
     <div id="astro">
