@@ -1,18 +1,33 @@
 ---
 import { format } from 'date-fns'
 import ja from 'date-fns/locale/ja/index.js'
+import matter from 'gray-matter'
 
-import * as post from '../../.contents/cv.md'
+// import * as post from '../../.contents/cv.md'
+import { getRepoRawContent } from '../utils/github/getRepoRawContent'
 import { getAge } from '../utils/getAge'
 import Layout from '../layouts/Layout.astro'
 import ContentWrapper from '../components/ui/ContentWrapper.svelte'
 import Markdown from '../components/ui/Markdown.svelte'
+import { parseMarkdown } from '../utils/markdown'
 
-const { frontmatter, compiledContent } = post
+// const { frontmatter, compiledContent } = post
 const today = format(new Date(), 'yyyy年MM月dd日', { locale: ja });
-const html = compiledContent()
+const token = import.meta.env.GITHUB_TOKEN
+const rawContent = await getRepoRawContent(
+  token,
+  'oriverk',
+  'oriverk-docs',
+  'cv/index.md'
+)
+const { content, data: frontmatter } = matter(rawContent)
+const markdown = content
   .replace("{{ age }}", getAge('1993-09-11').toString())
   .replace("{{ date }}", today);
+const html = parseMarkdown(markdown);
+// const html = compiledContent()
+//   .replace("{{ age }}", getAge('1993-09-11').toString())
+//   .replace("{{ date }}", today);
 ---
 
 <Layout title="About" noindex>

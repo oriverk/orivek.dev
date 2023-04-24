@@ -4,15 +4,20 @@ import FeedJson from '../../.contents/feed.json'
 
 import type { PinnedItem } from '../types/github'
 import type { FeedItem } from '../types/feed';
+import { getFeedItems } from '../utils/feed'
+import { getUserContent } from '../utils/github/getUserContent'
 import Layout from '../layouts/Layout.astro'
 import ContentWrapper from '../components/ui/ContentWrapper.svelte'
 import Hero from '../components/Hero.svelte'
 import RepositoryList from '../components/RepositoryList.svelte'
 import FeedList from '../components/FeedList.svelte'
 
-const repositryItems: PinnedItem[] = RepositoryJson
-  .filter(repo => !repo.isFork)
-const items: FeedItem[] = FeedJson;
+// const repositryItems: PinnedItem[] = RepositoryJson
+//   .filter(repo => !repo.isFork)
+const { pinnedItems } = await getUserContent()
+const repositryItems: PinnedItem[] = pinnedItems.nodes
+// const items: FeedItem[] = FeedJson;
+const items: FeedItem[] = await getFeedItems();
 ---
 
 <Layout title="Home">
