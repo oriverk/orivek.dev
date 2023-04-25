@@ -10,14 +10,18 @@ import Layout from '../layouts/Layout.astro'
 import ContentWrapper from '../components/ui/ContentWrapper.svelte'
 import Hero from '../components/Hero.svelte'
 import RepositoryList from '../components/RepositoryList.svelte'
+import ActivityCalendar from '../components/ActivityCalendar/index.svelte';
 import FeedList from '../components/FeedList.svelte'
 
 // const repositryItems: PinnedItem[] = RepositoryJson
 //   .filter(repo => !repo.isFork)
 const { pinnedItems, contributionsCollection } = await getUserContent()
 const repositryItems: PinnedItem[] = pinnedItems.nodes
+const { contributionCalendar } = contributionsCollection;
 // const items: FeedItem[] = FeedJson;
 const items: FeedItem[] = await getFeedItems();
+const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]
+const monthLabels = ['Jan', 'Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 ---
 
 <Layout title="Home">
@@ -38,7 +42,15 @@ const items: FeedItem[] = await getFeedItems();
         </div>
         <div class='github-contributions'>
           <h3>Contributions</h3>
-          <p>COMING SOON...</p>
+          <ActivityCalendar
+            blockMargin={3}
+            blockRadius={2}
+            blockSize={12}
+            fontSize={14}
+            colors={colors}
+            monthLabels={monthLabels}
+            contributionCalendar={contributionCalendar}
+          />
         </div>
       </div>
     </ContentWrapper>

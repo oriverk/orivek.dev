@@ -1,9 +1,10 @@
 <script lang='ts'>
   import clsx from 'clsx';
   export let className: string = '';
+  export let disabled: boolean = false;
 </script>
 
-<div class={clsx('card', className)}>
+<div class={clsx('card', className, disabled && "disabled")}>
   <div>
     <slot />
   </div>
@@ -35,7 +36,7 @@
 		opacity: 1;
   }
 
-  .card:is(:hover, :focus-within) {
+  .card:not(.disabled):is(:hover, :focus-within) {
 		background-position: 0;
 		background-image: var(--accent-gradient);
 	}
