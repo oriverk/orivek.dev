@@ -1,9 +1,18 @@
 import type { User } from '@octokit/graphql-schema'
 import { graphql, GraphqlResponseError } from '@octokit/graphql'
-import { endOfWeek, subDays, format } from 'date-fns'
+import { startOfWeek, format, subYears } from 'date-fns'
 
 import type { UserContent } from '../../types/github'
-import { ghContent } from '../../constants/ghContent'
+// import { ghContent } from '../../constants/ghContent'
+import contributionsJson from '../../../.contents/contributions.json';
+import repositoryJson from '../../../.contents/repository.json';
+
+const ghContent = {
+  pinnedItems: {
+    nodes: repositoryJson
+  },
+  contributionsCollection: contributionsJson
+}
 
 /**
  * 
@@ -77,23 +86,31 @@ export async function fetchUserContent(githubToken: string, owner: string, pinne
 }
 
 export async function getUserContent(): Promise<UserContent> {
-  // const isDev = import.meta.env.DEV;
+  const isDev = import.meta.env.DEV;
+  if (isDev) { 
+    return ghContent as UserContent
+  }
   const token = import.meta.env.GITHUB_TOKEN
 
   if (!token) {
     console.log("!token")
-    return ghContent as unknown as UserContent
+    return ghContent as UserContent
   }
 
-  const thisSaturday = endOfWeek(new Date(), { weekStartsOn: 6 })
-  const lastYear = subDays(thisSaturday, 365);
-  const from = format(lastYear, 'yyyy-MM-dd') + "T00:00:00"
-  const to = format(thisSaturday, 'yyyy-MM-dd') + "T00:00:00"
 
-  let result = await fetchUserContent(token, "oriverk", 4, from, to)
+  const lastYear = subYears(new Date(), 1);
+  const start = startOfWeek(lastYear, { weekStartsOn: 0 })
+  const from = format(start, 'yyyy-MM-dd') + "T00:00:00"
+  const to = format(new Date(), 'yyyy-MM-dd') + "T00:00:00"
 
-  const { pinnedItems, contributionsCollection } = result as unknown as UserContent
-  const nodes = (pinnedItems.nodes || []).filter(item => !item.isFork)
+  const result = await fetchUserContent(token, "oriverk", 4, from, to)
+  if (!result) {
+    console.log("!result")
+    return ghContent as UserContent
+  }
+
+  const { pinnedItems, contributionsCollection } = result as UserContent
+  const nodes = (pinnedItems.nodes || []).filter(item => !item?.isFork)
 
   return {
     pinnedItems: { nodes },

@@ -1,4 +1,4 @@
-import type { Repository, ContributionsCollection, ContributionCalendarDay } from '@octokit/graphql-schema'
+import type { Repository, ContributionsCollection } from '@octokit/graphql-schema'
 
 export type PinnedItem
   = Pick<Repository, 'name' | 'url' | 'isFork' | 'isArchived' | 'stargazerCount'> & {

@@ -1,6 +1,6 @@
 import type { User, Repository, Blob } from '@octokit/graphql-schema'
 import { graphql, GraphqlResponseError } from '@octokit/graphql'
-import { startOfWeek, endOfWeek, subDays, format } from 'date-fns'
+import { subYears, startOfWeek, format } from 'date-fns'
 import fs from "fs-extra";
 import * as dotenv from "dotenv";
 
@@ -93,12 +93,10 @@ export async function fetchUserContent(githubToken: string, owner: string, pinne
     return;
   }
 
-  const thisSaturday = endOfWeek(new Date(), { weekStartsOn: 0 })
-  const daysAgoFromToday = subDays(new Date(), 14);
-  const lastYear = startOfWeek(daysAgoFromToday, { weekStartsOn: 0 })
-  
-  const from = format(lastYear, 'yyyy-MM-dd') + "T00:00:00"
-  const to = format(thisSaturday, 'yyyy-MM-dd') + "T00:00:00"
+  const lastYear = subYears(new Date(), 1);
+  const start = startOfWeek(lastYear, { weekStartsOn: 0 })
+  const from = format(start, 'yyyy-MM-dd') + "T00:00:00"
+  const to = format(new Date(), 'yyyy-MM-dd') + "T00:00:00"
 
   const result = await fetchUserContent(token, "oriverk", 4, from, to, "oriverk-docs", "HEAD:cv/index.md");
   if (!result) {
