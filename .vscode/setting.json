@@ -1,6 +1,10 @@
 {
   "editor.formatOnSave": true,
   "editor.deafultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": [
+    "source.addMissingImports",
+    "source.fixAll.eslint"
+  ],
   "eslint.validate": [
     "javascript",
     "javascriptreact",
