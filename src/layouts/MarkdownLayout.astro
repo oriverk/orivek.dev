@@ -1,17 +1,17 @@
 ---
-import Layout from './Layout.astro';
-import ContentWrapper from '../components/ui/ContentWrapper.svelte';
-import Markdown from '../components/ui/Markdown.svelte';
+import Layout from './Layout.astro'
+import ContentWrapper from '../components/ui/ContentWrapper.svelte'
+import Markdown from '../components/ui/Markdown.svelte'
 
 export interface Props {
-  title: string;
-  noindex?: boolean;
-  markdown?: string;
-  frontmatter?: Record<string, any>;
+  title: string
+  noindex?: boolean
+  markdown?: string
+  frontmatter?: Record<string, any>
 }
-const {frontmatter} = Astro.props as Props;
+const { frontmatter } = Astro.props as Props
 const { title = 'post', noindex = false } = frontmatter as {
-  title?: string;
+  title?: string
   noindex?: boolean
 }
 ---
@@ -20,24 +20,25 @@ const { title = 'post', noindex = false } = frontmatter as {
   <article>
     <ContentWrapper>
       <h1>{title}</h1>
-      {frontmatter && (
-        <div class='frontmatter'>
-          <table>
-            <caption>Frontmatter</caption>
-            <tbody>
-              {Object.entries(frontmatter)
-                .filter(([key]) => key !== 'file')
-                .map(([key, value]) => (
-                  <tr>
-                    <th>{key.toUpperCase()}</th>
-                    <td>{value}</td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        </div>
-      )}
+      {
+        frontmatter && (
+          <div class="frontmatter">
+            <table>
+              <caption>Frontmatter</caption>
+              <tbody>
+                {Object.entries(frontmatter)
+                  .filter(([key]) => key !== 'file')
+                  .map(([key, value]) => (
+                    <tr>
+                      <th>{key.toUpperCase()}</th>
+                      <td>{value}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        )
+      }
       <Markdown>
         <slot />
       </Markdown>

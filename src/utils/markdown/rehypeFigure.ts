@@ -8,7 +8,10 @@ export const rehypeFigure: Plugin = (options: Options = {}) => {
   return (tree: any) => {
     visit(tree, (node: any) => {
       if (is(node, { tagName: 'p' })) {
-        if (node.children.length === 1 && is(node.children[0], { tagName: 'img' })) {
+        if (
+          node.children.length === 1 &&
+          is(node.children[0], { tagName: 'img' })
+        ) {
           node.tagName = 'figure'
 
           node.children[0].properties.loading = 'lazy'

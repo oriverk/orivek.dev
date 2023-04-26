@@ -1,19 +1,19 @@
 ---
-import OriverIcon from '../components/ui/icons/OriverIcon.svelte';
+import OriverIcon from '../components/ui/icons/OriverIcon.svelte'
 ---
 
 <nav>
   <a href="/" class="home">
-    <OriverIcon className='icon' />
-    <span class='sr-only'>home</span>
+    <OriverIcon className="icon" />
+    <span class="sr-only">home</span>
   </a>
   <a href="/about" class="about">About me</a>
 </nav>
 
-<style is:global lang='scss'>
+<style is:global lang="scss">
   .home .icon {
     width: 2rem;
-    margin: .5rem;
+    margin: 0.5rem;
     background-size: 100%;
     transition: background-size 600ms var(--cubic-bezier);
     &:hover {

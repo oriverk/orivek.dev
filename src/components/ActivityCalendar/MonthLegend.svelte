@@ -1,17 +1,17 @@
-<script lang='ts'>
-  import type { Activity } from "../../types/activityCalendar";
-  import { getMonthLabels } from "../../utils/github/getActivityCalendar";
+<script lang="ts">
+  import type { Activity } from '../../types/activityCalendar'
+  import { getMonthLabels } from '../../utils/github/getActivityCalendar'
 
   export let weeks: Activity[][]
   export let monthLabels: string[]
-  export let blockSize: number;
-  export let blockMargin: number;
-  export let fontSize: number;
-  const labels = getMonthLabels(weeks, monthLabels);
+  export let blockSize: number
+  export let blockMargin: number
+  export let fontSize: number
+  const labels = getMonthLabels(weeks, monthLabels)
 </script>
 
 <g>
-  {#each labels as {text, x}}
+  {#each labels as { text, x }}
     <text
       x={(blockSize + blockMargin) * x}
       y={0}

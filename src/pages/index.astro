@@ -3,44 +3,57 @@
 // import FeedJson from '../../.contents/feed.json'
 
 import type { PinnedItem } from '../types/github'
-import type { FeedItem } from '../types/feed';
+import type { FeedItem } from '../types/feed'
 import { getFeedItems } from '../utils/feed'
 import { getUserContent } from '../utils/github/getUserContent'
 import Layout from '../layouts/Layout.astro'
 import ContentWrapper from '../components/ui/ContentWrapper.svelte'
 import Hero from '../components/Hero.svelte'
 import RepositoryList from '../components/RepositoryList.svelte'
-import ActivityCalendar from '../components/ActivityCalendar/index.svelte';
+import ActivityCalendar from '../components/ActivityCalendar/index.svelte'
 import FeedList from '../components/FeedList.svelte'
 
 // const repositryItems: PinnedItem[] = RepositoryJson
 //   .filter(repo => !repo.isFork)
 const { pinnedItems, contributionsCollection } = await getUserContent()
 const repositryItems: PinnedItem[] = pinnedItems.nodes
-const { contributionCalendar } = contributionsCollection;
+const { contributionCalendar } = contributionsCollection
 // const items: FeedItem[] = FeedJson;
-const items: FeedItem[] = await getFeedItems();
-const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]
-const monthLabels = ['Jan', 'Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const items: FeedItem[] = await getFeedItems()
+const colors = ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
+const monthLabels = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+]
 ---
 
 <Layout title="Home">
-  <section class='home-hero'>
+  <section class="home-hero">
     <ContentWrapper>
-      <div class='hero'>
+      <div class="hero">
         <Hero />
       </div>
     </ContentWrapper>
   </section>
-  <section class='home-github'>
+  <section class="home-github">
     <ContentWrapper>
-      <div class='github'>
+      <div class="github">
         <h2>GitHub</h2>
-        <div class='github-repository'>
+        <div class="github-repository">
           <h3>Repository</h3>
           <RepositoryList repositryItems={repositryItems} />
         </div>
-        <div class='github-contributions'>
+        <div class="github-contributions">
           <h3>Contributions</h3>
           <ActivityCalendar
             blockMargin={3}
@@ -55,9 +68,9 @@ const monthLabels = ['Jan', 'Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct
       </div>
     </ContentWrapper>
   </section>
-  <section class='home-feed'>
+  <section class="home-feed">
     <ContentWrapper>
-      <div class='feed'>
+      <div class="feed">
         <h2>Feed</h2>
         <FeedList items={items} displayItemsCount={12} />
       </div>
@@ -65,8 +78,10 @@ const monthLabels = ['Jan', 'Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct
   </section>
 </Layout>
 
-<style lang='scss'>
-  .hero, .github, .feed {
+<style lang="scss">
+  .hero,
+  .github,
+  .feed {
     padding: 2rem 0;
     min-height: 100vh;
     display: flex;
@@ -80,7 +95,8 @@ const monthLabels = ['Jan', 'Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct
   h3 {
     text-align: left;
   }
-  .github-repository, .github-contributions {
+  .github-repository,
+  .github-contributions {
     width: 100%;
   }
 

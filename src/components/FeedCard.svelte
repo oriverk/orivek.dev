@@ -1,5 +1,5 @@
-<script lang='ts'>
-  import type {FeedItem} from '../types/feed'
+<script lang="ts">
+  import type { FeedItem } from '../types/feed'
   import { getFaviconSrcFromOrigin } from '../utils/feed'
   import { getTimeFromNow } from '../utils/getTimeFromNow'
   import Card from '../components/ui/Card.svelte'
@@ -7,24 +7,29 @@
   export let title: FeedItem['title']
   export let dateMiliSeconds: FeedItem['dateMiliSeconds']
   export let link: FeedItem['link']
-  const timeString = getTimeFromNow(dateMiliSeconds) + ' ago';
-  const { hostname, origin} = new URL(link);
+  const timeString = getTimeFromNow(dateMiliSeconds) + ' ago'
+  const { hostname, origin } = new URL(link)
 </script>
 
-<a class='feed-card' href={link} target='_blank' rel='noopenner noreferrer'>
+<a class="feed-card" href={link} target="_blank" rel="noopenner noreferrer">
   <Card>
-    <div class='feed'>
+    <div class="feed">
       <time>{timeString}</time>
-      <h3 class='title'>{title}</h3>
-      <div class='info'>
-        <img src={getFaviconSrcFromOrigin(origin)} width="14" height="14" alt={hostname}/>
+      <h3 class="title">{title}</h3>
+      <div class="info">
+        <img
+          src={getFaviconSrcFromOrigin(origin)}
+          width="14"
+          height="14"
+          alt={hostname}
+        />
         <span>{hostname}</span>
       </div>
     </div>
   </Card>
 </a>
 
-<style lang='scss'>
+<style lang="scss">
   .feed-card {
     text-decoration: none;
   }
@@ -32,7 +37,7 @@
   .feed {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: 0.5rem;
     height: 100%;
   }
 
@@ -48,7 +53,7 @@
 
   .info {
     display: flex;
-    gap: .5rem;
+    gap: 0.5rem;
     align-items: center;
   }
 

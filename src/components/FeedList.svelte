@@ -1,13 +1,13 @@
-<script lang='ts'>
-  import type { FeedItem } from "../types/feed"
-  import FeedCard from "./FeedCard.svelte";
+<script lang="ts">
+  import type { FeedItem } from '../types/feed'
+  import FeedCard from './FeedCard.svelte'
 
-  export let items: FeedItem[];
-  export let displayItemsCount: number = 12;
+  export let items: FeedItem[]
+  export let displayItemsCount: number = 12
 </script>
 
-<div class='feed-list'>
-  <ol class='grid'>
+<div class="feed-list">
+  <ol class="grid">
     {#each items.slice(0, displayItemsCount) as item}
       <li>
         <FeedCard {...item} />
@@ -16,7 +16,7 @@
   </ol>
 </div>
 
-<style lang='scss'>
+<style lang="scss">
   .grid {
     margin: 0;
     padding: 0;

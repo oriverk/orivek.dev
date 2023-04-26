@@ -1,8 +1,14 @@
-<script lang='ts'>
-  import type { Activity } from "../../types/activityCalendar";
-  import ActivityDay from "./ActivityDay.svelte";
-  export let colors: string[] = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]
-  export let week: Activity[];
+<script lang="ts">
+  import type { Activity } from '../../types/activityCalendar'
+  import ActivityDay from './ActivityDay.svelte'
+  export let colors: string[] = [
+    '#161b22',
+    '#0e4429',
+    '#006d32',
+    '#26a641',
+    '#39d353',
+  ]
+  export let week: Activity[]
   export let textHeight: number
   export let blockMargin: number
   export let blockRadius: number
@@ -16,9 +22,8 @@
       day={{ date, level, count }}
       color={colors[level]}
       y={textHeight + (blockSize + blockMargin) * weekday}
-      blockRadius={blockRadius}
-      blockSize={blockSize} 
+      {blockRadius}
+      {blockSize}
     />
   {/each}
 </g>
-

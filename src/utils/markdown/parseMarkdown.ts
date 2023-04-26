@@ -19,6 +19,6 @@ export function parseMarkdown(markdown: string) {
     .use(rehypeStringify)
     .processSync(markdown)
     .toString()
-  
+
   return result
 }

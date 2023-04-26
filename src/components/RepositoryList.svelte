@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type {UserContent} from "../types/github";
-  import RepositoryCard from "./RepositoryCard.svelte";
+  import type { UserContent } from '../types/github'
+  import RepositoryCard from './RepositoryCard.svelte'
 
-  export let repositryItems: UserContent["pinnedItems"]["nodes"];
+  export let repositryItems: UserContent['pinnedItems']['nodes']
 </script>
 
-<div class='github-list'>
-  <ol class='grid'>
+<div class="github-list">
+  <ol class="grid">
     {#each repositryItems as item}
       <li>
         <RepositoryCard {...item} />
@@ -15,7 +15,7 @@
   </ol>
 </div>
 
-<style lang='scss'>
+<style lang="scss">
   .grid {
     margin: 0;
     padding: 0;

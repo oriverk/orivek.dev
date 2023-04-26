@@ -1,15 +1,16 @@
-<script lang='ts'>
+<script lang="ts">
   export let colors: string[]
-  export let blockMargin: number;
-  export let blockRadius: number;
-  export let blockSize: number;
+  export let blockMargin: number
+  export let blockRadius: number
+  export let blockSize: number
   const dimentions = {
     width: colors.length * (blockSize + blockMargin) - blockMargin,
     height: blockSize,
   }
 </script>
 
-<svg xmlns="http://www.w3.org/2000/svg"
+<svg
+  xmlns="http://www.w3.org/2000/svg"
   width={dimentions.width}
   height={dimentions.height}
   viewBox={`0 0 ${dimentions.width} ${dimentions.height}`}
@@ -27,7 +28,7 @@
   {/each}
 </svg>
 
-<style lang='scss'>
+<style lang="scss">
   rect {
     fill: var(--color-fill);
   }

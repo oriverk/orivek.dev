@@ -1,7 +1,7 @@
-<script lang='ts'>
+<script lang="ts">
   import '../../styles/markdown.scss'
 </script>
 
-<div class='markdown'>
+<div class="markdown">
   <slot />
 </div>

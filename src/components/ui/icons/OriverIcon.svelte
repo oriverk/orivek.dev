@@ -1,10 +1,10 @@
-<script lang='ts'>
+<script lang="ts">
   export let className: string = ''
 </script>
 
 <div class={className} />
 
-<style lang='scss'>
+<style lang="scss">
   div {
     width: 4rem;
     aspect-ratio: 1;

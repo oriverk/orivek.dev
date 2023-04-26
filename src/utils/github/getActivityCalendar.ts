@@ -1,48 +1,50 @@
 import type { ContributionCalendarDay } from '@octokit/graphql-schema'
-import { getMonth, parseISO, } from 'date-fns';
-import type { Activity } from '../../types/activityCalendar';
+import { getMonth, parseISO } from 'date-fns'
+import type { Activity } from '../../types/activityCalendar'
 
-export function parseContributionCalendarDay(day: ContributionCalendarDay): Activity {
-  const { contributionCount = 0, contributionLevel, date } = day;
-  let level: Activity['level'] = 0;
+export function parseContributionCalendarDay(
+  day: ContributionCalendarDay
+): Activity {
+  const { contributionCount = 0, contributionLevel, date } = day
+  let level: Activity['level'] = 0
   switch (contributionLevel) {
     case 'NONE':
-      level = 0;
-      break;
+      level = 0
+      break
     case 'FIRST_QUARTILE':
-      level = 1;
-      break;
+      level = 1
+      break
     case 'SECOND_QUARTILE':
-      level = 2;
-      break;
+      level = 2
+      break
     case 'THIRD_QUARTILE':
-      level = 3;
-      break;
+      level = 3
+      break
     case 'FOURTH_QUARTILE':
-      level = 4;
-      break;
+      level = 4
+      break
     default:
-      level = 0;
+      level = 0
   }
 
   return {
     date,
     count: contributionCount,
-    level
+    level,
   }
 }
 
 export function getMonthLabels(weeks: Activity[][], monthNames: string[]) {
   return weeks
     .reduce((labels: Record<string, any>[], week: Activity[], index) => {
-      const firstWeekDay = week.find(day => day !== undefined);
+      const firstWeekDay = week.find((day) => day !== undefined)
 
       if (!firstWeekDay) {
-        throw new Error(`Unexpected error: Week is empty: [${week}].`);
+        throw new Error(`Unexpected error: Week is empty: [${week}].`)
       }
 
-      const month = monthNames[getMonth(parseISO(firstWeekDay.date))];
-      const prev = labels[labels.length - 1];
+      const month = monthNames[getMonth(parseISO(firstWeekDay.date))]
+      const prev = labels[labels.length - 1]
 
       if (index === 0 || prev.text !== month) {
         return [
@@ -52,16 +54,16 @@ export function getMonthLabels(weeks: Activity[][], monthNames: string[]) {
             y: 0,
             text: month,
           },
-        ];
+        ]
       }
 
-      return labels;
+      return labels
     }, [])
     .filter((label, index, labels) => {
       if (index === 0) {
-        return labels[1] && labels[1].x - label.x > 2;
+        return labels[1] && labels[1].x - label.x > 2
       }
 
-      return true;
-    });
+      return true
+    })
 }

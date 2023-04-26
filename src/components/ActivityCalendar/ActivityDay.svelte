@@ -1,9 +1,9 @@
-<script lang='ts'>
-  import type { Activity } from "../../types/activityCalendar"
+<script lang="ts">
+  import type { Activity } from '../../types/activityCalendar'
 
   export let day: Activity
-  export let color: string;
-  export let y: number;
+  export let color: string
+  export let y: number
   export let blockRadius: number
   export let blockSize: number
 
@@ -13,7 +13,7 @@
 
 <rect
   x={0}
-  y={y}
+  {y}
   width={blockSize}
   height={blockSize}
   rx={blockRadius}
@@ -27,7 +27,7 @@
   <title>{label}</title>
 </rect>
 
-<style lang='scss'>
+<style lang="scss">
   rect {
     fill: var(--color-fill);
   }
