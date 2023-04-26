@@ -1,18 +1,19 @@
 import type { User } from '@octokit/graphql-schema'
 import { graphql, GraphqlResponseError } from '@octokit/graphql'
 import { startOfWeek, format, subYears } from 'date-fns'
+import fs from 'fs-extra';
 
 import type { UserContent } from '../../types/github'
-// import { ghContent } from '../../constants/ghContent'
-import contributionsJson from '../../../.contents/contributions.json';
-import repositoryJson from '../../../.contents/repository.json';
 
-const ghContent = {
+const isDev = import.meta.env.DEV;
+const token = import.meta.env.GITHUB_TOKEN
+
+const getFaker = (): UserContent => ({
   pinnedItems: {
-    nodes: repositoryJson
+    nodes: fs.readJsonSync('./.contents/repository.json')
   },
-  contributionsCollection: contributionsJson
-}
+  contributionsCollection: fs.readJsonSync('./.contents/contributions.json')
+})
 
 /**
  * 
@@ -86,17 +87,10 @@ export async function fetchUserContent(githubToken: string, owner: string, pinne
 }
 
 export async function getUserContent(): Promise<UserContent> {
-  const isDev = import.meta.env.DEV;
-  if (isDev) { 
-    return ghContent as UserContent
+  if (!token) console.log('!token')
+  if (isDev || !token) {
+    return getFaker()
   }
-  const token = import.meta.env.GITHUB_TOKEN
-
-  if (!token) {
-    console.log("!token")
-    return ghContent as UserContent
-  }
-
 
   const lastYear = subYears(new Date(), 1);
   const start = startOfWeek(lastYear, { weekStartsOn: 0 })
@@ -106,7 +100,7 @@ export async function getUserContent(): Promise<UserContent> {
   const result = await fetchUserContent(token, "oriverk", 4, from, to)
   if (!result) {
     console.log("!result")
-    return ghContent as UserContent
+    return getFaker()
   }
 
   const { pinnedItems, contributionsCollection } = result as UserContent

@@ -1,10 +1,13 @@
 import urlJoin from "url-join";
-import cv from "../../../.contents/cv.md?raw"
+import fs from "fs-extra";
 
 export async function getRepoRawContent(token: string, user: string, repo: string, path: string) {
   if (!token || !user || !repo || !path) throw new Error('Missing required parameter(s)')
   
-  if (import.meta.env.DEV) return cv;
+  if (import.meta.env.DEV) {
+    const fakerMd = fs.readFileSync('./.contents/cv.md', 'utf-8')
+    return fakerMd
+  }
 
   const base = 'https://api.github.com/repos'
   const target = urlJoin(base, user, repo, 'contents', path);
