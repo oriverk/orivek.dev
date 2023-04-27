@@ -11,11 +11,24 @@ export interface Props {
 }
 const { title, noindex } = Astro.props
 const siteTitle = title ? `${title} | ${siteConfig.title}` : siteConfig.title
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID
 ---
 
 <!DOCTYPE html>
 <html lang="ja">
   <head>
+    <script
+      type="text/partytown"
+      src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}>
+    </script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag('config', gaMeasurementId);
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="format-detection" content="email=no,telephone=no,address=no" />

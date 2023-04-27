@@ -43,6 +43,7 @@
     "url-join": "^5.0.0"
   },
   "devDependencies": {
+    "@astrojs/partytown": "^1.2.0",
     "@commitlint/cli": "^17.5.1",
     "@commitlint/config-conventional": "^17.4.4",
     "@octokit/graphql-schema": "^14.3.0",
