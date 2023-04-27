@@ -1,0 +1,40 @@
+name: continuous-deployment
+on:
+  # push:
+  #   branches:
+  #     - main
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: build and deploy to Cloudflare Pages
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      # Run a build step here if your project requires
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: setup nodejs
+        run: |
+          npm install
+          npm run build
+
+      - name: deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          projectName: astro-site
+          directory: dist
+          # Optional: Enable this if you want to have GitHub Deployments triggered
+          # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
