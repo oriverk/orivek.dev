@@ -1,33 +1,10 @@
 ---
-import matter from 'gray-matter'
-// eslint-disable-next-line import/namespace
-import { format } from 'date-fns'
-
-// import * as post from '../../.contents/cv.md'
-import { getRepoRawContent } from '../utils/github/getRepoRawContent'
-import { getAge } from '../utils/getAge'
+import * as post from '../../.contents/cv.md'
 import Layout from '../layouts/Layout.astro'
 import ContentWrapper from '../components/ui/ContentWrapper.svelte'
 import Markdown from '../components/ui/Markdown.svelte'
-import { parseMarkdown } from '../utils/markdown'
 
-// const { frontmatter, compiledContent } = post
-const today = format(new Date(), 'yyyy年MM月dd日')
-const token = import.meta.env.GITHUB_TOKEN
-const rawContent = await getRepoRawContent(
-  token,
-  'oriverk',
-  'oriverk-docs',
-  'cv/index.md'
-)
-const { content, data: frontmatter } = matter(rawContent)
-const markdown = content
-  .replace('{{ age }}', getAge('1993-09-11').toString())
-  .replace('{{ date }}', today)
-// const html = compiledContent()
-//   .replace("{{ age }}", getAge('1993-09-11').toString())
-//   .replace("{{ date }}", today);
-const html = parseMarkdown(markdown)
+const { frontmatter, Content } = post
 ---
 
 <Layout title="About" noindex>
@@ -50,7 +27,9 @@ const html = parseMarkdown(markdown)
             </table>
           )
         }
-        <Markdown set:html={html} />
+        <Markdown>
+          <Content />
+        </Markdown>
       </div>
     </ContentWrapper>
   </article>

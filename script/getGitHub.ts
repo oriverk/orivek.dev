@@ -7,6 +7,21 @@ import * as dotenv from "dotenv";
 dotenv.config()
 
 /**
+ * @param birthdate '2020-01-01'
+ * @returns
+ */
+export function getAge(birthdate: string) {
+  const today = new Date()
+  const birthDate = new Date(birthdate)
+  let age = today.getFullYear() - birthDate.getFullYear()
+  const m = today.getMonth() - birthDate.getMonth()
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--
+  }
+  return age
+}
+
+/**
  * 
  * @param githubToken
  * @param owner userid
@@ -91,12 +106,7 @@ export async function fetchUserContent(githubToken: string, owner: string, pinne
 }
 
 (async function () {
-  const token = process.env.SECRET_GITHUB_PERSONAL_ACCESS_TOKEN
-  if (!token) {
-    console.error("token does not found!")
-    return;
-  }
-
+  const token = process.env.SECRET_GITHUB_PERSONAL_ACCESS_TOKEN || ''
   const lastYear = subYears(new Date(), 1);
   const start = startOfWeek(lastYear, { weekStartsOn: 0 })
   const from = format(start, 'yyyy-MM-dd') + "T00:00:00"
@@ -105,16 +115,18 @@ export async function fetchUserContent(githubToken: string, owner: string, pinne
   const result = await fetchUserContent(token, "oriverk", 4, from, to, "oriverk-docs", "HEAD:cv/index.md");
   if (!result) {
     console.error('result is undefined')
-    return;
+    return result
   }
 
   const { user, repository } = result
   const { pinnedItems, contributionsCollection } = user
   const { object } = repository as { object: Blob };
-  const { text } = object;
+  const replacedMd = (object.text || '')
+    .replace("{{ age }}", getAge('1993-09-11').toString())
+    .replace("{{ date }}", format(new Date(), 'yyyy年MM月dd日'));
   
   fs.ensureDirSync(".contents");
   fs.writeJsonSync(".contents/repository.json", pinnedItems.nodes || []);
   fs.writeJsonSync(".contents/contributions.json", contributionsCollection);
-  fs.writeFileSync(".contents/cv.md", text || "");
+  fs.writeFileSync(".contents/cv.md", replacedMd);
 })()
