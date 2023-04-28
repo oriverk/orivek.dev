@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ContributionCalendar } from '@octokit/graphql-schema'
+  import type { UserContent } from '../../types/github'
   import type { Activity } from '../../types/activityCalendar'
   import { parseContributionCalendarDay } from '../../utils/github/getActivityCalendar'
   import CalendarWeek from './ActivityWeek.svelte'
@@ -11,7 +11,7 @@
     DEFAULT_MONTH_LABELS,
   } from '../../constants/activityCalendar'
 
-  export let contributionCalendar: ContributionCalendar
+  export let contributionCalendar: UserContent['contributionCalendar']
   export let blockMargin: number = 4
   export let blockRadius: number = 2
   export let blockSize: number = 12
@@ -21,13 +21,11 @@
   export let monthLabels: string[] = DEFAULT_MONTH_LABELS
 
   const { totalContributions, weeks } = contributionCalendar
-
   const activityWeeks: Activity[][] = weeks.map((week) => {
     return week.contributionDays.map((day) => {
       return parseContributionCalendarDay(day)
     })
   })
-
   const textHeight = hideMonthLabels ? 0 : fontSize + 2 * blockMargin
   const dimentions = {
     width: activityWeeks.length * (blockSize + blockMargin) - blockMargin,

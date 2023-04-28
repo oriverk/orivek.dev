@@ -17,6 +17,10 @@ dotenv.config()
  */
 export async function fetchUserContent(githubToken: string, owner: string, pinnedItemsNum: number, calendarFrom: string, calendarTo: string, repo: string, expression: string) {
   try {
+    if (!githubToken) {
+      throw new Error('githubToken is not defined')
+    }
+
     const { user, repository } = await graphql<{ user: User, repository: Repository }>(`
       query userContent ($owner: String!, $pinnedItemsNum: Int = 4, $calendarFrom: DateTime!, $calendarTo: DateTime!, $repo: String!, $expression: String!){
         user(login: $owner) {
@@ -40,8 +44,8 @@ export async function fetchUserContent(githubToken: string, owner: string, pinne
             contributionCalendar {
               totalContributions
               isHalloween
-              colors
               weeks {
+                firstDay
                 contributionDays {
                   date
                   color
@@ -87,7 +91,7 @@ export async function fetchUserContent(githubToken: string, owner: string, pinne
 }
 
 (async function () {
-  const token = process.env.GITHUB_TOKEN
+  const token = process.env.SECRET_GITHUB_PERSONAL_ACCESS_TOKEN
   if (!token) {
     console.error("token does not found!")
     return;
@@ -112,7 +116,5 @@ export async function fetchUserContent(githubToken: string, owner: string, pinne
   fs.ensureDirSync(".contents");
   fs.writeJsonSync(".contents/repository.json", pinnedItems.nodes || []);
   fs.writeJsonSync(".contents/contributions.json", contributionsCollection);
-  if (text) {
-    fs.writeFileSync(".contents/cv.md", text);
-  }
+  fs.writeFileSync(".contents/cv.md", text || "");
 })()

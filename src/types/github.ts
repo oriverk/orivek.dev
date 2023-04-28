@@ -1,6 +1,7 @@
 import type {
   Repository,
-  ContributionsCollection,
+  ContributionCalendar,
+  ContributionCalendarWeek,
 } from '@octokit/graphql-schema'
 
 export type PinnedItem = Pick<
@@ -14,9 +15,14 @@ export type PinnedItem = Pick<
   }
 }
 
+type CustomContributionCalendar = Pick<
+  ContributionCalendar,
+  'isHalloween' | 'totalContributions'
+> & {
+  weeks: ContributionCalendarWeek[]
+}
+
 export type UserContent = {
-  pinnedItems: {
-    nodes: PinnedItem[]
-  }
-  contributionsCollection: Pick<ContributionsCollection, 'contributionCalendar'>
+  repositoryItems: PinnedItem[]
+  contributionCalendar: CustomContributionCalendar
 }

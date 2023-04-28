@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { UserContent } from '../types/github'
+  import type { PinnedItem } from '../types/github'
   import RepositoryCard from './RepositoryCard.svelte'
 
-  export let repositryItems: UserContent['pinnedItems']['nodes']
+  export let repositoryItems: PinnedItem[]
 </script>
 
 <div class="github-list">
   <ol class="grid">
-    {#each repositryItems as item}
+    {#each repositoryItems as item}
       <li>
         <RepositoryCard {...item} />
       </li>

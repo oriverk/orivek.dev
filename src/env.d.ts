@@ -2,7 +2,7 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
-  readonly GITHUB_TOKEN: string
+  readonly PUBLIC_GRAPHQL_TOKEN: string
   readonly PUBLIC_GA_MEASUREMENT_ID: string
 }
 

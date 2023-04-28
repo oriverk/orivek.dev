@@ -19,15 +19,15 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID
   <head>
     <script
       type="text/partytown"
-      src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}>
-    </script>
+      src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+    ></script>
     <script type="text/partytown">
-      window.dataLayer = window.dataLayer || [];
+      window.dataLayer = window.dataLayer || []
       function gtag() {
-        dataLayer.push(arguments);
+        dataLayer.push(arguments)
       }
-      gtag("js", new Date());
-      gtag('config', gaMeasurementId);
+      gtag('js', new Date())
+      gtag('config', gaMeasurementId)
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
