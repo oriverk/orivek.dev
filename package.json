@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "astro dev --project tsconfig.json",
     "start": "astro dev",
-    "generate": "run-s generate:*",
-    "generate:feed": "ts-node --esm script/getFeed.ts",
-    "generate:github": "ts-node --esm script/getGitHub.ts",
+    "prebuild": "run-s prebuild:*",
+    "prebuild:feed": "ts-node --esm script/getFeed.ts",
+    "prebuild:github": "ts-node --esm script/getGitHub.ts",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
