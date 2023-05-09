@@ -27,16 +27,16 @@ const colors = ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
       <section class="home-github">
         <ContentWrapper>
           <div class="github">
-            <h2>GitHub</h2>
+            <h2 id="github">GitHub</h2>
             {!!repositoryItems.length && (
               <div class="github-repository">
-                <h3>Repository</h3>
+                <h3 id="repository">Repository</h3>
                 <RepositoryList repositoryItems={repositoryItems} />
               </div>
             )}
             {!!contributionCalendar && (
               <div class="github-contributions">
-                <h3>Contributions</h3>
+                <h3 id="contributions">Contributions</h3>
                 <ActivityCalendar
                   blockMargin={3}
                   blockRadius={2}
@@ -57,7 +57,7 @@ const colors = ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
       <section class="home-feed">
         <ContentWrapper>
           <div class="feed">
-            <h2>Feed</h2>
+            <h2 id="feed">Feed</h2>
             <FeedList items={feedItems} displayItemsCount={12} />
           </div>
         </ContentWrapper>
