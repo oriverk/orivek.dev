@@ -26,6 +26,8 @@ overrides:
       extraFileExtensions:
         - .svelte
     rules: {}
+    settings:
+      svelte3/typescript: true
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: latest
@@ -35,5 +37,4 @@ plugins:
   - '@typescript-eslint'
 ignorePatterns:
   - './dist/**/*'
-settings:
-  svelte3/typescript: true
+settings: {}
