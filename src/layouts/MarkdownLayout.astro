@@ -1,7 +1,7 @@
 ---
 import Layout from './Layout.astro'
-import ContentWrapper from '../components/ui/ContentWrapper.svelte'
-import Markdown from '../components/ui/Markdown.svelte'
+import ContentWrapper from '../components/ui/ContentWrapper.astro'
+import Markdown from '../components/ui/Markdown.astro'
 
 export interface Props {
   title: string
@@ -46,7 +46,7 @@ const { title = 'post', noindex = false } = frontmatter as {
   </article>
 </Layout>
 
-<style lang="scss">
+<style>
   h1 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -59,22 +59,22 @@ const { title = 'post', noindex = false } = frontmatter as {
   table {
     margin: 0;
     border-collapse: collapse;
+  }
 
-    caption {
-      color: rgb(var(--color-lightgray));
-      font-size: 1rem;
-      padding: 0.5rem 0;
-    }
+  caption {
+    color: rgb(var(--color-lightgray));
+    font-size: 1rem;
+    padding: 0.5rem 0;
+  }
 
-    th {
-      padding: 0.25rem 0.5rem;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
+  th {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
 
-    td {
-      padding: 0.25rem 0.5rem;
-      border: 1px solid #ccc;
-    }
+  td {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #ccc;
   }
 </style>

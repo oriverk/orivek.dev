@@ -1,7 +1,12 @@
-<script lang="ts">
-  import clsx from 'clsx'
-  let className: string = ''
-</script>
+---
+import clsx from 'clsx'
+
+interface Props {
+  className?: string
+}
+
+const { className } = Astro.props
+---
 
 <div class={clsx('content-wrapper', className)}>
   <slot />

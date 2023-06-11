@@ -158,3 +158,7 @@ export async function fetchUserContent(githubToken: string, owner: string, pinne
   - [Cloudflare Pages GitHub Action · Actions · GitHub Marketplace](https://github.com/marketplace/actions/cloudflare-pages-github-action)
   - [Deploy your Astro Site to Cloudflare Pages 🚀 Astro Documentation](https://docs.astro.build/en/guides/deploy/cloudflare/)
   - [Build configuration · Cloudflare Pages docs](https://developers.cloudflare.com/pages/platform/build-configuration)
+  - Svelte Styles
+    - [Advanced styling / The style directive • Svelte Tutorial](https://svelte.dev/tutorial/style-directive)
+    - [こびと on Twitter: "「CSS変数をstyle属性で書いてしまえばユニークな値入れ放題」 という技をエスイチさんから盗みました。義賊なのでみなさんに再配布します(感動の共有) https://t.co/siA1s8R7Tb" / Twitter](https://twitter.com/kobitoCode/status/1645360488602284032)
+    - [Emotion – Best Practices](https://emotion.sh/docs/best-practices#advanced-css-variables-with-style)

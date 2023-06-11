@@ -1,15 +1,15 @@
-<script lang="ts">
-  import type { FeedItem } from '../types/feed'
-  import { getFaviconSrcFromOrigin } from '../utils/feed'
-  import { getTimeFromNow } from '../utils/getTimeFromNow'
-  import Card from '../components/ui/Card.svelte'
+---
+import type { FeedItem } from '../types/feed'
+import { getFaviconSrcFromOrigin } from '../utils/feed'
+import { getTimeFromNow } from '../utils/getTimeFromNow'
+import Card from './ui/Card.astro'
 
-  export let title: FeedItem['title']
-  export let dateMiliSeconds: FeedItem['dateMiliSeconds']
-  export let link: FeedItem['link']
-  const timeString = getTimeFromNow(dateMiliSeconds) + ' ago'
-  const { hostname, origin } = new URL(link)
-</script>
+interface Props extends Pick<FeedItem, 'title' | 'link' | 'dateMiliSeconds'> {}
+
+const { title, link, dateMiliSeconds } = Astro.props
+const timeString = getTimeFromNow(dateMiliSeconds) + ' ago'
+const { hostname, origin } = new URL(link)
+---
 
 <a class="feed-card" href={link} target="_blank" rel="noopenner noreferrer">
   <Card>
@@ -29,11 +29,7 @@
   </Card>
 </a>
 
-<style lang="scss">
-  .feed-card {
-    text-decoration: none;
-  }
-
+<style>
   .feed {
     display: flex;
     flex-direction: column;

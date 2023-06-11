@@ -1,13 +1,14 @@
-<script lang="ts">
-  import GithubIcon from './ui/icons/GithubIcon.svelte'
-  import ZennIcon from './ui/icons/ZennIcon.svelte'
-  import TwitterIcon from './ui/icons/TwitterIcon.svelte'
-  import PencilIcon from './ui/icons/PencilIcon.svelte'
+---
+import urlJoin from 'url-join'
+import GithubIcon from './ui/icons/GithubIcon.astro'
+import ZennIcon from './ui/icons/ZennIcon.astro'
+import TwitterIcon from './ui/icons/TwitterIcon.astro'
+import PencilIcon from './ui/icons/PencilIcon.astro'
 
-  import siteConfig from '../../site.config'
-  import urlJoin from 'url-join'
-  const { blogPath, github, zenn, twitter } = siteConfig
-</script>
+import siteConfig from '../../site.config'
+
+const { blogPath, github, zenn, twitter } = siteConfig
+---
 
 <div class="hero">
   <h1>Kawano Yudai</h1>
@@ -44,7 +45,14 @@
   </div>
 </div>
 
-<style lang="scss">
+<style is:global>
+  .links svg {
+    width: 2rem;
+    aspect-ratio: 1;
+  }
+</style>
+
+<style>
   .hero {
     display: flex;
     flex-direction: column;
@@ -68,9 +76,10 @@
     -webkit-text-fill-color: transparent;
     background-size: 400%;
     transition: background-size 200ms var(--cubic-bezier);
-    &:hover {
-      background-size: 100%;
-    }
+  }
+
+  .text-gradient:hover {
+    background-size: 100%;
   }
 
   .links {
@@ -88,14 +97,9 @@
     border-radius: 0.5rem;
     transition: background-color 100ms ease-in;
     background-color: rgb(var(--color-hover));
-
-    &:hover {
-      background-color: rgba(0 0 0 / 0.3);
-    }
   }
 
-  .links :global(svg) {
-    width: 2rem;
-    aspect-ratio: 1;
+  .links a:hover {
+    background-color: rgba(0 0 0 / 0.3);
   }
 </style>

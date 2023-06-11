@@ -1,5 +1,5 @@
 ---
-import OriverIcon from '../components/ui/icons/OriverIcon.svelte'
+import OriverIcon from '../components/ui/icons/OriverIcon.astro'
 ---
 
 <nav>
@@ -10,19 +10,20 @@ import OriverIcon from '../components/ui/icons/OriverIcon.svelte'
   <a href="/about" class="about">About me</a>
 </nav>
 
-<style is:global lang="scss">
+<style is:global>
   .home .icon {
     width: 2rem;
     margin: 0.5rem;
     background-size: 100%;
     transition: background-size 600ms var(--cubic-bezier);
-    &:hover {
-      background-size: 400%;
-    }
+  }
+
+  .home:hover .icon {
+    background-size: 400%;
   }
 </style>
 
-<style lang="scss">
+<style>
   nav {
     height: var(--header-height);
     width: 100%;
@@ -41,9 +42,9 @@ import OriverIcon from '../components/ui/icons/OriverIcon.svelte'
     color: rgb(var(--color-white));
     text-decoration-color: transparent;
     transition: text-decoration-color 200ms var(--cubic-bezier);
+  }
 
-    &:hover {
-      text-decoration-color: rgb(var(--color-miku));
-    }
+  .about {
+    text-decoration-color: rgb(var(--color-miku));
   }
 </style>

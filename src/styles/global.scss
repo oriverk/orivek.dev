@@ -1,10 +1,10 @@
-// TailwindCSS default breakpoints
-// xs => @media (min-width: 320px) { ... }
-// sm => @media (min-width: 640px) { ... }
-// md => @media (min-width: 768px) { ... }
-// lg => @media (min-width: 1024px) { ... }
-// xl => @media (min-width: 1280px) { ... }
-// 2xl => @media (min-width: 1536px) { ... }
+/* TailwindCSS default breakpoints
+xs => @media (min-width: 320px) { ... }
+sm => @media (min-width: 640px) { ... }
+md => @media (min-width: 768px) { ... }
+lg => @media (min-width: 1024px) { ... }
+xl => @media (min-width: 1280px) { ... }
+2xl => @media (min-width: 1536px) { ... } */
 
 :root {
   --header-height: 4rem;
@@ -64,10 +64,10 @@ body {
 a {
   color: rgb(var(--color-miku));
   text-decoration: none;
+}
 
-  &:hover {
-    text-decoration-line: underline;
-  }
+a:hover {
+  text-decoration-line: underline;
 }
 
 .sr-only {

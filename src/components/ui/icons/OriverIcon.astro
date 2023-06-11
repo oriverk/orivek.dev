@@ -1,10 +1,14 @@
-<script lang="ts">
-  export let className: string = ''
-</script>
+---
+interface Props {
+  className?: string
+}
 
-<div class={className} />
+const { className } = Astro.props
+---
 
-<style lang="scss">
+<div class={className}></div>
+
+<style>
   div {
     width: 4rem;
     aspect-ratio: 1;

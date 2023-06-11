@@ -1,7 +1,7 @@
 ---
 import '../styles/global.scss'
 import siteConfig from '../../site.config'
-import ContentWrapper from '../components/ui/ContentWrapper.svelte'
+import ContentWrapper from '../components/ui/ContentWrapper.astro'
 import Header from './Header.astro'
 import Footer from './Footer.astro'
 
@@ -83,16 +83,16 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID
   }
 </style>
 
-<style lang="scss">
+<style>
   #astro {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
 
-    & > * {
-      width: 100%;
-    }
+  #astro > * {
+    width: 100%;
   }
 
   header {
