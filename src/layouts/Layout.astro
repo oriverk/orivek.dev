@@ -1,5 +1,4 @@
 ---
-import '../styles/global.scss'
 import siteConfig from '../../site.config'
 import ContentWrapper from '../components/ui/ContentWrapper.astro'
 import Header from './Header.astro'
@@ -78,6 +77,92 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID
 </html>
 
 <style is:global>
+  /* TailwindCSS default breakpoints
+    xs => @media (min-width: 320px) { ... }
+    sm => @media (min-width: 640px) { ... }
+    md => @media (min-width: 768px) { ... }
+    lg => @media (min-width: 1024px) { ... }
+    xl => @media (min-width: 1280px) { ... }
+    2xl => @media (min-width: 1536px) { ... } */
+
+  :root {
+    --header-height: 4rem;
+    --max-width: 850px;
+    --color-white: 250 250 250;
+    --color-gray: 156 163 175;
+    --color-lightgray: 179 179 179;
+    --color-black: 26 32 44;
+    --color-miku: 0 225 238;
+    --color-tiwtter: 29 161 242;
+    --color-github: 24 23 23;
+    --color-hover: 51 65 85;
+    /* --accent: 0, 225, 238; */
+    --accent: 0, 115, 230;
+    /* --accent-gradient: linear-gradient(45deg,
+      rgb(var(--accent)),
+      #da62c4 30%,
+      white 60%); */
+    --accent-gradient: linear-gradient(
+      to top right,
+      hsl(157.83, 100%, 45.1%) 0%,
+      hsl(158.37, 100%, 44.88%) 9.1%,
+      hsl(159.93, 100%, 44.27%) 16.8%,
+      hsl(162.39, 100%, 43.3%) 23.5%,
+      hsl(165.67, 100%, 42.03%) 29.2%,
+      hsl(169.74, 100%, 40.48%) 34.4%,
+      hsl(174.6, 100%, 38.69%) 39.1%,
+      hsl(180.28, 100%, 36.88%) 43.6%,
+      hsl(186.13, 100%, 38.5%) 48.2%,
+      hsl(191.54, 100%, 40.03%) 53%,
+      hsl(196, 100%, 41%) 58.3%,
+      hsl(200.81, 100%, 42.65%) 64.3%,
+      hsl(204.51, 100%, 43.66%) 71.3%,
+      hsl(207.41, 100%, 44.43%) 79.4%,
+      hsl(209.31, 100%, 44.92%) 88.9%,
+      hsl(210, 100%, 45%) 100%
+    );
+    --cubic-bezier: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :where(*, *::before, *::after) {
+    color: rgb(var(--color-white));
+    border-width: 0;
+    border-style: solid;
+    box-sizing: border-box;
+    word-wrap: break-word;
+  }
+
+  html {
+    font-family: system-ui, sans-serif;
+    /* background-color: #f6f6f6; */
+    background-color: rgb(var(--color-black));
+  }
+
+  body {
+    margin: 0;
+  }
+
+  a {
+    color: rgb(var(--color-miku));
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration-line: underline;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   main > * {
     scroll-snap-align: end;
   }
