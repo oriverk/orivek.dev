@@ -38,6 +38,4 @@ plugins:
 ignorePatterns:
   - './dist/**/*'
   - './node_modules/**/*'
-settings: {
-
-}
+settings: {}
