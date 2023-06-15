@@ -22,6 +22,7 @@
   "dependencies": {
     "@astrojs/svelte": "^2.1.1",
     "@octokit/graphql": "^5.0.5",
+    "algoliasearch": "^4.17.2",
     "astro": "^2.4.3",
     "autoprefixer": "^10.4.14",
     "clsx": "^1.2.1",

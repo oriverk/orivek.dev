@@ -1,11 +1,12 @@
 ---
 import urlJoin from 'url-join'
+import siteConfig from '../../site.config'
 import GithubIcon from './ui/icons/GithubIcon.astro'
 import ZennIcon from './ui/icons/ZennIcon.astro'
 import TwitterIcon from './ui/icons/TwitterIcon.astro'
 import PencilIcon from './ui/icons/PencilIcon.astro'
-
-import siteConfig from '../../site.config'
+import MagnifyingGlass from './ui/icons/MagnifyingGlass.svelte'
+import Search from '../components/Search/index.svelte'
 
 const { blogPath, github, zenn, twitter } = siteConfig
 ---
@@ -42,13 +43,46 @@ const { blogPath, github, zenn, twitter } = siteConfig
       <TwitterIcon title={'@' + twitter} />
       <span class="sr-only">Twitter link</span>
     </a>
+    <button type="button" id="search-button">
+      <MagnifyingGlass title="Search" />
+      <span class="sr-only">Search</span>
+    </button>
   </div>
+  <dialog id="search-dialog">
+    <Search client:only="svelte" />
+  </dialog>
 </div>
+
+<script>
+  const searchButton =
+    document.querySelector<HTMLButtonElement>('#search-button')
+  const dialog = document.querySelector<HTMLDialogElement>('#search-dialog')
+
+  document?.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      dialog?.close()
+    }
+  })
+
+  searchButton?.addEventListener('click', () => {
+    dialog?.showModal()
+  })
+
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) {
+      dialog?.close()
+    }
+  })
+</script>
 
 <style is:global>
   .links svg {
     width: 2rem;
     aspect-ratio: 1;
+  }
+
+  html:has(dialog[open]) {
+    overflow: hidden;
   }
 </style>
 
@@ -88,7 +122,7 @@ const { blogPath, github, zenn, twitter } = siteConfig
     gap: 0.5rem;
   }
 
-  .links a {
+  .links > * {
     width: 3rem;
     display: flex;
     justify-content: center;
@@ -99,7 +133,60 @@ const { blogPath, github, zenn, twitter } = siteConfig
     background-color: rgb(var(--color-hover));
   }
 
-  .links a:hover {
+  .links > *:hover {
     background-color: rgba(0 0 0 / 0.3);
+  }
+
+  dialog {
+    max-width: 1024px;
+    width: 80%;
+    height: 80%;
+    padding: 1rem;
+    background-color: rgb(var(--color-black));
+    border-radius: 0.2em;
+  }
+
+  @media (min-width: 640px) {
+    dialog {
+      width: 50%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    dialog {
+      width: 60%;
+    }
+  }
+
+  dialog::backdrop {
+    background: rgb(0 0 0 / 70%);
+  }
+
+  dialog[open] {
+    animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes zoom {
+    from {
+      transform: scale(0.95);
+    }
+
+    to {
+      transform: scale(1);
+    }
+  }
+
+  dialog[open]::backdrop {
+    animation: fade 0.2s ease-out;
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 </style>
