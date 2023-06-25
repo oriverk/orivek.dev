@@ -32,10 +32,10 @@ jobs:
         env:
           MODE: production
           SECRET_GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.SECRET_GITHUB_PERSONAL_ACCESS_TOKEN }}
-          PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.PUBLIC_GA_MEASUREMENT_ID }}
-          PUBLIC_ALGOLIA_APP_ID: ${{ secrets.PUBLIC_ALGOLIA_APP_ID }}
-          PUBLIC_ALGOLIA_SEARCH_KEY: ${{ secrets.PUBLIC_ALGOLIA_SEARCH_KEY }}
-          PUBLIC_ALGOLIA_INDEX_BLOG: ${{ secrets.PUBLIC_ALGOLIA_INDEX_BLOG }}
+          PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
+          PUBLIC_ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
+          PUBLIC_ALGOLIA_SEARCH_KEY: ${{ secrets.ALGOLIA_SEARCH_KEY }}
+          PUBLIC_ALGOLIA_INDEX_BLOG: ${{ secrets.ALGOLIA_INDEX_BLOG }}
       - name: deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
