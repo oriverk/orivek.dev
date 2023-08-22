@@ -7,4 +7,3 @@ singleQuote: true
 plugins:
   - prettier-plugin-astro
   - prettier-plugin-svelte
-pluginSearchDirs: false
