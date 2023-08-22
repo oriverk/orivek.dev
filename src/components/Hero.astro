@@ -3,18 +3,22 @@ import urlJoin from 'url-join'
 import siteConfig from '../../site.config'
 import GithubIcon from './ui/icons/GithubIcon.astro'
 import ZennIcon from './ui/icons/ZennIcon.astro'
-import TwitterIcon from './ui/icons/TwitterIcon.astro'
+import XIcon from './ui/icons/X.astro'
 import PencilIcon from './ui/icons/PencilIcon.astro'
 import MagnifyingGlass from './ui/icons/MagnifyingGlass.svelte'
 import Search from '../components/Search/index.svelte'
 
-const { blogPath, github, zenn, twitter } = siteConfig
+const { blogPath, github, zenn, x } = siteConfig
 ---
 
 <div class="hero">
   <h1>Kawano Yudai</h1>
   <p><span class="text-gradient">Agr.</span> → ? / Bicycle</p>
   <div class="links">
+    <button type="button" id="search-button">
+      <MagnifyingGlass title="Search" />
+      <span class="sr-only">Search</span>
+    </button>
     <a href={blogPath} title="Blog" target="_blank" rel="noopener noreferrer">
       <PencilIcon title="blog.oriverk.dev" />
       <span class="sr-only">Blog link</span>
@@ -28,6 +32,14 @@ const { blogPath, github, zenn, twitter } = siteConfig
       <span class="sr-only">GitHub link</span>
     </a>
     <a
+      href={urlJoin('https://twitter.com', x)}
+      target="_blank"
+      rel="noopener noreferrer"
+      >
+      <XIcon title={'@' + x} />
+      <span class="sr-only">X link</span>
+    </a>
+    <a
       href={urlJoin('https://zenn.dev', zenn)}
       target="_blank"
       rel="noopener noreferrer"
@@ -35,18 +47,7 @@ const { blogPath, github, zenn, twitter } = siteConfig
       <ZennIcon title={'@' + zenn} />
       <span class="sr-only">Zenn.dev link</span>
     </a>
-    <a
-      href={urlJoin('https://twitter.com', twitter)}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <TwitterIcon title={'@' + twitter} />
-      <span class="sr-only">Twitter link</span>
-    </a>
-    <button type="button" id="search-button">
-      <MagnifyingGlass title="Search" />
-      <span class="sr-only">Search</span>
-    </button>
+    
   </div>
   <dialog id="search-dialog">
     <Search client:only="svelte" />

@@ -5,5 +5,5 @@ export default {
   blogPath: 'https://blog.oriverk.dev',
   github: 'oriverk',
   zenn: 'oriverk',
-  twitter: 'not_you_die',
+  x: 'not_you_die',
 }
