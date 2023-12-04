@@ -11,6 +11,7 @@ interface ImportMetaEnv {
   readonly SECRET_ALGOLIA_ADMIN_KEY: string
 }
 
+// eslint-disable-next-line no-unused-vars
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }

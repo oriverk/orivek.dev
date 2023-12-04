@@ -67,7 +67,7 @@ function hello (){
 
 in MDX v2, bare link and link with `<>` is completely deprecated to avoid `<>` as jsx component.
 
-```txt
+```plaintext
 https://ixanary.com
 ```
 

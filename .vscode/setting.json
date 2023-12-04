@@ -11,5 +11,10 @@
     "astro",
     "typescript",
     "typescriptreact"
-  ]
+  ],
+  "[svelte]": {
+    "editor.formatOnSave": true,
+    "editor.deafultFormatter": "svelte.svelte-vscode"
+  }
+
 }

@@ -1,0 +1,107 @@
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+h2::before {
+  content: '## ';
+  content: '## ' / '';
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+h3::before {
+  content: '### ';
+  content: '### ' / '';
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+h4::before {
+  content: '#### ';
+  content: '#### ' / '';
+}
+
+h5 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+h6 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+p {
+  margin-top: 1.25em;
+  margin-top: 1.25em;
+}
+
+blockquote {
+  padding: 0.5rem 1rem;
+  background-color: rgba(var(--color-gray) / 0.1);
+  border-left: 0.25rem solid rgb(var(--color-lightgray));
+}
+
+code {
+  font-family: monospace;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+:not(pre)>code {
+  padding: 0;
+  margin: 0 0.1rem;
+}
+
+:not(pre)>code::before,
+:not(pre)>code::after {
+  content: '`';
+  content: '`' / '';
+}
+
+pre {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+pre code {
+  font-size: 1rem;
+  padding: 0;
+}
+
+table {
+  margin: 0;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+td {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+}
+
+caption {
+  color: rgb(var(--color-lightgray));
+  font-size: 1rem;
+  padding: 0.5rem 0;
+}
