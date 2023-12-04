@@ -1,16 +1,12 @@
-import type { User, Repository, Blob } from '@octokit/graphql-schema'
 import { graphql, GraphqlResponseError } from '@octokit/graphql'
 import { subYears, startOfWeek, format } from 'date-fns'
 import fs from "fs-extra";
-import * as dotenv from "dotenv";
-
-dotenv.config()
 
 /**
- * @param birthdate '2020-01-01'
- * @returns
+ * @param {string} birthdate '2020-01-01'
+ * @returns {number}
  */
-export function getAge(birthdate: string) {
+function getAge(birthdate) {
   const today = new Date()
   const birthDate = new Date(birthdate)
   let age = today.getFullYear() - birthDate.getFullYear()
@@ -22,21 +18,20 @@ export function getAge(birthdate: string) {
 }
 
 /**
- * 
- * @param githubToken
- * @param owner userid
- * @param pinnedItemsNum
- * @param calendarFrom new Date().toISOString().split(".")[0] 
- * @param calendarTo "2023-04-01T00:00:00"
+ * @param {string} githubToken
+ * @param {string} owner userid
+ * @param {number} pinnedItemsNum
+ * @param {string} calendarFrom new Date().toISOString().split(".")[0] 
+ * @param {string} calendarTo "2023-04-01T00:00:00"
  * @returns
  */
-export async function fetchUserContent(githubToken: string, owner: string, pinnedItemsNum: number, calendarFrom: string, calendarTo: string, repo: string, expression: string) {
+async function fetchUserContent(githubToken, owner, pinnedItemsNum, calendarFrom, calendarTo, repo, expression) {
   try {
     if (!githubToken) {
       throw new Error('githubToken is not defined')
     }
 
-    const { user, repository } = await graphql<{ user: User, repository: Repository }>(`
+    const { user, repository } = await graphql(`
       query userContent ($owner: String!, $pinnedItemsNum: Int = 4, $calendarFrom: DateTime!, $calendarTo: DateTime!, $repo: String!, $expression: String!){
         user(login: $owner) {
           pinnedItems(first: $pinnedItemsNum) {
@@ -118,9 +113,13 @@ export async function fetchUserContent(githubToken: string, owner: string, pinne
     return result
   }
 
-  const { user, repository } = result
+  /** @type import("@octokit/graphql-schema").User */
+  const user = result.user
+  /** @type import("@octokit/graphql-schema").Repository */
+  const repository = result.repository
+  /** @type import("@octokit/graphql-schema").Blob */
+  const object = repository.object
   const { pinnedItems, contributionsCollection } = user
-  const { object } = repository as { object: Blob };
   const replacedMd = (object.text || '')
     .replace("{{ age }}", getAge('1993-09-11').toString())
     .replace("{{ date }}", format(new Date(), 'yyyy年MM月dd日'));

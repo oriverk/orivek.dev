@@ -3,13 +3,13 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "prebuild": "run-s prebuild:*",
-    "prebuild:feed": "ts-node --esm script/getFeed.ts",
-    "prebuild:github": "ts-node --esm script/getGitHub.ts",
+    "script": "run-s script:*",
+    "script:feed": "node script/getFeed.mjs",
+    "script:github": "node -r dotenv/config script/getGitHub.mjs",
     "dev": "astro dev",
-    "start": "astro preview",
-    "preview": "astro preview",
     "build": "astro build",
+    "preview": "astro preview",
+    "start": "astro preview",
     "astro": "astro",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint src/**/*.{ts,astro,svelte} --ignore-path .gitignore",
@@ -60,7 +60,6 @@
     "prettier-plugin-astro": "^0.12.2",
     "prettier-plugin-svelte": "^3.1.2",
     "sass": "^1.69.5",
-    "svelte-eslint-parser": "^0.33.1",
-    "ts-node": "^10.9.1"
+    "svelte-eslint-parser": "^0.33.1"
   }
 }

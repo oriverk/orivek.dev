@@ -28,6 +28,7 @@ jobs:
       - name: install packages and build
         run: |
           npm install
+          npm run script
           npm run build
         env:
           MODE: production

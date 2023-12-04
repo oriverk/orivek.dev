@@ -1,19 +1,21 @@
 import fs from "fs-extra";
 import Parser from 'rss-parser'
 
-type Source = {
-  id: string;
-  url: string;
-  includeUrlRegex?: string;
-}
+/**
+ * @typedef {Object} Source
+ * @property {string} id
+ * @property {string} url
+ * @property {string} includeUrlRegex
+ */
 
-type FeedItem = {
-  title: string;
-  link: string;
-  contentSnippet?: string;
-  isoDate?: string;
-  dateMiliSeconds: number;
-};
+/**
+ * @typedef {Object} FeedItem
+ * @property {string} title
+ * @property {string} link
+ * @property {string} contentSnippet
+ * @property {string} isoDate
+ * @property {number} dateMiliSeconds
+ */
 
 const sources = [
   {
@@ -27,7 +29,11 @@ const sources = [
   }
 ]
 
-function isValidUrl(url: string): boolean {
+/**
+ * @param {string} url
+ * @returns {boolean}
+ */
+function isValidUrl(url) {
   try {
     const {protocol} = new URL(url);
     return protocol === 'http:' || protocol === 'https:';
@@ -38,7 +44,11 @@ function isValidUrl(url: string): boolean {
 
 const parser = new Parser();
 
-async function fetchFeedItems(url: string) {
+/**
+ * @param {string} url
+ * @returns {FeedItem[]}
+ */
+async function fetchFeedItems(url) {
   const feed = await parser.parseURL(url);
   if(!feed?.items?.length) return []
   return feed.items
@@ -53,13 +63,18 @@ async function fetchFeedItems(url: string) {
     })
     .filter(
       ({ title, link }) => title && link && isValidUrl(link)
-    ) as FeedItem[];
+    )
 }
 
-async function getFeedItemsFromSources(sources: Source[]) {
+
+/**
+ * @param {Source[]} sources
+ * @returns {FeedItem[]}
+ */
+async function getFeedItemsFromSources(sources) {
   if (!sources.length) return [];
 
-  let feedItems: FeedItem[] = [];
+  let feedItems = [];
   for (const source of sources) {
     const { url, includeUrlRegex } = source;
     let items = await fetchFeedItems(url);
@@ -81,7 +96,7 @@ async function getFeedItems() {
 }
 
 (async function () {
-  const items: FeedItem[] = await getFeedItems();
+  const items = await getFeedItems();
   fs.ensureDirSync(".contents");
   fs.writeJsonSync(".contents/feed.json", items);
 })()
