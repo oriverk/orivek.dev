@@ -2,11 +2,11 @@
 import { getFeedItems } from '../utils/feed'
 import { getUserContent } from '../utils/github/getUserContent'
 import Layout from '../layouts/Layout.astro'
-import ContentWrapper from '../components/ui/ContentWrapper.astro'
-import Hero from '../components/Hero.astro'
-import RepositoryList from '../components/RepositoryList.astro'
-import ActivityCalendar from '../components/ActivityCalendar/index.astro'
-import FeedList from '../components/FeedList.astro'
+import ContentWrapper from '../components/ui/ContentWrapper.svelte'
+import Hero from '../components/Hero.svelte'
+import RepositoryList from '../components/RepositoryList.svelte'
+import ActivityCalendar from '../components/ActivityCalendar/index.svelte'
+import FeedList from '../components/FeedList.svelte'
 
 const userContent = getUserContent()
 const feedItems = getFeedItems()
@@ -18,7 +18,7 @@ const colors = ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
   <section class="home-hero">
     <ContentWrapper>
       <div class="hero">
-        <Hero />
+        <Hero client:only="svelte" />
       </div>
     </ContentWrapper>
   </section>

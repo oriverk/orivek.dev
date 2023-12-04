@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 import svelte from "@astrojs/svelte";
 import partytown from "@astrojs/partytown";
-import gfm from 'remark-gfm'
 import remarkComment from 'remark-comment'
 
 import { rehypeAnchor, rehypeFigure } from './src/utils/markdown'
@@ -19,7 +18,7 @@ export default defineConfig({
     })
   ],
   markdown: {
-    remarkPlugins: [gfm, remarkComment],
+    remarkPlugins: [remarkComment],
     rehypePlugins: [rehypeAnchor, rehypeFigure],
   }
 });

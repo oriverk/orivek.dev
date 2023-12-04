@@ -1,10 +1,6 @@
----
-interface Props {
-  className?: string
-}
-
-const { className } = Astro.props
----
+<script lang="ts">
+  export let className: string = ''
+</script>
 
 <div class={className}></div>
 

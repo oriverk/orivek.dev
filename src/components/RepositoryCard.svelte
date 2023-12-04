@@ -1,26 +1,27 @@
----
-import type { Repository, Language } from '@octokit/graphql-schema'
-import Card from './ui/Card.astro'
-import StarIcon from './ui/icons/StarIcon.astro'
-import RepoIcon from './ui/icons/RepoIcon.astro'
+<script lang="ts">
+  import type { Repository, Language } from '@octokit/graphql-schema'
+  import Card from './ui/Card.svelte'
+  import StarIcon from './ui/icons/StarIcon.svelte'
+  import RepoIcon from './ui/icons/RepoIcon.svelte'
 
-interface Props
-  extends Pick<
-    Repository,
-    'name' | 'description' | 'url' | 'stargazerCount' | 'isArchived'
-  > {
-  primaryLanguage: Pick<Language, 'name' | 'color'>
-}
+  interface $$Props
+    extends Pick<
+      Repository,
+      'name' | 'description' | 'url' | 'stargazerCount' | 'isArchived'
+    > {
+    primaryLanguage: Pick<Language, 'name' | 'color'>
+  }
 
-const {
-  name,
-  description,
-  url,
-  stargazerCount = 0,
-  isArchived = false,
-  primaryLanguage = { name: '', color: '' },
-} = Astro.props
----
+  let {
+    name,
+    description,
+    url,
+    stargazerCount = 0,
+    isArchived = false,
+    primaryLanguage,
+  } = $$props as $$Props
+  export { name, description, url, stargazerCount, isArchived, primaryLanguage }
+</script>
 
 <a class="repository-card" href={url} target="_blank" rel="noopener noreferrer">
   <Card>
@@ -28,49 +29,40 @@ const {
       <div class="title">
         <RepoIcon />
         <span>{name}</span>
-        {
-          isArchived ? (
-            <span class="public archived">Public archive</span>
-          ) : (
-            <span class="public">Public</span>
-          )
-        }
+        {#if isArchived}
+          <span class="public archived">Public archive</span>
+        {:else}
+          <span class="public">Public</span>
+        {/if}
       </div>
       <p class="description">{description ?? ''}</p>
       <div class="information">
-        {
-          !!primaryLanguage.name && (
-            <div class="primaryLanguage">
-              <span
-                class="color"
-                style={{ '--color-language': primaryLanguage.color }}
-              />
-              <span class="name">{primaryLanguage.name}</span>
-            </div>
-          )
-        }
-        {
-          !!stargazerCount && (
-            <span class="stargazerCount">
-              <StarIcon />
-              {stargazerCount}
-            </span>
-          )
-        }
+        {#if !!primaryLanguage.name}
+          <div class="primaryLanguage">
+            <span
+              class="color"
+              style="--color-language: {primaryLanguage.color}"
+            />
+            <span class="name">{primaryLanguage.name}</span>
+          </div>
+        {/if}
+        {#if !!stargazerCount}
+          <span class="stargazerCount">
+            <StarIcon />
+            {stargazerCount}
+          </span>
+        {/if}
       </div>
     </div>
   </Card>
 </a>
 
-<style is:global>
-  .repository svg {
+<style>
+  :global(.repository svg) {
     width: 1rem;
     aspect-ratio: 1;
     color: rgb(var(--color-lightgray));
   }
-</style>
-
-<style>
   .repository {
     height: 100%;
     display: flex;

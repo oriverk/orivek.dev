@@ -1,21 +1,42 @@
----
-import urlJoin from 'url-join'
-import siteConfig from '../../site.config'
-import GithubIcon from './ui/icons/GithubIcon.astro'
-import ZennIcon from './ui/icons/ZennIcon.astro'
-import XIcon from './ui/icons/X.astro'
-import PencilIcon from './ui/icons/PencilIcon.astro'
-import MagnifyingGlass from './ui/icons/MagnifyingGlass.svelte'
-import Search from '../components/Search/index.svelte'
+<script lang="ts">
+  import urlJoin from 'url-join'
+  import siteConfig from '../../site.config'
+  import GithubIcon from './ui/icons/GithubIcon.svelte'
+  import ZennIcon from './ui/icons/ZennIcon.svelte'
+  import XIcon from './ui/icons/X.svelte'
+  import PencilIcon from './ui/icons/PencilIcon.svelte'
+  import MagnifyingGlass from './ui/icons/MagnifyingGlass.svelte'
+  import Search from './Search/index.svelte'
+  import Dialog from './ui/Dialog.svelte'
 
-const { blogPath, github, zenn, x } = siteConfig
----
+  const { blogPath, github, zenn, x } = siteConfig
+
+  let dialog: HTMLDialogElement
+  function openDialog() {
+    dialog.showModal()
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dialog?.close()
+      }
+    })
+
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        dialog?.close()
+      }
+    })
+  }
+
+  function closeDialog() {
+    dialog.close()
+  }
+</script>
 
 <div class="hero">
   <h1>Kawano Yudai</h1>
   <p><span class="text-gradient">Agr.</span> → ? / Bicycle</p>
   <div class="links">
-    <button type="button" id="search-button">
+    <button type="button" on:click={openDialog}>
       <MagnifyingGlass title="Search" />
       <span class="sr-only">Search</span>
     </button>
@@ -35,7 +56,7 @@ const { blogPath, github, zenn, x } = siteConfig
       href={urlJoin('https://twitter.com', x)}
       target="_blank"
       rel="noopener noreferrer"
-      >
+    >
       <XIcon title={'@' + x} />
       <span class="sr-only">X link</span>
     </a>
@@ -47,47 +68,17 @@ const { blogPath, github, zenn, x } = siteConfig
       <ZennIcon title={'@' + zenn} />
       <span class="sr-only">Zenn.dev link</span>
     </a>
-    
   </div>
-  <dialog id="search-dialog">
-    <Search client:only="svelte" />
-  </dialog>
+  <Dialog bind:dialog on:closeDialog={closeDialog}>
+    <Search />
+  </Dialog>
 </div>
 
-<script>
-  const searchButton =
-    document.querySelector<HTMLButtonElement>('#search-button')
-  const dialog = document.querySelector<HTMLDialogElement>('#search-dialog')
-
-  document?.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      dialog?.close()
-    }
-  })
-
-  searchButton?.addEventListener('click', () => {
-    dialog?.showModal()
-  })
-
-  dialog?.addEventListener('click', (e) => {
-    if (e.target === dialog) {
-      dialog?.close()
-    }
-  })
-</script>
-
-<style is:global>
-  .links svg {
+<style>
+  :global(.links svg) {
     width: 2rem;
     aspect-ratio: 1;
   }
-
-  html:has(dialog[open]) {
-    overflow: hidden;
-  }
-</style>
-
-<style>
   .hero {
     display: flex;
     flex-direction: column;
@@ -136,58 +127,5 @@ const { blogPath, github, zenn, x } = siteConfig
 
   .links > *:hover {
     background-color: rgba(0 0 0 / 0.3);
-  }
-
-  dialog {
-    max-width: 1024px;
-    width: 80%;
-    height: 80%;
-    padding: 1rem;
-    background-color: rgb(var(--color-black));
-    border-radius: 0.2em;
-  }
-
-  @media (min-width: 640px) {
-    dialog {
-      width: 50%;
-    }
-  }
-
-  @media (min-width: 768px) {
-    dialog {
-      width: 60%;
-    }
-  }
-
-  dialog::backdrop {
-    background: rgb(0 0 0 / 70%);
-  }
-
-  dialog[open] {
-    animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  @keyframes zoom {
-    from {
-      transform: scale(0.95);
-    }
-
-    to {
-      transform: scale(1);
-    }
-  }
-
-  dialog[open]::backdrop {
-    animation: fade 0.2s ease-out;
-  }
-
-  @keyframes fade {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
   }
 </style>

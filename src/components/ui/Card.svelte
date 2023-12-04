@@ -1,13 +1,8 @@
----
-import clsx from 'clsx'
-
-interface Props {
-  className?: string
-  disabled?: boolean
-}
-
-const { className, disabled = false } = Astro.props
----
+<script lang="ts">
+  import clsx from 'clsx'
+  export let className: string = ''
+  export let disabled: boolean = false
+</script>
 
 <div class={clsx('card', className, disabled && 'disabled')}>
   <div>
@@ -15,13 +10,11 @@ const { className, disabled = false } = Astro.props
   </div>
 </div>
 
-<style is:global>
-  a:has(.card) {
+<style>
+  :global(a:has(.card)) {
     text-decoration: none;
   }
-</style>
 
-<style>
   .card {
     height: 100%;
     padding: 0.15rem;
@@ -31,7 +24,8 @@ const { className, disabled = false } = Astro.props
     border-radius: 0.6rem;
     background-position: 100%;
     transition: background-position 600ms var(--cubic-bezier);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
       0 2px 4px -2px rgba(0, 0, 0, 0.1);
   }
 
