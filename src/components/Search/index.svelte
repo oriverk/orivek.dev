@@ -5,7 +5,7 @@
   import { searchAlgolia } from '../../utils/algolia'
   import SearchInput from './SearchInput.svelte'
   import BlogHit from './BlogHit.svelte'
-  import AlgoliaIcon from '../ui/icons/AlgoliaIcon.svelte'
+  import AlgoliaIcon from './AlgoliaIcon.svelte'
 
   let results: SearchResponse<AlgoliaBlog>
   let hits: Hit<AlgoliaBlog>[] = []
@@ -88,7 +88,7 @@
       target="_blank"
       rel="noopener noreferrer"
     >
-      <AlgoliaIcon />
+      <AlgoliaIcon height="1.25rem" />
     </a>
   </div>
   {#if !results?.nbHits}
@@ -121,10 +121,6 @@
     margin: 1rem 0;
     display: flex;
     justify-content: flex-end;
-  }
-
-  .search-icon-wrapper :global(svg) {
-    height: 1.25rem;
   }
 
   .search-results-wrapper {

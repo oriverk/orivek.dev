@@ -3,12 +3,14 @@
 
   export let className: string = ''
   export let title: string = ''
+  export let height: string = ''
 </script>
 
 <svg
   viewBox="0 0 572 64"
   xmlns="http://www.w3.org/2000/svg"
   class={clsx('ais-PoweredBy-log', className)}
+  {height}
 >
   {#if title}
     <title>{title}</title>
