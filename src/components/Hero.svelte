@@ -1,11 +1,7 @@
 <script lang="ts">
   import urlJoin from 'url-join'
   import siteConfig from '../../site.config'
-  import GithubIcon from './ui/icons/GithubIcon.svelte'
-  import ZennIcon from './ui/icons/ZennIcon.svelte'
-  import XIcon from './ui/icons/X.svelte'
-  import PencilIcon from './ui/icons/PencilIcon.svelte'
-  import MagnifyingGlass from './ui/icons/MagnifyingGlass.svelte'
+  import Icon from './ui/Icon.svelte'
   import Search from './Search/index.svelte'
   import Dialog from './ui/Dialog.svelte'
 
@@ -36,36 +32,39 @@
   <h1>Kawano Yudai</h1>
   <p><span class="text-gradient">Agr.</span> → ? / Bicycle</p>
   <div class="links">
-    <button type="button" on:click={openDialog}>
-      <MagnifyingGlass title="Search" />
+    <button type="button" on:click={openDialog} title="Search">
+      <Icon type="magnifyingGlass" size="medium" />
       <span class="sr-only">Search</span>
     </button>
     <a href={blogPath} title="Blog" target="_blank" rel="noopener noreferrer">
-      <PencilIcon title="blog.oriverk.dev" />
+      <Icon type="pencil" size="medium" />
       <span class="sr-only">Blog link</span>
     </a>
     <a
       href={urlJoin('https://github.com', github)}
       target="_blank"
       rel="noopener noreferrer"
+      title={'@' + github}
     >
-      <GithubIcon title={'@' + github} />
+      <Icon type="github" size="medium" />
       <span class="sr-only">GitHub link</span>
     </a>
     <a
       href={urlJoin('https://twitter.com', x)}
       target="_blank"
       rel="noopener noreferrer"
+      title={'@' + x}
     >
-      <XIcon title={'@' + x} />
+      <Icon type="x" size="medium" />
       <span class="sr-only">X link</span>
     </a>
     <a
       href={urlJoin('https://zenn.dev', zenn)}
       target="_blank"
       rel="noopener noreferrer"
+      title={'@' + zenn}
     >
-      <ZennIcon title={'@' + zenn} />
+      <Icon type="zenn" size="medium" />
       <span class="sr-only">Zenn.dev link</span>
     </a>
   </div>
@@ -75,10 +74,6 @@
 </div>
 
 <style>
-  :global(.links svg) {
-    width: 2rem;
-    aspect-ratio: 1;
-  }
   .hero {
     display: flex;
     flex-direction: column;
@@ -114,7 +109,8 @@
     gap: 0.5rem;
   }
 
-  .links > * {
+  .links > a,
+  .links > button {
     width: 3rem;
     display: flex;
     justify-content: center;
@@ -125,7 +121,8 @@
     background-color: rgb(var(--color-hover));
   }
 
-  .links > *:hover {
+  .links > a:hover,
+  .links > button:hover {
     background-color: rgba(0 0 0 / 0.3);
   }
 </style>

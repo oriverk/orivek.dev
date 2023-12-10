@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { Repository, Language } from '@octokit/graphql-schema'
   import Card from './ui/Card.svelte'
-  import StarIcon from './ui/icons/StarIcon.svelte'
-  import RepoIcon from './ui/icons/RepoIcon.svelte'
+  import Icon from './ui/Icon.svelte'
 
   interface $$Props
     extends Pick<
@@ -27,7 +26,7 @@
   <Card>
     <div class="repository">
       <div class="title">
-        <RepoIcon />
+        <Icon type="repository" size="small" />
         <span>{name}</span>
         {#if isArchived}
           <span class="public archived">Public archive</span>
@@ -48,7 +47,7 @@
         {/if}
         {#if !!stargazerCount}
           <span class="stargazerCount">
-            <StarIcon />
+            <Icon type="star" size="small" />
             {stargazerCount}
           </span>
         {/if}
@@ -58,11 +57,6 @@
 </a>
 
 <style>
-  :global(.repository svg) {
-    width: 1rem;
-    aspect-ratio: 1;
-    color: rgb(var(--color-lightgray));
-  }
   .repository {
     height: 100%;
     display: flex;

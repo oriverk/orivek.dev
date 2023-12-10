@@ -1,24 +1,22 @@
 ---
-import OriverIcon from '../components/ui/icons/OriverIcon.svelte'
+import Icon from '../components/ui/Icon.svelte'
 ---
 
 <nav>
   <a href="/" class="home">
-    <OriverIcon className="icon" />
+    <Icon type="oriver" size="medium" />
     <span class="sr-only">home</span>
   </a>
   <a href="/about" class="about">About me</a>
 </nav>
 
 <style is:global>
-  .home .icon {
-    width: 2rem;
-    margin: 0.5rem;
+  .icon.oriver::before {
     background-size: 100%;
     transition: background-size 600ms var(--cubic-bezier);
   }
 
-  .home:hover .icon {
+  .home:hover .icon.oriver::before {
     background-size: 400%;
   }
 </style>
@@ -34,6 +32,7 @@ import OriverIcon from '../components/ui/icons/OriverIcon.svelte'
 
   .home {
     text-decoration: none;
+    margin: 0.5rem;
   }
 
   .about {
