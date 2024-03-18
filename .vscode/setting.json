@@ -1,20 +1,8 @@
 {
   "editor.formatOnSave": true,
-  "editor.deafultFormatter": "esbenp.prettier-vscode",
-  "editor.codeActionsOnSave": [
-    "source.addMissingImports",
-    "source.fixAll.eslint"
-  ],
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "astro",
-    "typescript",
-    "typescriptreact"
-  ],
-  "[svelte]": {
-    "editor.formatOnSave": true,
-    "editor.deafultFormatter": "svelte.svelte-vscode"
+  "editor.deafultFormatter": "biomejs.biome",
+  "editor.codeActionsOnSave": {
+    "quickfix.biome": "explicit",
+    "source.organizeImports.biome": "explicit"
   }
-
 }
