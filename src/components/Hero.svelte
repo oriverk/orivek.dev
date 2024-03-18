@@ -1,31 +1,31 @@
 <script lang="ts">
-  import urlJoin from 'url-join'
-  import siteConfig from '../../site.config'
-  import Icon from './ui/Icon.svelte'
-  import Search from './Search/index.svelte'
-  import Dialog from './ui/Dialog.svelte'
+import urlJoin from "url-join";
+import siteConfig from "../../site.config";
+import Search from "./Search/index.svelte";
+import Dialog from "./ui/Dialog.svelte";
+import Icon from "./ui/Icon.svelte";
 
-  const { blogPath, github, zenn, x } = siteConfig
+const { blogPath, github, zenn, x } = siteConfig;
 
-  let dialog: HTMLDialogElement
-  function openDialog() {
-    dialog.showModal()
-    dialog.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        dialog?.close()
-      }
-    })
+let dialog: HTMLDialogElement;
+function openDialog() {
+  dialog.showModal();
+  dialog.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      dialog?.close();
+    }
+  });
 
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) {
-        dialog?.close()
-      }
-    })
-  }
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) {
+      dialog?.close();
+    }
+  });
+}
 
-  function closeDialog() {
-    dialog.close()
-  }
+function closeDialog() {
+  dialog.close();
+}
 </script>
 
 <div class="hero">

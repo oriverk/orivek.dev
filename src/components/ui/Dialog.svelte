@@ -1,9 +1,9 @@
 <script lang="ts">
-  export let dialog: HTMLDialogElement
-  // const dispatch = createEventDispatcher();
-  // function onClose(){
-  //   dispatch('closeDialog')
-  // }
+export let dialog: HTMLDialogElement;
+// const dispatch = createEventDispatcher();
+// function onClose(){
+//   dispatch('closeDialog')
+// }
 </script>
 
 <dialog bind:this={dialog}>

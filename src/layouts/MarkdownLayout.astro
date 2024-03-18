@@ -1,19 +1,16 @@
 ---
-import Layout from './Layout.astro'
-import ContentWrapper from '../components/ui/ContentWrapper.svelte'
-import Markdown from '../components/ui/Markdown.svelte'
+import type { MarkdownLayoutProps } from "astro";
+import ContentWrapper from "../components/ui/ContentWrapper.svelte";
+import Markdown from "../components/ui/Markdown.svelte";
+import Layout from "./Layout.astro";
 
-export interface Props {
-  title: string
-  noindex?: boolean
-  markdown?: string
-  frontmatter?: Record<string, any>
-}
-const { frontmatter } = Astro.props as Props
-const { title = 'post', noindex = false } = frontmatter as {
-  title?: string
-  noindex?: boolean
-}
+type Props = MarkdownLayoutProps<{
+  title: string;
+  noindex?: boolean;
+}>;
+
+const { frontmatter } = Astro.props;
+const { title, noindex = false } = frontmatter;
 ---
 
 <Layout title={title} noindex={noindex}>

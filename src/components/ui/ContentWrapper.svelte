@@ -1,6 +1,6 @@
 <script lang="ts">
-  import clsx from 'clsx'
-  export let className: string = ''
+import clsx from "clsx";
+export let className = "";
 </script>
 
 <div class={clsx('content-wrapper', className)}>

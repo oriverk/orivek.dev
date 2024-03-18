@@ -1,23 +1,23 @@
 <script lang="ts">
-  import clsx from 'clsx'
+import clsx from "clsx";
 
-  interface $$Props {
-    type:
-      | 'oriver'
-      | 'github'
-      | 'zenn'
-      | 'x'
-      | 'pencil'
-      | 'magnifyingGlass'
-      | 'repository'
-      | 'star'
-    size?: 'small' | 'medium' | 'large' | 'xlarge'
-    color?: 'white' | 'black' | 'gray'
-    style?: string
-  }
+interface $$Props {
+  type:
+    | "oriver"
+    | "github"
+    | "zenn"
+    | "x"
+    | "pencil"
+    | "magnifyingGlass"
+    | "repository"
+    | "star";
+  size?: "small" | "medium" | "large" | "xlarge";
+  color?: "white" | "black" | "gray";
+  style?: string;
+}
 
-  let { type, size, color, style } = $$props as $$Props
-  export { type, size, color, style }
+let { type, size, color, style } = $$props as $$Props;
+export { type, size, color, style };
 </script>
 
 <span class={clsx('icon', type, size, color)} {style} />

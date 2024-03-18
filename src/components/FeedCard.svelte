@@ -1,16 +1,16 @@
 <script lang="ts">
-  import type { FeedItem } from '../types/feed'
-  import { getFaviconSrcFromOrigin } from '../utils/feed'
-  import { getTimeFromNow } from '../utils/getTimeFromNow'
-  import Card from './ui/Card.svelte'
+import type { FeedItem } from "../types/feed";
+import { getFaviconSrcFromOrigin } from "../utils/feed";
+import { getTimeFromNow } from "../utils/getTimeFromNow";
+import Card from "./ui/Card.svelte";
 
-  interface $$Props
-    extends Pick<FeedItem, 'title' | 'link' | 'dateMiliSeconds'> {}
+interface $$Props
+  extends Pick<FeedItem, "title" | "link" | "dateMiliSeconds"> {}
 
-  let { title, link, dateMiliSeconds } = $$props as $$Props
-  export { title, link, dateMiliSeconds }
-  const timeString = getTimeFromNow(dateMiliSeconds) + ' ago'
-  const { hostname, origin } = new URL(link)
+let { title, link, dateMiliSeconds } = $$props as $$Props;
+export { title, link, dateMiliSeconds };
+const timeString = `${getTimeFromNow(dateMiliSeconds)} ago`;
+const { hostname, origin } = new URL(link);
 </script>
 
 <a class="feed-card" href={link} target="_blank" rel="noopenner noreferrer">

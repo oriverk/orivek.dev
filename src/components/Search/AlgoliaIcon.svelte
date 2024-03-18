@@ -1,9 +1,9 @@
 <script lang="ts">
-  import clsx from 'clsx'
+import clsx from "clsx";
 
-  export let className: string = ''
-  export let title: string = ''
-  export let height: string = ''
+export let className = "";
+export let title = "";
+export let height = "";
 </script>
 
 <svg

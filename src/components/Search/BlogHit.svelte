@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { Hit } from '@algolia/client-search'
-  import type { AlgoliaBlog } from '../../types/algolia'
+import type { Hit } from "@algolia/client-search";
+import type { AlgoliaBlog } from "../../types/algolia";
 
-  interface $$Props extends Hit<AlgoliaBlog> {
-    selected: boolean
-  }
+interface $$Props extends Hit<AlgoliaBlog> {
+  selected: boolean;
+}
 
-  let { selected, id, title, tags } = $$props as $$Props
-  export { selected, id, title, tags }
+let { selected, id, title, tags } = $$props as $$Props;
+export { selected, id, title, tags };
 </script>
 
 <a

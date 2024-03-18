@@ -1,82 +1,82 @@
 <script lang="ts">
-  import type { SearchResponse, Hit } from '@algolia/client-search'
-  import type { AlgoliaBlog } from '../../types/algolia'
-  import { onMount } from 'svelte'
-  import { searchAlgolia } from '../../utils/algolia'
-  import SearchInput from './SearchInput.svelte'
-  import BlogHit from './BlogHit.svelte'
-  import AlgoliaIcon from './AlgoliaIcon.svelte'
+import type { Hit, SearchResponse } from "@algolia/client-search";
+import { onMount } from "svelte";
+import type { AlgoliaBlog } from "../../types/algolia";
+import { searchAlgolia } from "../../utils/algolia";
+import AlgoliaIcon from "./AlgoliaIcon.svelte";
+import BlogHit from "./BlogHit.svelte";
+import SearchInput from "./SearchInput.svelte";
 
-  let results: SearchResponse<AlgoliaBlog>
-  let hits: Hit<AlgoliaBlog>[] = []
-  let activeHit: number = -1
+let results: SearchResponse<AlgoliaBlog>;
+let hits: Hit<AlgoliaBlog>[] = [];
+let activeHit = -1;
 
-  let query: string
-  let debouncedQuery: string
-  const debounceDelay: number = 1000
-  let timer: NodeJS.Timeout
-  let anchor: HTMLAnchorElement
+let query: string;
+let debouncedQuery: string;
+const debounceDelay = 1000;
+let timer: NodeJS.Timeout;
+let anchor: HTMLAnchorElement;
 
-  function debounce(val: string) {
-    clearTimeout(timer)
-    timer = setTimeout(() => {
-      debouncedQuery = val
-    }, debounceDelay)
+function debounce(val: string) {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    debouncedQuery = val;
+  }, debounceDelay);
+}
+
+async function search(query: string) {
+  results = await searchAlgolia(query);
+  hits = results.hits;
+  activeHit = -1;
+}
+
+function goUp() {
+  activeHit = activeHit <= 0 ? activeHit : activeHit - 1;
+}
+
+function goDown() {
+  activeHit = activeHit >= results.hits.length - 1 ? activeHit : activeHit + 1;
+}
+
+function handleKeyDown(e: KeyboardEvent) {
+  if (e.key === "ArrowUp") {
+    goUp();
   }
-
-  async function search(query: string) {
-    results = await searchAlgolia(query)
-    hits = results.hits
-    activeHit = -1
+  if (e.key === "ArrowDown") {
+    goDown();
   }
-
-  function goUp() {
-    activeHit = activeHit <= 0 ? activeHit : activeHit - 1
+  if (e.key === "Enter") {
+    selectHit();
   }
+}
 
-  function goDown() {
-    activeHit = activeHit >= results.hits.length - 1 ? activeHit : activeHit + 1
+function selectHit() {
+  if (activeHit === -1) return;
+  if (hits[activeHit]) {
+    const { id } = results.hits[activeHit];
+    if (!anchor || !id) return;
+    anchor.setAttribute("href", `https://blog.oriverk.dev/entry/${id}`);
+    anchor.click();
   }
+}
 
-  function handleKeyDown(e: KeyboardEvent) {
-    if (e.key === 'ArrowUp') {
-      goUp()
-    }
-    if (e.key === 'ArrowDown') {
-      goDown()
-    }
-    if (e.key === 'Enter') {
-      selectHit()
-    }
-  }
+onMount(() => {
+  anchor = document.createElement("a");
+  return () => {
+    anchor.remove();
+    window.removeEventListener("keydown", handleKeyDown);
+  };
+});
 
-  function selectHit() {
-    if (activeHit === -1) return
-    if (hits[activeHit]) {
-      const { id } = results.hits[activeHit]
-      if (!anchor || !id) return
-      anchor.setAttribute('href', `https://blog.oriverk.dev/entry/${id}`)
-      anchor.click()
-    }
+$: {
+  if (!query) {
+    search(query);
   }
-
-  onMount(() => {
-    anchor = document.createElement('a')
-    return () => {
-      anchor.remove()
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  })
-
-  $: {
-    if (!query) {
-      search(query)
-    }
-    debounce(query)
-  }
-  $: {
-    search(debouncedQuery)
-  }
+  debounce(query);
+}
+$: {
+  search(debouncedQuery);
+}
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />

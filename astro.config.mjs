@@ -2,23 +2,22 @@
 import { defineConfig } from 'astro/config';
 import svelte from "@astrojs/svelte";
 import partytown from "@astrojs/partytown";
-import remarkComment from 'remark-comment'
-
-import { rehypeAnchor, rehypeFigure } from './src/utils/markdown'
+import remarkComment from 'remark-comment';
+import { rehypeAnchor, rehypeFigure } from './src/utils/markdown';
 
 // https://astro.build/config
 export default defineConfig({
+  publicDir: "./public",
   integrations: [
     svelte(),
     partytown({
-      // Adds dataLayer.push as a forwarding-event.
       config: {
-        forward: ["datalayer.push"],
+        forward: ["datalayer.push"]
       }
     })
   ],
   markdown: {
     remarkPlugins: [remarkComment],
-    rehypePlugins: [rehypeAnchor, rehypeFigure],
+    rehypePlugins: [rehypeAnchor, rehypeFigure]
   }
 });

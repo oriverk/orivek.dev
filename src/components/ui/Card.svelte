@@ -1,7 +1,7 @@
 <script lang="ts">
-  import clsx from 'clsx'
-  export let className: string = ''
-  export let disabled: boolean = false
+import clsx from "clsx";
+export let className = "";
+export let disabled = false;
 </script>
 
 <div class={clsx('card', className, disabled && 'disabled')}>

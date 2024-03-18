@@ -1,14 +1,14 @@
 <script lang="ts">
-  import type { HTMLInputAttributes } from 'svelte/elements'
-  import clsx from 'clsx'
-  import Icon from '../ui/Icon.svelte'
+import clsx from "clsx";
+import type { HTMLInputAttributes } from "svelte/elements";
+import Icon from "../ui/Icon.svelte";
 
-  interface $$Props extends Omit<HTMLInputAttributes, 'class'> {
-    className?: string
-  }
+interface $$Props extends Omit<HTMLInputAttributes, "class"> {
+  className?: string;
+}
 
-  let { className, value, placeholder = '検索' }: $$Props = $$props
-  export { className, value, placeholder }
+let { className, value, placeholder = "検索" }: $$Props = $$props;
+export { className, value, placeholder };
 </script>
 
 <div class={clsx('search-input-container', className)}>

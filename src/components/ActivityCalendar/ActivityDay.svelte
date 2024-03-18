@@ -1,17 +1,16 @@
 <script lang="ts">
-  import type { Activity, ActivityCalendar } from '../../types/activityCalendar'
+import type { Activity, ActivityCalendar } from "../../types/activityCalendar";
 
-  interface $$Props
-    extends Pick<ActivityCalendar, 'blockRadius' | 'blockSize'> {
-    day: Activity
-    color: string
-    y: number
-  }
+interface $$Props extends Pick<ActivityCalendar, "blockRadius" | "blockSize"> {
+  day: Activity;
+  color: string;
+  y: number;
+}
 
-  let { day, color, y, blockRadius, blockSize } = $$props as $$Props
-  export { day, color, y, blockRadius, blockSize }
-  const { date, level, count } = day
-  const label = `${count} contributions on ${date}`
+let { day, color, y, blockRadius, blockSize } = $$props as $$Props;
+export { day, color, y, blockRadius, blockSize };
+const { date, level, count } = day;
+const label = `${count} contributions on ${date}`;
 </script>
 
 <rect

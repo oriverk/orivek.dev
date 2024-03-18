@@ -1,53 +1,53 @@
 <script lang="ts">
-  import type { Activity, ActivityCalendar } from '../../types/activityCalendar'
-  import { parseContributionCalendarDay } from '../../utils/github/getActivityCalendar'
-  import Card from '../ui/Card.svelte'
-  import CalendarWeek from './ActivityWeek.svelte'
-  import ColorsLegend from './ColorLegend.svelte'
-  import MonthLegend from './MonthLegend.svelte'
-  import {
-    DEFAULT_COLORS,
-    DEFAULT_MONTH_LABELS,
-  } from '../../constants/activityCalendar'
+import {
+  DEFAULT_COLORS,
+  DEFAULT_MONTH_LABELS,
+} from "../../constants/activityCalendar";
+import type { Activity, ActivityCalendar } from "../../types/activityCalendar";
+import { parseContributionCalendarDay } from "../../utils/github/getActivityCalendar";
+import Card from "../ui/Card.svelte";
+import CalendarWeek from "./ActivityWeek.svelte";
+import ColorsLegend from "./ColorLegend.svelte";
+import MonthLegend from "./MonthLegend.svelte";
 
-  interface $$Props
-    extends Partial<Omit<ActivityCalendar, 'contributionCalendar'>> {
-    contributionCalendar: ActivityCalendar['contributionCalendar']
-  }
+interface $$Props
+  extends Partial<Omit<ActivityCalendar, "contributionCalendar">> {
+  contributionCalendar: ActivityCalendar["contributionCalendar"];
+}
 
-  let {
-    contributionCalendar,
-    blockMargin = 4,
-    blockRadius = 2,
-    blockSize = 12,
-    fontSize = 14,
-    hideMonthLabels = false,
-    colors = DEFAULT_COLORS,
-    monthLabels = DEFAULT_MONTH_LABELS,
-  } = $$props as $$Props
+let {
+  contributionCalendar,
+  blockMargin = 4,
+  blockRadius = 2,
+  blockSize = 12,
+  fontSize = 14,
+  hideMonthLabels = false,
+  colors = DEFAULT_COLORS,
+  monthLabels = DEFAULT_MONTH_LABELS,
+} = $$props as $$Props;
 
-  export {
-    contributionCalendar,
-    blockMargin,
-    blockRadius,
-    blockSize,
-    fontSize,
-    hideMonthLabels,
-    colors,
-    monthLabels,
-  }
+export {
+  contributionCalendar,
+  blockMargin,
+  blockRadius,
+  blockSize,
+  fontSize,
+  hideMonthLabels,
+  colors,
+  monthLabels,
+};
 
-  const { totalContributions, weeks } = contributionCalendar
-  const activityWeeks: Activity[][] = weeks.map((week) => {
-    return week.contributionDays.map((day) => {
-      return parseContributionCalendarDay(day)
-    })
-  })
-  const textHeight = hideMonthLabels ? 0 : fontSize + 2 * blockMargin
-  const dimentions = {
-    width: activityWeeks.length * (blockSize + blockMargin) - blockMargin,
-    height: textHeight + (blockSize + blockMargin) * 7 - blockMargin,
-  }
+const { totalContributions, weeks } = contributionCalendar;
+const activityWeeks: Activity[][] = weeks.map((week) => {
+  return week.contributionDays.map((day) => {
+    return parseContributionCalendarDay(day);
+  });
+});
+const textHeight = hideMonthLabels ? 0 : fontSize + 2 * blockMargin;
+const dimentions = {
+  width: activityWeeks.length * (blockSize + blockMargin) - blockMargin,
+  height: textHeight + (blockSize + blockMargin) * 7 - blockMargin,
+};
 </script>
 
 <Card className="activity" disabled>

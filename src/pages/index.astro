@@ -1,17 +1,17 @@
 ---
-import { getFeedItems } from '../utils/feed'
-import { getUserContent } from '../utils/github/getUserContent'
-import Layout from '../layouts/Layout.astro'
-import ContentWrapper from '../components/ui/ContentWrapper.svelte'
-import Hero from '../components/Hero.svelte'
-import RepositoryList from '../components/RepositoryList.svelte'
-import ActivityCalendar from '../components/ActivityCalendar/index.svelte'
-import FeedList from '../components/FeedList.svelte'
+import ActivityCalendar from "../components/ActivityCalendar/index.svelte";
+import FeedList from "../components/FeedList.svelte";
+import Hero from "../components/Hero.svelte";
+import RepositoryList from "../components/RepositoryList.svelte";
+import ContentWrapper from "../components/ui/ContentWrapper.svelte";
+import Layout from "../layouts/Layout.astro";
+import { getFeedItems } from "../utils/feed";
+import { getUserContent } from "../utils/github/getUserContent";
 
-const userContent = getUserContent()
-const feedItems = getFeedItems()
-const { repositoryItems, contributionCalendar } = userContent
-const colors = ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
+const userContent = getUserContent();
+const feedItems = getFeedItems();
+const { repositoryItems, contributionCalendar } = userContent;
+const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
 ---
 
 <Layout title="Home">

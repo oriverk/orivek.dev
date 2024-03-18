@@ -1,37 +1,34 @@
-import type { Plugin } from 'unified'
-import { visit } from 'unist-util-visit'
-import { is } from 'unist-util-is'
+import type { Plugin } from "unified";
+import { is } from "unist-util-is";
+import { visit } from "unist-util-visit";
 
-type Options = Record<string, any>
+export const rehypeFigure: Plugin = () => {
+  return (tree) => {
+    visit(tree, (node) => {
+      if (is(node, { tagName: "p" })) {
+        // @ts-ignore
+        const children = node.children;
+        if (children.length === 1 && is(children[0], { tagName: "img" })) {
+          node.tagName = "figure";
 
-export const rehypeFigure: Plugin = (options: Options = {}) => {
-  return (tree: any) => {
-    visit(tree, (node: any) => {
-      if (is(node, { tagName: 'p' })) {
-        if (
-          node.children.length === 1 &&
-          is(node.children[0], { tagName: 'img' })
-        ) {
-          node.tagName = 'figure'
+          children[0].properties.loading = "lazy";
+          children[0].properties.decoding = "async";
 
-          node.children[0].properties.loading = 'lazy'
-          node.children[0].properties.decoding = 'async'
-
-          if (node.children[0].properties.title) {
-            node.children.push({
-              type: 'element',
-              tagName: 'figcaption',
+          if (children[0].properties.title) {
+            children.push({
+              type: "element",
+              tagName: "figcaption",
               properties: {},
               children: [
                 {
-                  type: 'text',
-                  value: node.children[0].properties.title,
+                  type: "text",
+                  value: children[0].properties.title,
                 },
               ],
-            })
+            });
           }
         }
       }
-    })
-  }
-}
+    });
+  };
+};
