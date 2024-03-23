@@ -1,5 +1,5 @@
-import { is } from "unist-util-is";
 import type { Plugin } from "unified";
+import { is } from "unist-util-is";
 import { visit } from "unist-util-visit";
 
 export const rehypeFigure: Plugin = () => {

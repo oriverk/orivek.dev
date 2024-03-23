@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Hierarchy } from "../../../utils/getPosts";
+import type { Hierarchy } from "../../../utils/getPosts";
 
-  export let heading: Hierarchy;
-  const { slug, text, subHeadings } = heading;
+export let heading: Hierarchy;
+const { slug, text, subHeadings } = heading;
 </script>
 
 <li>

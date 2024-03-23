@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { Hierarchy } from "../../../utils/getPosts";
-  import TocList from "./TocList.svelte";
+import type { Hierarchy } from "../../../utils/getPosts";
+import TocList from "./TocList.svelte";
 
-  export let toc: Hierarchy[];
+export let toc: Hierarchy[];
 </script>
 
 {#if toc.length}

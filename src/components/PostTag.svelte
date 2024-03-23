@@ -1,6 +1,6 @@
 <script lang="ts">
-  export let tag: string;
-  export let href = ""
+export let tag: string;
+export let href = "";
 </script>
 
 {#if href}

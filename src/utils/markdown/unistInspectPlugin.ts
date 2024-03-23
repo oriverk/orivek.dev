@@ -1,4 +1,4 @@
-import type { Plugin} from "unified";
+import type { Plugin } from "unified";
 import type { Node } from "unist";
 import { inspect } from "unist-util-inspect";
 
@@ -7,4 +7,3 @@ export const unistInspectPlugin: Plugin = () => {
     console.log(inspect(tree));
   };
 };
-

@@ -1,14 +1,14 @@
 <script lang="ts">
-  import type { Page } from "astro";
+import type { Page } from "astro";
 
-  interface $$Props extends Omit<Page, 'data'>{};
-  let { start, end, total, currentPage, size, lastPage, url } = $$props as $$Props
-  export { start, end, total, currentPage, size, lastPage, url }
-  const { current, prev, next } = url
-  const maxPage = Math.ceil(total/size)
-  const curr = (index: number) => index === currentPage ? "page" : null
-  const tab = (index: number) => index === currentPage ? -1 : 0
-
+interface $$Props extends Omit<Page, "data"> {}
+let { start, end, total, currentPage, size, lastPage, url } =
+  $$props as $$Props;
+export { start, end, total, currentPage, size, lastPage, url };
+const { current, prev, next } = url;
+const maxPage = Math.ceil(total / size);
+const curr = (index: number) => (index === currentPage ? "page" : null);
+const tab = (index: number) => (index === currentPage ? -1 : 0);
 </script>
 
 <ol>

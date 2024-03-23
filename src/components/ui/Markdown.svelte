@@ -1,8 +1,8 @@
 <script lang="ts">
-  import "remark-github-alerts/styles/github-colors-light.css";
-  import "remark-github-alerts/styles/github-colors-dark-class.css";
-  import "remark-github-alerts/styles/github-base.css";
-  import 'katex/dist/katex.min.css'
+import "katex/dist/katex.min.css";
+import "remark-github-alerts/styles/github-base.css";
+import "remark-github-alerts/styles/github-colors-dark-class.css";
+import "remark-github-alerts/styles/github-colors-light.css";
 </script>
 
 <div class="markdown">

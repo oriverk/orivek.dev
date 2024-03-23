@@ -1,10 +1,5 @@
-import type {
-  Paragraph,
-  Text,
-  Link,
-  Code,
-} from "mdast";
-import type { Node, Parent, Literal } from "unist";
+import type { Code, Link, Paragraph, Text } from "mdast";
+import type { Literal, Node, Parent } from "unist";
 
 function isObject(target: unknown): target is Record<string, unknown> {
   return typeof target === "object" && target !== null;
@@ -39,7 +34,7 @@ export function isText(node: unknown): node is Text {
 
 // https://github.com/syntax-tree/mdast?tab=readme-ov-file#code
 export function isCode(node: unknown): node is Code {
-  return isNode(node) && node.type === "code"
+  return isNode(node) && node.type === "code";
 }
 
 export function isLink(node: unknown): node is Link {

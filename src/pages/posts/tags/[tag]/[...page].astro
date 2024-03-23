@@ -1,23 +1,23 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { getPosts, getTags } from "../../../../utils/getPosts";
-import Layout from "../../../../layouts/Layout.astro"
+import PostCard from "../../../../components/PostCard.svelte";
+import PostPagination from "../../../../components/PostPagination.svelte";
 import ContentWrapper from "../../../../components/ui/ContentWrapper.svelte";
-import PostPagination from "../../../../components/PostPagination.svelte"
-import PostCard from "../../../../components/PostCard.svelte"
+import Layout from "../../../../layouts/Layout.astro";
+import { getPosts, getTags } from "../../../../utils/getPosts";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getPosts();
-  const tags = await getTags()
-  return tags.flatMap(tag => {
-    const postsWithTag = posts.filter((post) => post.data.tags.includes(tag))
-    return paginate(postsWithTag, { params: {tag}, pageSize: 12});
-  })
+  const tags = await getTags();
+  return tags.flatMap((tag) => {
+    const postsWithTag = posts.filter((post) => post.data.tags.includes(tag));
+    return paginate(postsWithTag, { params: { tag }, pageSize: 12 });
+  });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
-const { data, ...rest } = page; 
-const { tag} = Astro.params;
+const { data, ...rest } = page;
+const { tag } = Astro.params;
 ---
 
 <Layout title={`#${tag} posts`}>

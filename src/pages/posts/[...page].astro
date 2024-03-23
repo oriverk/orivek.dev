@@ -1,14 +1,14 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { getPosts } from "../../utils/getPosts"
-import Layout from "../../layouts/Layout.astro";
+import PostCard from "../../components/PostCard.svelte";
+import PostPagination from "../../components/PostPagination.svelte";
 import ContentWrapper from "../../components/ui/ContentWrapper.svelte";
-import PostPagination from "../../components/PostPagination.svelte"
-import PostCard from "../../components/PostCard.svelte"
+import Layout from "../../layouts/Layout.astro";
+import { getPosts } from "../../utils/getPosts";
 
-export const getStaticPaths = (async({ paginate }) => {
-  const posts = await getPosts()
-  return paginate(posts, { pageSize: 12})
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getPosts();
+  return paginate(posts, { pageSize: 12 });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;

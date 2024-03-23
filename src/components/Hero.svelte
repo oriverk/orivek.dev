@@ -26,7 +26,6 @@ function openDialog() {
 function closeDialog() {
   dialog.close();
 }
-
 </script>
 
 <div class="hero">

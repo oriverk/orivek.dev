@@ -34,6 +34,16 @@
 	"overrides": [
 		{
 			"include": [
+				"*.jsonc"
+			],
+			"json": {
+				"parser": {
+					"allowComments": true
+				}
+			}
+		},
+		{
+			"include": [
 				"*.svelte"
 			],
 			"linter": {

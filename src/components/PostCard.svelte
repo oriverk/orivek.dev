@@ -1,15 +1,15 @@
 <script lang="ts">
-  import PostTag from "./PostTag.svelte";
+import PostTag from "./PostTag.svelte";
 
-  interface $$Props {
-    title: string;
-    tags?: string[]
-    create: string;
-    update?: string;
-    href: string;
-  }
-  let { title, tags = [], create, update, href} = $$props as $$Props;
-  export { title, tags, create, update, href}
+interface $$Props {
+  title: string;
+  tags?: string[];
+  create: string;
+  update?: string;
+  href: string;
+}
+let { title, tags = [], create, update, href } = $$props as $$Props;
+export { title, tags, create, update, href };
 </script>
 
 <article>

@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { HTMLDetailsAttributes } from 'svelte/elements'
+import type { HTMLDetailsAttributes } from "svelte/elements";
 
-  interface $$Props extends Omit<HTMLDetailsAttributes, 'class'> {
-    summary: string
-    className?: string
-  }
+interface $$Props extends Omit<HTMLDetailsAttributes, "class"> {
+  summary: string;
+  className?: string;
+}
 
-  let { summary, className } = $$props as $$Props
-  export { summary, className }
+let { summary, className } = $$props as $$Props;
+export { summary, className };
 </script>
 
 <details

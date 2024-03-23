@@ -1,17 +1,18 @@
-// https://www.kevinzunigacuellar.com/blog/google-analytics-in-astro/
-import { defineConfig } from 'astro/config';
-// import partytown from "@astrojs/partytown";
-import svelte from "@astrojs/svelte";
 import mdx from "@astrojs/mdx";
-import remarkMath from "remark-math";
-import remarkComment from 'remark-comment';
-import remarkGithubAlerts from "remark-github-alerts";
-import rehypeKatex from "rehype-katex";
-import { remarkFencedCodeBlock, rehypeAnchor, rehypeFigure } from "./src/utils/markdown";
-import expressiveCode from "astro-expressive-code";
-import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
-
 import partytown from "@astrojs/partytown";
+import svelte from "@astrojs/svelte";
+import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
+import expressiveCode from "astro-expressive-code";
+import { defineConfig } from "astro/config";
+import rehypeKatex from "rehype-katex";
+import remarkComment from "remark-comment";
+import remarkGithubAlerts from "remark-github-alerts";
+import remarkMath from "remark-math";
+import {
+  rehypeAnchor,
+  rehypeFigure,
+  remarkFencedCodeBlock,
+} from "./src/utils/markdown";
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,18 +29,23 @@ export default defineConfig({
       themes: ["github-dark"],
       plugins: [pluginLineNumbers()],
       defaultProps: {
-        wrap: false
+        wrap: false,
       },
       frames: {
         showCopyToClipboardButton: true,
-        removeCommentsWhenCopyingTerminalFrames: true
-      }
+        removeCommentsWhenCopyingTerminalFrames: true,
+      },
     }),
-    mdx()
+    mdx(),
   ],
   markdown: {
-    remarkPlugins: [remarkComment, remarkMath, remarkFencedCodeBlock, remarkGithubAlerts],
+    remarkPlugins: [
+      remarkComment,
+      remarkMath,
+      remarkFencedCodeBlock,
+      remarkGithubAlerts,
+    ],
     rehypePlugins: [rehypeAnchor, rehypeFigure, rehypeKatex],
-    gfm: true
-  }
+    gfm: true,
+  },
 });

@@ -1,16 +1,16 @@
-import type { Parent } from "unist";
 import type { Plugin } from "unified";
+import type { Parent } from "unist";
 import { visit } from "unist-util-visit";
-import { isParent, isCode} from "./isMdastNode"
+import { isCode, isParent } from "./isMdastNode";
 
 export const remarkFencedCodeBlock: Plugin = () => {
   return (tree) => {
     visit(tree, isCode, (node, _index, parent: Parent | undefined) => {
-      if(!isParent(parent)) return;
-      const [lang, filename] = (node.lang || "").split(":")
-      if(!lang) return;
+      if (!isParent(parent)) return;
+      const [lang, filename] = (node.lang || "").split(":");
+      if (!lang) return;
       node.lang = lang;
-      node.meta = `title=${filename} ${node?.meta || ""}`
-    })
-  }
-}
+      node.meta = `title=${filename} ${node?.meta || ""}`;
+    });
+  };
+};
