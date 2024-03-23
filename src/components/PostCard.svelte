@@ -22,7 +22,7 @@
     <time>{update || create}</time>
     <div class="tags">
       {#each tags as tag}
-        <PostTag {tag} />
+        <PostTag {tag} href={`/posts/tags/${tag}`} />
       {/each}
     </div>
   </div>
@@ -65,7 +65,7 @@
 
   .tags {
     display: flex;
-    gap: .75rem;
+    column-gap: .75rem;
     flex-wrap: wrap;
   }
 </style>

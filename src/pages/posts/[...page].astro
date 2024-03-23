@@ -12,7 +12,7 @@ export const getStaticPaths = (async({ paginate }) => {
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
-const { data: posts, ...rest } = page;
+const { data, ...rest } = page;
 ---
 
 <Layout title="posts">
@@ -22,12 +22,12 @@ const { data: posts, ...rest } = page;
       <PostPagination {...rest} />
     </div>
     <div class="posts">
-      {posts.map(post => {
+      {data.map(post => {
         const {slug, data} = post
-        const {title, tags, update = "", create} = data;
+        const { update, ...rest } = data;
         const href = `/posts/${slug}`
         return (
-          <PostCard {href} {title} {tags} {create} update={update || ""} />
+          <PostCard {href} update={update || ""} {...rest} />
         )
       })}
     </div>

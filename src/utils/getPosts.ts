@@ -19,6 +19,12 @@ export async function getPosts(){
   return posts
 }
 
+export async function getTags(){
+  const posts = await getPosts();
+  const tags = posts.flatMap((post) => post.data.tags ?? []);
+  return [...new Set(tags)]
+}
+
 export interface Hierarchy extends MarkdownHeading {
   subHeadings: MarkdownHeading[]
 }
