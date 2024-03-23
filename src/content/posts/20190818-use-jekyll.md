@@ -6,13 +6,13 @@ tags: [githubpages, jekyll]
 published: true
 ---
 
-from [Qiita: GithubPagesでjekyllを使ってみよう](https://qiita.com/OriverK/items/ce48102c66c9fa97b33e)より
+from [Qiita: GithubPagesでjekyllを使ってみよう](https://qiita.com/OriverK/items/ce48102c66c9fa97b33e) より
 
-GithubPagesJekyllを利用し、静的ページを作成した。
+GithubPagesJekyll を利用し、静的ページを作成した。
 
 ## major update history
 
-- 20190825：GithubPages with jekyll作成
+- 20190825：GithubPages with jekyll 作成
   - 目的：自分の情報などを纏めるサイト作成の為
   - remote theme：[fongandrew / hydeout](https://github.com/fongandrew/hydeout)
 - 20191206：デザイン等変更
@@ -46,7 +46,7 @@ jekyll new oriverk.github.io
 
 ### Gitリモートリポジトリ作成、git push
 
-**リポジトリ名を `username.github.io`にすること**
+**リポジトリ名を `username.github.io` にすること**
 
 >> Github Pages HP
 >>If the first part of the repository doesn’t exactly match your username, it won’t work, so make sure to get it right.
@@ -61,20 +61,20 @@ jekyll new oriverk.github.io
 
 ### テーマをhydeoutに変更してみる
 
-上記の`jekyll new username.github.io`で作成したディレクトリに手を加えていく。
+上記の `jekyll new username.github.io` で作成したディレクトリに手を加えていく。
 
-まず、Gemfileを編集し、 `gem "github-pages"` をアンコメント。また、今回使用するテーマhydeoutのgemを書き加える。
+まず、Gemfile を編集し、 `gem "github-pages"` をアンコメント。また、今回使用するテーマ hydeout の gem を書き加える。
 
-```rb:Gemfile
+```rb title=Gemfile
 # uncomment
 gem "github-pages", group: :jekyll_plugins
 # add
 gem "jekyll-theme-hydeout"
 ```
 
-次に `_config.yml` を編集する。今回はリモートテーマを使用するので、 themeを`remote_theme`に変更する。さらにプラグインも追加しておく。
+次に `_config.yml` を編集する。今回はリモートテーマを使用するので、 theme を `remote_theme` に変更する。さらにプラグインも追加しておく。
 
-```yml:_config.yml
+```yml title=_config.yml
 # theme: mininma
 remote_theme: fongandrew/hydeout
 
@@ -95,7 +95,7 @@ bundle exec jekyll server
 
 ### Layoutが見つからないエラー
 
-記事投稿中にターミナルログを消してしまって、エラー文を覚えていないが、該当の.mdファイル中の`Layout`を`Layout:page`に変えたら、エラーが解消された。
+記事投稿中にターミナルログを消してしまって、エラー文を覚えていないが、該当の.md ファイル中の `Layout` を `Layout:page` に変えたら、エラーが解消された。
 
 ### Invalid theme folder: _sass
 
@@ -116,7 +116,7 @@ bundle exec jekyll server
 
 `_include` フォルダ内に、 `head.html` ファイルを作成する
 
-```html:head.html
+```html title=head.html
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -134,7 +134,7 @@ bundle exec jekyll server
 
 ### ページネーション
 
-```yml:_config.yml
+```yml title=_config.yml
 # _config.yml
 plugins:
   - jekyll-paginate
@@ -153,7 +153,7 @@ bundle exec jekyll server
 
 - 参照: [Google Analytics for Jekyll](https://desiredpersona.com/google-analytics-jekyll/)
 
-```html:google-analytics.html
+```html title=google-analytics.html
 <!-- google-analytics.html -->
 {% if jekyll.environment == 'production' and site.google_analytics %}
 <script>
@@ -169,21 +169,21 @@ bundle exec jekyll server
 {% endif %}
 ```
 
-`_include/head.html`に書き加える。
+`_include/head.html` に書き加える。
 
-```html:_include/head.html.erb
+```html title=_include/head.html.erb
 <head>
   {% include google-analytics.html %}
 </head>
 ```
 
-`_config.yml`にトラッキングIDを書き加える。トラッキングIDは、UA-　から始まるID。
+`_config.yml` にトラッキング ID を書き加える。トラッキング ID は、UA-　から始まる ID。
 
-```yml:_config.yml
+```yml title=_config.yml
 google_analytics: UA-〇〇〇〇〇
 ```
 
-githubに上げて完了。
+github に上げて完了。
 
 ### Twitterカード追加
 
@@ -192,9 +192,9 @@ githubに上げて完了。
   - [Supporting Twitter Cards with Jekyll](http://davidensinger.com/2013/04/supporting-twitter-cards-with-jekyll/)
   - [Twitter Cards on Jekyll](https://www.brianbunke.com/blog/2017/09/06/twitter-cards-on-jekyll/)
 
-`_include/twitter-card.html`を作成
+`_include/twitter-card.html` を作成
 
-```html:_include/twitter-card.html.erb
+```html title=_include/twitter-card.html.erb
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@not_you_die"/>
 <!-- <meta name="twitter:creator" content="@{{ page.author }}"/> -->
@@ -215,28 +215,28 @@ githubに上げて完了。
 {% endif %}
 ```
 
-`_include/head.html`内に書き加える
+`_include/head.html` 内に書き加える
 
-```html:_include/head.html.erb
+```html title=_include/head.html.erb
 <head>
   {% include twitter-card.html %}
 </haed>
 ```
 
-Gitにpushし、[Twitter Card Validator](https://cards-dev.twitter.com/validator) で確認
+Git に push し、[Twitter Card Validator](https://cards-dev.twitter.com/validator) で確認
 
 ### sidebar-nav-link
 
 ![Image from Gyazo](https://i.gyazo.com/aa38f41cc183d8e25de273d3020d4257.png)
 
-こんな感じで、サイドバーにnav-link付け足したい。
+こんな感じで、サイドバーに nav-link 付け足したい。
 
 ## デザインを大幅修正した件
 
 - 改修方針
   - モバイルファースト
-  - ページ数を少なく。
-  - サイズ指定にpxを極力使わず、remや％を使う
+  - ページ数を少なく
+  - サイズ指定に px を極力使わず、rem や％を使う
 
 ### 実作業
 
@@ -245,9 +245,9 @@ git branch changeDesign
 git checkout changeDesign
 ```
 
-#### `Gemfile`と`_config.yml`から不要なものを削除
+#### `Gemfile` と `_config.yml` から不要なものを削除
 
-```rb:Gemfile
+```rb title=Gemfile
 source 'https://rubygems.org'
 
 gem 'github-pages', group: :jekyll_plugins
@@ -265,11 +265,11 @@ gem 'jekyll-coffeescript'
 
 #### 最低限必要なディレクトリ構造を考える
 
-自分でデザインを構成するには、jekyllとliquidでできることを理解する必要があった。
+自分でデザインを構成するには、jekyll と liquid でできることを理解する必要があった。
 
-- `_include`配下のファイルは`{% include footer.html %}`の形で変数展開の様に扱う。
-  - ただし、画像はこの方法では利用できない。svgはok。
-- _site中身は`bundle exec jekyll serve`で自動で生成されるので中身は触らない
+- `_include` 配下のファイルは `{% include footer.html %}` の形で変数展開の様に扱う
+  - ただし、画像はこの方法では利用できない。svg は ok
+- _site 中身は `bundle exec jekyll serve` で自動で生成されるので中身は触らない
 
 自分の結果
 
@@ -289,7 +289,7 @@ gem 'jekyll-coffeescript'
 
 #### スクロール関連の変更
 
-```scss:_layout.scss
+```scss title=_layout.scss
 body{
   background-image:url("../taiwan.jpg");
   background-size:cover;

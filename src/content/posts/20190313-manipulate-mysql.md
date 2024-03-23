@@ -10,14 +10,14 @@ published: true
   - [6日目：MySQL操作](https://qiita.com/OriverK/items/8c35aae3cbe05a1a28ce)
   - [7日目(1)：MySQLの操作](https://qiita.com/OriverK/items/cb697d8dec5c45b8c7f2)
 
-今日の授業は、Railsを使わず、MySQLのみでデータ入力、操作する内容でした。
+今日の授業は、Rails を使わず、MySQL のみでデータ入力、操作する内容でした。
 
 ## テーブル同士の関係Association
 
 ### belong_to : 1対1の関係
 
 (例)　exam_result(試験点数) belong_to student
-とある教科の試験の点数は、特定の1人の生徒に帰属
+とある教科の試験の点数は、特定の 1 人の生徒に帰属
 
 ### has many : 1対多の関係
 
@@ -26,7 +26,7 @@ published: true
 
 ### many to many :多対多の関係
 
-(例)  学生と部活の関係。学生は複数の部活に所属し、1つの部活には複数の学生が所属。
+(例)  学生と部活の関係。学生は複数の部活に所属し、1 つの部活には複数の学生が所属。
 当然、まったく所属していない学生も居る可能性がある
 
 | 生徒 | 部活１ | 部活２ | 部活３ | 部活4 |
@@ -38,13 +38,13 @@ published: true
 
 #### 多対多テーブルの問題
 
-DB上では1つのカラムに複数のデータは入れることができない。
+DB 上では 1 つのカラムに複数のデータは入れることができない。
 上の表では、同義のカラム（部活１、部活（2）。）。を増やしているが、
-データベースでは、これを2次元で表現できない
+データベースでは、これを 2 次元で表現できない
 
 #### 解決法：中間テーブル(/関連テーブル)、
 
-まず、生徒と部活にIDを持たせる
+まず、生徒と部活に ID を持たせる
 
 | 生徒 | 生徒ID |
 |:-:|:-:|
@@ -67,7 +67,7 @@ DB上では1つのカラムに複数のデータは入れることができな�
 | 1  | 3  |
 | 1  | 4  |
 
-実際にDBで触るときは、生徒テーブルと中間テーブルをJOINし、さらに中間テーブルと部活テーブルをJOINする
+実際に DB で触るときは、生徒テーブルと中間テーブルを JOIN し、さらに中間テーブルと部活テーブルを JOIN する
 
 ## 使うデータ
 
@@ -116,16 +116,16 @@ updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 #### PRIMARY KEY、AUTO_INCREMENT
 
 - PRIMARY KEY
-  - 主キーの意。なお、外部キーはforeign key
+  - 主キーの意。なお、外部キーは foreign key
 - AUTO_INCREMENT
-  - 値が指定しないと、自動的にシーケンス番号を割り当てられる。整数型で、1ずつ増加し連番。
+  - 値が指定しないと、自動的にシーケンス番号を割り当てられる。整数型で、1 ずつ増加し連番
 
 #### MySQLのデータ型
 
 - INT : 整数型（他にも、TINYINT < SMALLINT < MEDIUMINT < INT < BIGINT）
-- CHAR : 文字型（似たようなのには、VARCHARがある）。
+- CHAR : 文字型（似たようなのには、VARCHAR がある）
 - TIMESTAMP : 日付時刻型（'YYYY-MM-DD HH:MM:SS'）
-- 入力するデータ量に従って、最適なデータ型を選んだ方が、色々と良いようだ。
+- 入力するデータ量に従って、最適なデータ型を選んだ方が、色々と良いようだ
   - [参照：MySQL 5.6 リファレンスマニュアル  /  データ型](https://dev.mysql.com/doc/refman/5.6/ja/data-types.html)
 
 ### DESC :テーブル情報の確認(Describeの略
@@ -148,7 +148,7 @@ DESC students;
 -- +------------+--------------+------+-----+-------------------+----------------+
 ```
 
-同様に、exam_resultsテーブルも作成
+同様に、exam_results テーブルも作成
 
 ```sql
 CREATE TABLE `exam_results` (
@@ -227,7 +227,7 @@ INSERT INTO exam_results (student_id,name, score, max_score, created_at, updated
 
 ### UPDATE SET WHERE:テーブル情報の更新
 
-今の時点では、max_scoreが100点だが、200点満点に変更してみる
+今の時点では、max_score が 100 点だが、200 点満点に変更してみる
 
 ```sql
 -- UPDATE テーブル名 SET カラム名 = 新しい情報 WHERE 条件
@@ -257,18 +257,18 @@ INNER JOIN table2
 
 #### INNER JOIN と　OUTER JOIN
 
-- INNER JOIN : 内部結合の意。
+- INNER JOIN : 内部結合の意
   - 主キー＝外部キーになるところだけ表示
   - 結合できなかったレコードは表示しない
 
 - outer join :外部結合
-  - 結合できなかったレコードは、NULLで表示
+  - 結合できなかったレコードは、NULL で表示
   - LEFT JOIN :主キー側のテーブルに合わせて表示
   - RIGHT JOIN :外部キー側のテーブルに合わせて表示
 
 #### INNER JOINで結合してみる
 
-students生徒テーブルとexam_results試験結果の、主キーと外部キーを使って結合
+students 生徒テーブルと exam_results 試験結果の、主キーと外部キーを使って結合
 
 ```sql
 SELECT students.name, students.grade, students.gender, 
@@ -433,7 +433,7 @@ GROUP BY name;
 
 ### INNER JOIN
 
-studentsとexam_resultsを結合し、生徒ごとの、最高得点、最少得点、平均得点を出力
+students と exam_results を結合し、生徒ごとの、最高得点、最少得点、平均得点を出力
 
 ```sql
 SELECT students.name, MAX(score), MIN(score), AVG(score)

@@ -9,11 +9,11 @@ published: true
 from Qiita:
 
 - [13日目(1)：Deviseによるログイン機能付きサイトの作成](https://qiita.com/OriverK/items/5a867dbadbcef452c9fd)
-- [12日目：12日目：PostgreSQLを用いたログイン機能付きサイト](https://qiita.com/OriverK/items/ef1883408ea924376c1c)の続き
+- [12日目：12日目：PostgreSQLを用いたログイン機能付きサイト](https://qiita.com/OriverK/items/ef1883408ea924376c1c) の続き
 
 ## Environment
 
-- 仮想環境OS: Ubuntu 18.04
+- 仮想環境 OS: Ubuntu 18.04
 - Ruby：2.51
 - Rails: 5.2.2
   - [devise](https://github.com/plataformatec/devise))
@@ -21,9 +21,9 @@ from Qiita:
 
 ## flow
 
-1. controllersとviewsを以前の大学データの方から流用
-2. migrationファイル作成
-3. rooting変更
+1. controllers と views を以前の大学データの方から流用
+2. migration ファイル作成
+3. rooting 変更
 
 ## Contents
 
@@ -45,17 +45,17 @@ rails db:migrate
 
 追加
 
-```rb:app/confing/routes.rb
+```rb title=app/confing/routes.rb
 resources :students
 root to: 'students#index'
 ```
 
 ### modify views
 
-今回不要なExamResultNewのリンク削除
+今回不要な ExamResultNew のリンク削除
 ログアウトリンクの作成
 
-```rb:app/views/student.html.erb
+```rb title=app/views/student.html.erb
 <% @students.each do |student| %>
   <tr>
     <td><%= student.try(:name) %></td>
@@ -73,7 +73,7 @@ root to: 'students#index'
 
 ### modify controller
 
-```rb:app/controllers/student_controller.rb
+```rb title=app/controllers/student_controller.rb
 class StudentsController < ApplicationController
   before_action :authenticate_student!
 end

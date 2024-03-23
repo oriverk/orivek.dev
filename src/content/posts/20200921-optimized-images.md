@@ -13,7 +13,7 @@ published: true
 
 以降、next-optimized-images を"next-opti"と略す
 
-画像の最適化方法はタスクランナーのなかで画像圧縮プラグインを利用するなど複数あるが、今回は[`cyrilwanner/next-optimized-images`](https://github.com/cyrilwanner/next-optimized-images)を利用する。
+画像の最適化方法はタスクランナーのなかで画像圧縮プラグインを利用するなど複数あるが、今回は [`cyrilwanner/next-optimized-images`](https://github.com/cyrilwanner/next-optimized-images) を利用する。
 
 ### environment
 
@@ -22,7 +22,7 @@ published: true
 - "next": "9.3.5",
 - "next-optimized-images": "^2.6.2"
 
-[canary版のv3](https://github.com/cyrilwanner/next-optimized-images/issues/120)もある。
+[canary版のv3](https://github.com/cyrilwanner/next-optimized-images/issues/120) もある。
 
 ### setup
 
@@ -38,9 +38,9 @@ yarn add npm imagemin-mozjpeg imagemin-optipng
 
 #### Config
 
-パッケージの方に[各プラグインのデフォルト設定値](https://github.com/cyrilwanner/next-optimized-images#example)が含まれているが、`next.config.js`のなかで設定を変更できる。下は自分のもので書きやすくするために、[`next-compose-plugins`](https://github.com/cyrilwanner/next-compose-plugins)を入れている。
+パッケージの方に [各プラグインのデフォルト設定値](https://github.com/cyrilwanner/next-optimized-images#example) が含まれているが、`next.config.js` のなかで設定を変更できる。下は自分のもので書きやすくするために、[`next-compose-plugins`](https://github.com/cyrilwanner/next-compose-plugins) を入れている。
 
-```js:next.config.js
+```js title=next.config.js
 const withPlugins = require('next-compose-plugins')
 const optimizedImages = require('next-optimized-images')
 
@@ -67,7 +67,7 @@ module.exports = withPlugins(
 
 #### href (image path)
 
-画像は`<img src={require(../../example.jpg)} />`の様に指定するが、md 内で指定するときなどは面倒なので、`next.js.config`にパスのエイリアスを追加する。
+`next.js.config` にパスのエイリアスを設定し、 `<img src={require(../../example.jpg)} />` の様に指定する。
 
 ![Image from Gyazo](https://i.gyazo.com/3535f5fafcfa51c59bfbc3c4aa7443b0.jpg)
 
@@ -77,7 +77,7 @@ module.exports = withPlugins(
   - [issue #92: Module parse failed: Unexpected character '�'](https://github.com/cyrilwanner/next-optimized-images/issues/92)
   - [issue #130: Performance issues `npm run dev` hot-reloading](https://github.com/cyrilwanner/next-optimized-images/issues/130)
 
-```js:next.config.js
+```js title=next.config.js
 const { resolve } = require('path')
 
 const nextConfig = {
@@ -97,7 +97,7 @@ module.exports = withPlugins([ ... ], nextConfig)
 yarn add webp-loader
 ```
 
-また、imagemin-mozjpeg や imagemin-optipng 等は`href={require('../example.jpg')}`の様にすればプラグインが適用化される。が、その他は query params で指定する必要がある。
+また、imagemin-mozjpeg や imagemin-optipng 等は `href={require('../example.jpg')}` の様にすればプラグインが適用化される。が、その他は query params で指定する必要がある。
 
 ```jsx
 export default () => (
@@ -114,13 +114,13 @@ export default () => (
 yarn add responsive-loader sharp
 ```
 
-resize を可能にする responsive-loarder は jimp と sharp が別に必要だが、jimp は[README.md](https://github.com/cyrilwanner/next-optimized-images#resize)(↓)でディスられてる位なので、sharp を使う。
+resize を可能にする responsive-loarder は jimp と sharp が別に必要だが、jimp は [README.md](https://github.com/cyrilwanner/next-optimized-images#resize)(↓)でディスられてる位なので、sharp を使う。
 
 > Requires the optional package responsive-loader (npm install responsive-loader) and either jimp (node implementation, slower) or sharp (binary, faster)
 
-画像をリンクする際は`require('./images/my-image.jpg?resize&sizes[]=300&sizes[]=600&sizes[]=1000')`の様に指定できる。が、下の様に`responsive:sized:[]`と画像サイズ幅を global resize property として指定できる。
+画像をリンクする際は `require('./images/my-image.jpg?resize&sizes[]=300&sizes[]=600&sizes[]=1000')` の様に指定できる。が、下の様に `responsive:sized:[]` と画像サイズ幅を global resize property として指定できる。
 
-```js:next.config.js
+```js title=next.config.js
 // ...
 const nextOptimizedImagesConfig = {
 // ...
@@ -160,7 +160,7 @@ export default () => (
 
 #### webp-loader と responsive-loader
 
-現状の next-opti は webp-loader と responsive-loader を`example.jpg?webp?resize`の様に連ねて書くと動かない。根本的な解決は[next-opti v3](https://github.com/cyrilwanner/next-optimized-images/issues/120)で解決する模様。
+現状の next-opti は webp-loader と responsive-loader を `example.jpg?webp?resize` の様に連ねて書くと動かない。根本的な解決は [next-opti v3](https://github.com/cyrilwanner/next-optimized-images/issues/120) で解決する模様。
 
 2 つを同時に動かすサンプルコード
 
@@ -181,9 +181,9 @@ export default function () {
 
 ##### 自分の場合
 
-next.Config.js のなかで、`responsive:{sizes: [640, 960, 1200, 1800],}`としてあるので component を作って利用している。
+next.Config.js のなかで、`responsive:{sizes: [640, 960, 1200, 1800],}` としてあるので component を作って利用している。
 
-```jsx:src/components/general/OptimizedImages.tsx
+```jsx title=src/components/general/OptimizedImages.tsx
 export function OptimizedImages({ src, alt, imgStyle }) {
   const multi = require(`@public/assets/${src}?resize`)
   const multiWebp = require(`@public/assets/${src}?resize&format=webp`)

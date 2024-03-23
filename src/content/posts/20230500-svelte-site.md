@@ -9,7 +9,7 @@ published: true
 
 ## はじめに
 
-趣味領域で作っているNext.js　StaticExport製の静的サイトがあるのですが、ページ数が5000弱であること、Next.jsの高い更新頻度に付いていくのが大変であるなどの理由から、リプレースを考えていました。その時にちょうどAstroがV2.2に達したTweetを見かけたので、Reactで動いている[oriverk.dev](https://oriverk.dev)をAstroのPlayground代わりにしようと思いました。
+ Astro が ver2.2 に達した投稿を見かけたので、React 製の [oriverk.dev](https://oriverk.dev) を Astro 製にリプレースしました。
 
 - reference
   - [GitHub: oriverk/astro-site](https://github.com/oriverk/astro-site)
@@ -19,14 +19,14 @@ published: true
 
 > Astro is the all-in-one web framework designed for speed. Pull your content from anywhere and deploy everywhere, all powered by your favorite UI components and libraries.
 
-速度重視で、他のUIフレームワークも使えるオールインワンのWebフレームワークです（意訳）。実際にAstroではSSGとSSRの両方を作ることが出来、ReactやVue、Svelteなども混ぜて使うことができます。
+速度重視で、他の UI フレームワークも使えるオールインワンの Web フレームワークです。実際に Astro では SSG と SSR の両方を作ることが出来、React や Vue、Svelte なども混ぜて使うことができます。
 
-コード先頭にmarkdownのfrontmatterの様なものがあることを除けば、ぱっと見はSvelteやVueの様で、if文や繰り返し箇所はReactのJSXの様な感じです。
+コード先頭に frontmatter の様なものがあることを除けば、基本は Svelte や Vue の様で、if 文や繰り返し箇所は React の様な感じです。
 
 <details>
 <summary>index.astro</summary>
 
-```astro:index.astro
+```astro title=index.astro
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
@@ -66,35 +66,35 @@ import Card from '../components/Card.astro';
 
 ### よかったこと
 
-- Astro自体が非常に単純で理解しやすい（Next.js比）
-- astro.Configでmdファイルの取り扱いが設定でき、あれやこれやとuntil functionを書かずともfrontmatterを取得したり、htmlにコンパイルできる
+- Astro 自体が非常に単純で理解しやすい（Next.js 比）
+- astro.Config で md ファイルの取り扱いが設定でき、あれやこれやと until function を書かずとも frontmatter を取得したり、html にコンパイルできる
 - よいこととは実感してないけどリポジトリサイズが非常に小さい
   - 3.34MB: [oriverk/oriverk.dev](https://github.com/oriverk/oriverk.dev)
     - 593KB: [oriverk/astro-site](https://github.com/oriverk/astro-site)
 
 ### よくはなかったこと・ふつごうだったこと
 
-- `.astro`でのevent handlingには`document.querySelector`などと書く必要がある
+- `.astro` での event handling には `document.querySelector` などと書く必要がある
   - [Scripts and Event Handling 🚀 Astro Documentation](https://docs.astro.build/en/guides/client-side-scripts/)
-    - SvelteなどのUIフレームワークを使う必要がある主因だと思う
-- Astroの構文がReactとVue/Svelteの中間みたいで、if文やeach文を書くときに困惑する
-  - 経験により解消されるとは思う。
-- `.astro`上でUIフレームワークコンポネントを呼び出す際に、両者との微妙な違いにより困ることがある。
-- [GitHub](https://github.com/oriverk/astro-site/blob/main/src/layouts/Footer.astro)上でscriptやstyle領域がハイライトされない
-  - SvelteもVueもされない
+    - Svelte などの UI フレームワークを使う必要がある主因だと思う
+- Astro の構文が React と Vue/Svelte の中間みたいで、if 文や each 文を書くときに困惑する
+  - 経験により解消されるとは思う
+- `.astro` 上で UI フレームワークコンポネントを呼び出す際に、両者との微妙な違いにより困ることがある
+- [GitHub](https://github.com/oriverk/astro-site/blob/main/src/layouts/Footer.astro) 上で script や style 領域がハイライトされない
+  - Svelte も Vue もされない
 
 [![Image from Gyazo](https://i.gyazo.com/780048dd77cde1fb0e2fe92f48139092.png)](https://gyazo.com/780048dd77cde1fb0e2fe92f48139092)
 
 ## サイトについて
 
-主に以下のような機能をもったサイトにしたいと考えました。
+主に次のような機能をもったサイトにしたいと考えました。
 
-- Static Siteである
-- GitHubのPinned ReposとContribution Calendar(GitHub草)を表示できる
-- [blog.oriverk.dev](https://blog.oriverk.dev)のコンテンツを取得表示できる
-- Cloudflare Pagesにデプロイし、サイトデータを自動で更新できる
+- Static Site である
+- GitHub の Pinned Repos と Contribution Calendar(GitHub 草)を表示できる
+- [blog.oriverk.dev](https://blog.oriverk.dev) のコンテンツを取得表示できる
+- Cloudflare Pages にデプロイし、サイトデータを自動で更新できる
 
-また、以前に[oriverk.dev](https://oriverk.dev)をReactで作ったときの感じを踏襲したいとも考えていました。
+また、以前に [oriverk.dev](https://oriverk.dev) を React で作ったときの感じを踏襲したいとも考えていました。
 
 - [GitHub | oriverk/oriverk.dev](https://github.com/oriverk/oriverk.dev)
 
@@ -102,7 +102,7 @@ import Card from '../components/Card.astro';
 
 ### 主に使用したもの
 
-Astroだけでもサイトは作れますが、Astroと他UIフレームワークを使った場合の感じを知りたかったので、軽量さに共通点を持つSvelteをUIフレーム枠に採用しました。全体的なview？の/pagesはastroファイルで作り、componentsはsvelteという風に使い分けました。
+Astro だけでもサイトは作れますが、Astro と他 UI フレームワークを使った場合の感じを知りたかったので、軽量さに共通点を持つ Svelte を UI フレーム枠に採用しました。全体的な view？の/pages は astro ファイルで作り、components は svelte という風に使い分けました。
 
 - [Astro](https://astro.build/)
 - [Svelte • Cybernetically enhanced web apps](https://svelte.dev/)
@@ -119,7 +119,7 @@ Astroだけでもサイトは作れますが、Astroと他UIフレームワー�
 npm create astro@latest -- --template basics
 ```
 
-AstroとAstronautを掛けているのか、Houstonという名前の顔文字が可愛いかったです。
+Astro と Astronaut を掛けているのか、Houston という名前の顔文字が可愛いかったです。
 
 ![npm create astro@latest](https://user-images.githubusercontent.com/44029144/231638707-5afcf66c-2e6d-4bda-a69b-235e74507376.png)
 
@@ -148,7 +148,7 @@ npm i sass cssnano autoprefixer
   - [GitHub | ota-meshi/eslint-plugin-astro](https://github.com/ota-meshi/eslint-plugin-astro)
   - [GitHub | withastro/prettier-plugin-astro](https://github.com/withastro/prettier-plugin-astro)
 
-AstroとSvelteを混ぜるので当然なのですが、両者用の設定が必要でした。なので、init svelte appの箇所に加えて
+Astro と Svelte を混ぜるので当然なのですが、両者用の設定が必要でした。なので、init svelte app の箇所に加えて
 
 ```sh
 npm i -D eslint-plugin-svelte3 prettier-plugin-svelte
@@ -156,12 +156,12 @@ npm i -D eslint-plugin-svelte3 prettier-plugin-svelte
 
 #### ESLint Config
 
-他レポジトリで使っていたsvelte用のConfigと混ぜる形で作りました。Svelteは今年に入って触ったばかりなので、設定が正しい状態にあるかはわかりませんが、動いてます。
+他レポジトリで使っていた svelte 用の Config と混ぜる形で作りました。Svelte は今年に入って触ったばかりなので、設定が正しい状態にあるかはわかりませんが、動いてます。
 
 <details>
 <summary>.eslintrc.yml</summary>
 
-```yml:.eslintrc.yml
+```yml title=.eslintrc.yml
 extends:
   - plugin:astro/recommended
   - plugin:jsx-a11y/recommended
@@ -203,7 +203,7 @@ settings: {}
 
 #### Prettier Config
 
-```yml:.prettierrc.yml
+```yml title=.prettierrc.yml
 trailingComma: es5
 tabWidth: 2
 semi: false
@@ -220,7 +220,7 @@ pluginSearchDirs: false
 - [GitHub GraphQL API documentation - GitHub Docs](https://docs.github.com/en/graphql)
 - [Explorer - GitHub Docs](https://docs.github.com/en/graphql/overview/explorer)
 
-GitHub APIは以前に何度か利用したことがあって、ドキュメントが割と重く長いことを覚えていたので、時間節約のためにChatGPTを利用しました。ChatGPTに尋ねたところ、ChatGPTのバージョンは3.5でデータは2021年9月までのものらしく、例えば21年10月以降に変わった内容については正確には答えることができません。なので、ChatGPTが出力したクエリをGitHub GraphQl API Explorerで試して正常に動くかを確認し、クエリを調整することにしました。
+GitHub GraphQL API クエリ作成には ChatGPT を利用しました。ChatGPT のバージョンは 3.5 でデータは 2021 年 9 月までのものらしく、例えば 21 年 10 月以降に変わった内容については正確には答えることができません。なので、ChatGPT が出力したクエリを GitHub GraphQl API Explorer で試して正常に動くかを確認し、クエリを調整することにしました。
 
 ```text
 GitHub GraphQL API を用いて、ユーザ名oriverkのpinned repository と contribution calendar のデータを取得せよ
@@ -229,7 +229,7 @@ GitHub GraphQL API を用いて、ユーザ名oriverkのpinned repository と co
 <details>
 <summary>ChatGPT-3.5 出力結果</summary>
 
-```javascript
+```js
 query {
   user(login: "oriverk") {
     pinnedItems(first: 6) {
@@ -262,20 +262,20 @@ query {
 
 </details>
 
-Explorerで問題なく動くことを検証し、必要/不必要なデータを取得するために公式ドキュメントを片手に適宜クエリを修正し、利用しました。
+Explorer で検証した後、公式ドキュメントを片手に適宜クエリを修正して利用しました。
 
 ### Contribution Calendar(GitHub草)
 
 [![Image from Gyazo](https://i.gyazo.com/56267525938e32ee550ce93a29c9d51a.png)](https://gyazo.com/56267525938e32ee550ce93a29c9d51a)
 
-描画するためのSvelteライブラリは複数ありましたが、その多くが更新を止めていました。なので、ライブラリを使わずに作ることにしました。
+Svelte 製ライブラリの多くが更新を止めていたので、自作しました。
 
 - code
   - [astro-site/src/components/ActivityCalendar at main · oriverk/astro-site · GitHub](https://github.com/oriverk/astro-site/tree/main/src/components/ActivityCalendar)
 
 ### RSS fetcher
 
-基本的にCatNose氏の下記「RSS集約サイト」に倣いました。なので割愛します。
+基本的に CatNose 氏の下記「RSS 集約サイト」に倣いました。なので割愛します。
 
 - [チーム個々人のテックブログをRSSで集約するサイトを作った（Next.js）](https://zenn.dev/catnose99/articles/cb72a73368a547756862#next.js%E3%81%A7%E9%9D%99%E7%9A%84%E3%82%B5%E3%82%A4%E3%83%88%E3%82%92%E3%83%93%E3%83%AB%E3%83%89%E3%81%99%E3%82%8B)
 - [catnose99/team-blog-hub: RSS based blog starter kit for teams](https://github.com/catnose99/team-blog-hub)
@@ -283,7 +283,7 @@ Explorerで問題なく動くことを検証し、必要/不必要なデータ�
 
 ### GitHub ActionsによるCloudflare Pagesへの定期的デプロイ
 
-```json:package.json
+```json title=package.json
 {
  "scripts": {
     "dev": "astro dev --project tsconfig.json",
@@ -295,12 +295,12 @@ Explorerで問題なく動くことを検証し、必要/不必要なデータ�
 }
 ```
 
-GitHub Actionsでもこれを利用するようにしました。
+GitHub Actions でもこれを利用するようにしました。
 
 <details>
 <summary>workflows/deploy.yml</summary>
 
-```yml:deploy.yml
+```yml title=deploy.yml
 name: continuous-deployment
 on:
   push:
@@ -360,11 +360,11 @@ jobs:
 
 ### エラー類
 
-Astroとその他のUIフレームワーク（今回はSvelte）を混ぜる構成なので、どちらに起因するか見極める必要性があり、また両者の組み合わせによるエラーは公式ドキュメントには当然書いてないので、そういったところは大変だなあと感じました。
+Astro と UI FW のどちらに起因するか見極める必要性があり、この点は大変だなあと感じました。
 
 #### date-fns/locale
 
-svelteとdate-fns
+svelte と date-fns
 
 - [import locale in SvelteKit/NodeJS · Issue #2964 · date-fns/date-fns](https://github.com/date-fns/date-fns/issues/2964)
 
@@ -373,14 +373,14 @@ Directory import '/home/oriverk/Codes/oriverk/astro-site/node_modules/date-fns/l
 Did you mean to import date-fns/locale/ja/index.js?
 ```
 
-```diff:typescript
+```diff title=typescript
 - import { ja } from 'date-fns/locale'
 + import ja from 'date-fns/locale/ja/index.js'
 ```
 
 #### CSS Logical Media Query error
 
-Media Queries Level 4からの下記の様な書き方は、Svelteにおいては次のバージョンから使える模様。
+Media Queries Level 4 からの次の様な書き方は、Svelte においては次のバージョンから使える模様。
 
 ```css
 @media (max-width: 30em) { ... }

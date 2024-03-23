@@ -29,13 +29,13 @@ rails g migration AddAdminToStudent admin:boolean
 
 #### boolean型
 
-真理値の「真 = true」と「偽 = false」という2値をとるデータ型のこと。Rubyでは偽はfalseとnilで、それ以外がtrueになる。言語やDBによっては、1と0だったり、違うので注意。
+真理値の「真 = true」と「偽 = false」という 2 値をとるデータ型のこと。Ruby では偽は false と nil で、それ以外が true になる。言語や DB によっては、1 と 0 だったり、違うので注意。
 
 ### マイグレーションファイルを編集
 
-boolean型と定義する際は、デフォルト値を設定しないといけない。adminのデフォルト値に引数falseを渡し、デフォルトではadmin権限がない、と指定する。
+boolean 型と定義する際は、デフォルト値を設定しないといけない。admin のデフォルト値に引数 false を渡し、デフォルトでは admin 権限がない、と指定する。
 
-```rb:/db/migrate/20190328011407_add_admin_to_student.rb
+```rb title=/db/migrate/20190328011407_add_admin_to_student.rb
 class AddAdminToStudent < ActiveRecord::Migration[5.2]
   def change
     add_column :students, :admin, :boolean,default: false
@@ -57,13 +57,13 @@ stu.admin?
 =>true
 ```
 
-admin属性が追加され、またadmin?メソッドを使用できるようになっている。
+admin 属性が追加され、また admin?メソッドを使用できるようになっている。
 
 ### adminのみが全データを見られるようにする
 
-admin以外は、自分のデータしか見られないようにしたい。
+admin 以外は、自分のデータしか見られないようにしたい。
 
-```rb:users_controller.rb
+```rb title=users_controller.rb
  def index
     if current_student.admin?
       @students = Student.page params[:page]
@@ -73,7 +73,7 @@ admin以外は、自分のデータしか見られないようにしたい。
   end
 ```
 
-```html:app/views/student.html.erb
+```html title=app/views/student.html.erb
  <tbody>
     <% if current_student.admin? %>
       <% @students.each do |student| %>

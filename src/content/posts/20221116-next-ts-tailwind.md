@@ -6,16 +6,14 @@ description: "app dir を使用した Next.js v13 下での Client Components �
 published: true
 ---
 
-ベータ機能であるNext.js v13 `app` dirを適用させようとした際に、ドキュメントにCSS in JSがServer Components (SC)で非対応という事を見落として、下画像の様なgoober関連のエラーに遭遇した。
+β機能である Next.js v13 `app` dir で CSS in JS が Server Components で非対応という事を見落として、次の様な goober 関連のエラーに遭遇した。
 
 ![image](https://i.imgur.com/MVNxSFg.png)
 
 > Warning: CSS-in-JS is currently not supported in Server Components.
 > > [Styling: CSS-in-JS | Next.js](https://beta.nextjs.org/docs/styling/css-in-js)
 
-ただし、`styled-jsx` と `styled-components` は `use client` と明記して適切な処理を加えればClient Components (以下CC)で動くとも書いてある。CSSはすべてのページに渡っている以上は、すべてのページがCCで動作するという事になり、それではNext.js app dirを試す理由がなくなるので、TailwindCSSに移行することにした。
-
-同様の処理でgooberやその他の明記されていないCSS in JSライブラリが動くかどうは別レポジトリで試したい。
+ただし、`styled-jsx` と `styled-components` は `use client` と明記して適切な処理を加えれば Client Components (以下 CC)で動くとも書いてある。まあ取り敢えず TailwindCSS に移行することにした。同様の処理で goober やその他の CSS in JS ライブラリが動くかどうかは別レポジトリで試したい。
 
 ## goober
 
@@ -32,7 +30,7 @@ published: true
 
 ### コード
 
-goober使用下ではこんな感じになっていた。Next.js v13 `app` dirではv12までの `_app.tsx` や `_document.tsx` が非対応なので、エラーを起こして当然ではある。
+goober 使用下ではこんな感じになっていた。Next.js v13 `app` dir では v12 までの `_app.tsx` や `_document.tsx` が非対応なので、エラーを起こして当然ではある。
 
 - [oriverk/blog.oriverk.dev at archive/next12-ts-goober](https://github.com/oriverk/blog.oriverk.dev/tree/archive/next12-ts-goober)
 
@@ -40,7 +38,7 @@ goober使用下ではこんな感じになっていた。Next.js v13 `app` dir�
 
 <summary>src/styles/goober.js</summary>
 
-```javascript:src/styles/goober.js
+```js title=src/styles/goober.js
 import { createGlobalStyles } from 'goober/global'
 
 export const GlobalStyles = createGlobalStyles`
@@ -55,7 +53,7 @@ export const GlobalStyles = createGlobalStyles`
 
 <summary>src/pages/_app.tsx</summary>
 
-```javascript:src/styles/_app.tsx
+```js title=src/styles/_app.tsx
 import { setup } from 'goober'
 
 setup(React.createElement, prefix)
@@ -77,7 +75,7 @@ export default function MyApp({ Component, pageProps}: AppProps) {
 
 <summary>src/pages/_document.tsx</summary>
 
-```javascript:src/pages/_document.tsx
+```js title=src/pages/_document.tsx
 import { extractCss } from "goober"
 
 export default class MyDocument extends Document<{ css: string }> {
@@ -114,7 +112,7 @@ export default class MyDocument extends Document<{ css: string }> {
 
 <summary>src/components/markdown/codeblock/copy-button.tsx</summary>
 
-```javascript:src/components/markdown/codeblock/copy-button.tsx
+```js title=src/components/markdown/codeblock/copy-button.tsx
 import { styled } from 'goober'
 
 interface PasssedProps {
@@ -144,23 +142,18 @@ export const Button = ContainerComponent
 
 ## TailwindCSS
 
-基本的に[Install Tailwind CSS with Next.js - Tailwind CSS](https://tailwindcss.com/docs/guides/nextjs)に倣って導入した。
+基本的に [Install Tailwind CSS with Next.js - Tailwind CSS](https://tailwindcss.com/docs/guides/nextjs) に倣って導入した。
 
-```shell
+```sh
 npm i -D tailwindcss postcss autoprefixer
 npm i @heroicons/react
 npx tailwindcss init -p
-```
-
-また、マークダウン箇所は基本的に[@tailwindcss/typography - Tailwind CSS](https://tailwindcss.com/docs/typography-plugin)を利用し、typographyで対応しきれない箇所用のCSSには `SCSS` を利用することにした。
-
-```shell
 npm i -D @tailwindcss/typography sass
 ```
 
 ### CSS
 
-```css:/src/styles/globals.css
+```css title=/src/styles/globals.css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -185,11 +178,11 @@ npm i -D @tailwindcss/typography sass
 
 ![image](https://i.imgur.com/H7zbAsX.png "タイポグラフィ")
 
-`::before` や `::after` の疑似要素や置換要素 `content` などの使い方は、jxck氏の[blog.jxck.io](https://blog.jxck.io/)を勝手に参考にさせてもらいました。
+`::before` や `::after` の疑似要素や置換要素 `content` などの使い方は、jxck 氏の [blog.jxck.io](https://blog.jxck.io/) を勝手に参考にさせてもらいました。
 
-また、CSSの `:has()`、 `:is()`、 `:not()`といった疑似要素をはじめて使いましたが、結構便利でした。
+また、CSS の `:has()`、 `:is()`、 `:not()` といった疑似要素をはじめて使いましたが、結構便利でした。
 
-```css:/src/styles/globals.scss
+```css title=/src/styles/globals.scss
 figure:has(img), :not(figure) > img {
   border: 1px solid gray;
 }
@@ -205,13 +198,13 @@ figcaption {
 
 #### Prettier for TailwindCSS
 
-TailwindCSS推奨のクラス名に並べ替えるためのPretteirプラグインを利用した。
+TailwindCSS 推奨のクラス名に並べ替えるための Pretteir プラグインを利用した。
 
-```shell:terminal
+```sh title=terminal
 npm i -D prettier prettier-plugin-tailwindcss
 ```
 
-ESLintやPrettierの他のプラグインなどと違って、こちらは何の設定もなく動いた。
+ESLint や Prettier の他のプラグインなどと違って、こちらは何の設定もなく動いた。
 
 > It works seamlessly with custom Tailwind configurations, and because it’s just a Prettier plugin, it works anywhere Prettier works — including every popular editor and IDE, and of course on the command line.
 > > [Automatic Class Sorting with Prettier - Tailwind CSS](https://tailwindcss.com/blog/automatic-class-sorting-with-prettier)

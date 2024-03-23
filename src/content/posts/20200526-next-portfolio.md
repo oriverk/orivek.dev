@@ -8,7 +8,7 @@ published: true
 
 ## はじめに
 
-[Ruby + JekyllによるGihubPagesは既にある](https://github.com/oriverk/oriverk.github.io)のですが、宮崎版コロナ対策サイトで Vue に触れ、勉強がてら実際に JS によるサイト作成をすることにしました。
+[Ruby + JekyllによるGihubPagesは既にある](https://github.com/oriverk/oriverk.github.io) のですが、宮崎版コロナ対策サイトで Vue に触れ、勉強がてら実際に JS によるサイト作成をすることにしました。
 
 - JS の現状を知るために参照した主サイト
 - [2020年 React軸で学ぶべき技術 from mizchi's blog](https://mizchi.hatenablog.com/entry/2020/01/04/172041)
@@ -41,7 +41,7 @@ React と Next.js の tutorial と docs を一通りやりました。
 - React.js, Next.js
   - マークダウン変換
     - [remarkjs/reamrk](https://remark.js.org/)
-    - あとで[mdx-js/mdx](https://mdxjs.com/)に変更するかも
+    - あとで [mdx-js/mdx](https://mdxjs.com/) に変更するかも
   - シンタックスハイライト
     - [highlight.js](https://github.com/highlightjs/highlight.js/)
   - UI コンポーネント
@@ -94,7 +94,7 @@ yarn create next-app next-portfolio
 - yarn.lock
 ```
 
-```json:package.json
+```json title=package.json
 {
   "name": "next-portfolio",
   "version": "0.1.0",
@@ -130,12 +130,12 @@ yarn add @material-ui/core @material-ui/icons
 
 ### create src/pages/index.jsx
 
-- `src`ディレクトリを作成し、下に`pages`を収める。
-- `src/components/Layout.jsx`の作成
+- `src` ディレクトリを作成し、下に `pages` を収める
+- `src/components/Layout.jsx` の作成
 
-複数ページで共通デザインとなる`Layout.jsx`を作成する。ここでは省略したが、`<aside />`の中には、`material-ui`を利用した permanent-drawer とモバイル用の swipeable-drawer を実装した。
+複数ページで共通デザインとなる `Layout.jsx` を作成する。ここでは省略したが、`<aside />` の中には、`material-ui` を利用した permanent-drawer とモバイル用の swipeable-drawer を実装した。
 
-```jsx:src/components/Layout.jsx
+```jsx title=src/components/Layout.jsx
 import Link from 'next/link'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Hidden from '@material-ui/core/Hidden'
@@ -222,13 +222,13 @@ export function Layout({ children }) {
 }
 ```
 
-- `pages/index.jsx`の作成
+- `pages/index.jsx` の作成
 
-まだ React 等に不慣れなので、`pages/index.js`にサイト 1 ページ目を作りこんで、後から component に分割する方式をとった。
+まだ React 等に不慣れなので、`pages/index.js` にサイト 1 ページ目を作りこんで、後から component に分割する方式をとった。
 
-色々試した結果、サイトトップにあたる `pages/index.jsx`は下の様になった。また、`<head><meta/></head>`用のデータは`/public/manifest.json`から持ってくることにした。
+色々試した結果、サイトトップにあたる `pages/index.jsx` は下の様になった。また、`<head><meta/></head>` 用のデータは `/public/manifest.json` から持ってくることにした。
 
-```jsx:src/pages/index.jsx
+```jsx title=src/pages/index.jsx
 import Head from 'next/head'
 import { Layout } from '../components/Layout'
 import { Top, About, History, Works } from '../components/HomeContents'
@@ -260,7 +260,7 @@ export default function Home() {
 }
 ```
 
-```jsx:src/components/HomeContents.jsx
+```jsx title=src/components/HomeContents.jsx
 import Link from 'next/link'
 import Grid from '@material-ui/core/Grid'
 
@@ -306,9 +306,9 @@ export function History() {
 - `_app.jsx`
   - global css を追加する場所
 - `_document.jsx`
-  - SSR される箇所なので、`onclick`などイベントハンドラは動かない
-  - `<Main />`の外側にあるコンポーネントはブラウザによる初期化がされないので、App ロジック等は`app.jsx`に記述
-  - `<title>`や`<Head />`、`styled-jsx`を書いちゃ駄目。
+  - SSR される箇所なので、`onclick` などイベントハンドラは動かない
+  - `<Main />` の外側にあるコンポーネントはブラウザによる初期化がされないので、App ロジック等は `app.jsx` に記述
+  - `<title>` や `<Head />`、`styled-jsx` を書いちゃ駄目
 
 ### Posts周辺の作成
 
@@ -329,9 +329,9 @@ export function History() {
     - [id].jsx
 ```
 
-また、`/pages/posts/[id].jsx`は
+また、`/pages/posts/[id].jsx` は
 
-```jsx:/pages/posts/[id].jsx
+```jsx title=/pages/posts/[id].jsx
 import useRouter from 'next/route'
 export default function Post(){
   const router = useRouter()
@@ -340,24 +340,24 @@ export default function Post(){
 }
 ```
 
-ファイル名に`[]`が付いてるので変に見えるが。例えば
+ファイル名に `[]` が付いてるので変に見えるが。例えば
 
-- `localhost:3000/posts/hoge/`にアクセスすると`pages/posts/hoge.jsx`が読み込まれる
-- `localhost:3000/posts/foobar`だと、`pages/posts/foobar.jsx`が読み込まれ、
+- `localhost:3000/posts/hoge/` にアクセスすると `pages/posts/hoge.jsx` が読み込まれる
+- `localhost:3000/posts/foobar` だと、`pages/posts/foobar.jsx` が読み込まれ、
 
-`dynamic route`と`Link (next/link)`を併用するときは、`href`に合わせて`as`も使う。
+`dynamic route` と `Link (next/link)` を併用するときは、`href` に合わせて `as` も使う。
 
 #### getStaticProps, getStaticPaths
 
-今回は md ファイルを`/src/pages/docs`に入れる。
+今回は md ファイルを `/src/pages/docs` に入れる。
 
-- `baseUrl/posts`へのアクセス時は、docs 下の md ファイルを読込み、posts 一覧の出力
-- `baseUrl/posts/[id]`の場合は、同様にして、post 単体の出力
-- `baseUrl/tags`の場合は、同様に posts で使用されている投稿タグ一覧の出力
-- `baseUrl/tags/[tag]`なら、同タグを使用する posts 一覧を出力
+- `baseUrl/posts` へのアクセス時は、docs 下の md ファイルを読込み、posts 一覧の出力
+- `baseUrl/posts/[id]` の場合は、同様にして、post 単体の出力
+- `baseUrl/tags` の場合は、同様に posts で使用されている投稿タグ一覧の出力
+- `baseUrl/tags/[tag]` なら、同タグを使用する posts 一覧を出力
 - docs 配下に無い md ファイル名にアクセスした場合は、`404`
 
-ページ出力が`src/pages/docs/xxx.md`という外部データに依存した静的ページ出力をしたいので、`getStaticProps`と`getStaticPaths`を使用した。
+ページ出力が `src/pages/docs/xxx.md` という外部データに依存した静的ページ出力をしたいので、`getStaticProps` と `getStaticPaths` を使用した。
 
 - 参照: [Data fetching - Next.js](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation)
 - [Static Generation with Data - Next.js Pages](https://nextjs.org/docs/basic-features/pages#static-generation-with-data)
@@ -374,15 +374,15 @@ export default function Post(){
 
 - 実現したいこと
   - Qiita や Gist 等での投稿を可能な限り手間なく集約したい
-  - `mdxjs/mdx`なら、ファイル中に`import`や`export`などの js を組み込める。
-- 最終的に利用したもの。
+  - `mdxjs/mdx` なら、ファイル中に `import` や `export` などの js を組み込める
+- 最終的に利用したもの
   - [jonschlinkert/ gray-matter](https://github.com/jonschlinkert/gray-matter)
   - processor: [remarkjs/ remark](https://remark.js.org/)
   - highlighter: [highlight.js](https://highlightjs.org/)
 
 構文木について、しっかり学ばねばと思いました。
 
-```js:/src/lib/posts.js
+```js title=/src/lib/posts.js
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
@@ -420,7 +420,7 @@ export async function getPostData(id) {
 
 ![Image from Gyazo](https://i.gyazo.com/d606404dd05463c96bf9d16d8c6d8478.png)
 
-```plaintext:frontmatter
+```plaintext title=frontmatter
 ---
 date: '2020-05-26'
 author: Kawano Yudai
@@ -432,7 +432,7 @@ image: '/assets/posts/202003/miyazaki-oss1.jpg'
 
 #### SNSシェアボタン
 
-```jsx:/src/pages/posts/[id].jsx
+```jsx title=/src/pages/posts/[id].jsx
 <button className='twitter'>
   <a href={`https://twitter.com/share?text=${postData.title}&hashtags=react,nextjs&url=https://next-portfolio-blue.now.sh/posts/${postData.id}&related=not_you_die`}
     target='_blank' rel='noopener noreferrer'><TwitterIcon /></a>
@@ -451,7 +451,7 @@ image: '/assets/posts/202003/miyazaki-oss1.jpg'
 
 - 参照: [README.mdをカッコ可愛くデザインしてアプリの魅力を120%にする](https://qiita.com/aocattleya/items/5f836e9c65ba3eb3af03)
 
-Qiita 投稿の公開に当たり、[`README.md`](https://github.com/oriverk/next-portfolio/blob/master/README.md)を充実させた
+Qiita 投稿の公開に当たり、[`README.md`](https://github.com/oriverk/next-portfolio/blob/master/README.md) を充実させた
 
 ### npm install 禁止
 
@@ -459,13 +459,13 @@ Qiita 投稿の公開に当たり、[`README.md`](https://github.com/oriverk/nex
 
 - 参照: [yarnを使うプロジェクトでnpm installを禁止する方法](https://qiita.com/suin/items/a7bf214f48eb9b2d9afc)
 
-特に理由はないが`npm`の仕様を禁じることにした。
+特に理由はないが `npm` の仕様を禁じることにした。
 
 ### Custom Domain
 
 @ 2020-06-01
 
-1. [google domain](https://domains.google.com/m/registrar/oriverk.dev?_ga=2.153310781.441756797.1591349884-1076856418.1588824685#)で購入
+1. [google domain](https://domains.google.com/m/registrar/oriverk.dev?_ga=2.153310781.441756797.1591349884-1076856418.1588824685#) で購入
 2. Vercel 側でドメインを変更
 3. Google Domain 側で dns を vercel 用に変更
 
@@ -478,7 +478,7 @@ Qiita 投稿の公開に当たり、[`README.md`](https://github.com/oriverk/nex
 
 - 参照: [vercel/next.js - examples/with-google-analytics](https://github.com/vercel/next.js/tree/canary/examples/with-google-analytics)
 
-GoogleAnalytics 側で ID を取得し、`_app.jsx`と`_document.jsx`を上コードに従って修正する。
+GoogleAnalytics 側で ID を取得し、`_app.jsx` と `_document.jsx` を上コードに従って修正する。
 
 ### PWA implimentation
 
@@ -488,7 +488,7 @@ GoogleAnalytics 側で ID を取得し、`_app.jsx`と`_document.jsx`を上コ�
 
 - 参照：[github - hanford/next-offline](https://github.com/hanford/next-offline)
 
-`next-offline`を利用した。上リポジトリでも記載してあるが、Vercel( Now )の v1 と v2 で動作が違う。ただし、現在は v2 オンリーなので、同リポジトリ内にある[packages/now2-example](https://github.com/hanford/next-offline/tree/master/packages/now2-example)の`now.json`と`next.config.json`に倣えばよい。
+`next-offline` を利用した。上リポジトリでも記載してあるが、Vercel( Now )の v1 と v2 で動作が違う。ただし、現在は v2 オンリーなので、同リポジトリ内にある [packages/now2-example](https://github.com/hanford/next-offline/tree/master/packages/now2-example) の `now.json` と `next.config.json` に倣えばよい。
 
 #### PWA
 
@@ -496,9 +496,9 @@ GoogleAnalytics 側で ID を取得し、`_app.jsx`と`_document.jsx`を上コ�
 
 - reference: [shadowwalker / next-pwa](https://github.com/shadowwalker/next-pwa)
 
-最初に使った `next-offline` は更新が遅く、また experimental な部分を利用していたなどの理由から、`next-pwa`に移行した。example からわかるように、非常にシンプルになった。
+最初に使った `next-offline` は更新が遅く、また experimental な部分を利用していたなどの理由から、`next-pwa` に移行した。example からわかるように、非常にシンプルになった。
 
-```js:next.config.js
+```js title=next.config.js
 const withPWA = require("next-pwa");
 
 module.exports = withPWA({
@@ -511,7 +511,7 @@ module.exports = withPWA({
 #### TypeScirpt
 
 @2020-06-30
-Next.js の TS 化は非常に簡単で、最初のうちは[Next.js Learn Typescipt](https://nextjs.org/learn/excel/typescript)などに従えば良い。
+Next.js の TS 化は非常に簡単で、最初のうちは [Next.js Learn Typescipt](https://nextjs.org/learn/excel/typescript) などに従えば良い。
 
 ```sh
 touch tsconfig.json
@@ -519,7 +519,7 @@ touch tsconfig.json
 yarn add --dev typescript @types/react @types/node
 ```
 
-あとは、Learn 等に従って、ts 化していけば、何となく理解できる。また、`tsconfig.json`で`allowJs:true`にしておけば、もし仮に型がわからんものを含む js ファイルはそのままにしておいて、理解が進んでから完全に ts 化すればいいのでは。
+あとは、Learn 等に従って、ts 化していけば、何となく理解できる。また、`tsconfig.json` で `allowJs:true` にしておけば、もし仮に型がわからんものを含む js ファイルはそのままにしておいて、理解が進んでから完全に ts 化すればいいのでは。
 
 - TS の理解を深めるために、読んだもの
   - [Qiita: tsconfig.jsonの全オプションを理解する（随時追加中）by @ryokkkke](https://qiita.com/ryokkkke/items/390647a7c26933940470)
@@ -529,7 +529,7 @@ yarn add --dev typescript @types/react @types/node
 
 #### npm-script
 
-[mizchi氏のブログ](https://mizchi.dev/202006211925-support-ogp)などを見てて、npm-script や EsModule などを知った。ちょうど、`sitemap.mxl`を造る必要があったので、利用することにした。
+[mizchi氏のブログ](https://mizchi.dev/202006211925-support-ogp) などを見ていて、npm-script や EsModule などを知った。ちょうど、`sitemap.mxl` を造る必要があったので、利用することにした。
 
 ```sh
 # pagesMap.json => sitmap.mxl
@@ -564,7 +564,7 @@ mjs について未だ良くわからんこと、作るのが自分用のファ�
 @2020-06-30
 post の情報を集約した postPages.json を作成した。ファイル更新履歴等はそのうち GitHub から取得できるようにしたい。
 
-- JSON.stringify が良くわからなかったので、読んだもの。
+- JSON.stringify が良くわからなかったので、読んだもの
   - [JSON.stringifyを改めて調べる。 @qoAop](https://qiita.com/qoAop/items/57d35a41ef9629351c3c)
 
 作りたいファイル構成
@@ -581,7 +581,7 @@ post の情報を集約した postPages.json を作成した。ファイル更�
 
 postsMap generator script
 
-```js:script/genPagesMap.mjs
+```js title=script/genPagesMap.mjs
 import path from 'path'
 import fs from 'fs'
 import matter from 'gray-matter'
@@ -639,7 +639,7 @@ fs.writeFileSync(
 
 sitemap.xml の基本構成
 
-```xml:sitemap.xml
+```xml title=sitemap.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -653,7 +653,7 @@ sitemap.xml の基本構成
 
 **xmlはファイル頭に空白行が入ると、`<?xml ?>`の宣言が無いと言ってエラーを吐く**
 
-```js:script/genSiteMap.mjs
+```js title=script/genSiteMap.mjs
 import path from 'path'
 import fs from 'fs'
 
@@ -706,7 +706,7 @@ RSS 2.0 と Atom 1.0 に対応する。
 
 RSS 2.0 フォーマット
 
-```xml:rss.xml
+```xml title=rss.xml
 <?xml version='1.0' encoding='UTF-8'?>
 <rss version='2.0'>
  <channel>
@@ -725,7 +725,7 @@ RSS 2.0 フォーマット
 
 Atom 1.0 フォーマット
 
-```xml:atom.xml
+```xml title=atom.xml
 <?xml version='1.0' encoding='UTF-8'?>
 <feed xmlns='http://www.w3.org/2005/Atom' xml:lang='ja'>
  <id>tag:example.comfeed/</id>
@@ -747,7 +747,7 @@ RSS と Atom のジェネレーターコードは、基本的に sitemap.xml と
 
 RSS 2.0 ジェネレータ
 
-```js:script/genRss.mjs
+```js title=script/genRss.mjs
 import path from 'path'
 import fs from 'fs'
 
@@ -783,7 +783,7 @@ fs.writeFileSync(path.join(process.cwd(),'public/rss.xml'), rss)
 
 Atom 1.0 ジェネレーター
 
-```js:script/genRss.mjs
+```js title=script/genRss.mjs
 import path from 'path'
 import fs from 'fs-extra'
 
@@ -819,7 +819,7 @@ fs.writeFileSync(path.join(process.cwd(), 'public/atom.xml'), atom)
 ##### Algolia search
 
 投稿記事の検索に Algolia を利用した。`postsMap.json`　をデータとして投入した。
-現在のデータ投入は手動で行なっているが、あとで `postsMap.json`生成時に差分があれば`api`で投入できるようにしたい。
+現在のデータ投入は手動で行なっているが、あとで `postsMap.json` 生成時に差分があれば `api` で投入できるようにしたい。
 
 - 参照
   - [algolia](https://www.algolia.com)

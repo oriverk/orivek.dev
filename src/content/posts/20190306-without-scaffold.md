@@ -15,30 +15,30 @@ from Qiita:
 
 ## 使用環境
 
-- 仮想環境OS: Ubuntu 18.04
+- 仮想環境 OS: Ubuntu 18.04
 - Ruby：2.51
   - Rails:5.2.2
 
 ### rails db:migrate
 
 - [Railsドキュメントより](http://railsdoc.com/references/rake%20db:migrate)
-  - rails db:migrateを実行
-  - schema_migrationsテーブルを調べ、存在しなければ作成
-  - db/migrateディレクトリ内のすべてのマイグレーションファイルを調べる
+  - rails db:migrate を実行
+  - schema_migrations テーブルを調べ、存在しなければ作成
+  - db/migrate ディレクトリ内のすべてのマイグレーションファイルを調べる
   - データベースの現在のバージョンと異なるバージョンがあった場合、データベースに適応
-  - schema_migrationsテーブルの更新
+  - schema_migrations テーブルの更新
 
 ---
 
 ## 3日目
 
-`scaffold`を利用せずにApp作成をし、Scaffoldの有難みを知る。
+`scaffold` を利用せずに App 作成をし、Scaffold の有難みを知る。
 
 ### 前準備
 
 1. rails s new qiita_routes -d MySQL
-2. Gemfileのminiracerコメントインして、bundle install
-3. Config/database.ymlのpassword情報編集
+2. Gemfile の miniracer コメントインして、bundle install
+3. Config/database.yml の password 情報編集
 4. rails db:create
 
 ### 前提：知識
@@ -47,30 +47,30 @@ from Qiita:
 
 - view
   - 今日はしなかったので、今投稿には未記載
-  - viewの中身がブラウザに表示される内容
+  - view の中身がブラウザに表示される内容
 - controller
-  - ページ表示の際、controllerを経由して、viewをブラウザに返す。
-  - controllerで設定したactionは、controllerと同じ名前のviewフォルダの中から、actionと同じ名前のhtmlファイルを探してブラウザに返します
+  - ページ表示の際、controller を経由して、view をブラウザに返す
+  - controller で設定した action は、controller と同じ名前の view フォルダの中から、action と同じ名前の html ファイルを探してブラウザに返す
 - routing
-  - ブラウザとcontrollerを繋ぐ。
+  - ブラウザと controller を繋ぐ
 
 #### ページ表示の流れ
 
 **Routing => Controller => Model => View**
-modelはデータベース情報が必要なときだけ使用。
+model はデータベース情報が必要なときだけ使用。
 
 ### 本段階
 
 #### controllerを作成
 
-```shell
+```sh
 #rails generate controller コントローラ名 (+アクション名)
 rails generate controller Users
 ```
 
 #### routingの設定：ブラウザとコントローラをつなぐ
 
-```rb:config/routes.rb
+```rb title=config/routes.rb
 Rails.application.routes.draw do
   get 'users', action: :index, controller: 'users'
 end
@@ -88,7 +88,7 @@ rails routes
 
 #### controller：modelとviewをつなぐ
 
-```rb:app/controllers/users_controller.rb
+```rb title=app/controllers/users_controller.rb
 class UsersController < ApplicationController
   def index
     render plain: 'Hello'
@@ -96,13 +96,13 @@ class UsersController < ApplicationController
 end
 ```
 
-無事に、ブラウザ上でHelloが表示された。
+無事に、ブラウザ上で Hello が表示された。
 
 #### renderメソッド
 
-上controller編集時に用いた、renderメソッドは実際に画面に表示される内容を生成する。今回のrenderのplainオプションを指定すると、文字列を直接表示できる。
-Railsのcontrollerでrenderを省略すると、代わりにapp/views/コントローラ名/アクション名.html.erbを用いる。
-=>　controller作成コマンドは `rails g controller コントローラ名　アクション名`
+上 controller 編集時に用いた、render メソッドは実際に画面に表示される内容を生成する。今回の render の plain オプションを指定すると、文字列を直接表示できる。
+Rails の controller で render を省略すると、代わりに app/views/コントローラ名/アクション名.html.erb を用いる。
+=>　controller 作成コマンドは `rails g controller コントローラ名　アクション名`
 
 参照: [Ruby on Rails でページを作成する仕組み by @np_misaki氏](https://qiita.com/np_misaki/items/1c5ff951272a91f70e5f)
 
@@ -110,9 +110,9 @@ Railsのcontrollerでrenderを省略すると、代わりにapp/views/コント�
 - /routes.rb : ルーティングを設定する
 - /locales : 辞書ファイル(グローバル対応等)
 - /app : アプリケーション開発中にメインで使用するディレクトリ
-- /controllers..Controllerクラスを格納する
-- /models :　Modelクラスを格納する
-- /views :Viewクラスを格納する
+- /controllers..Controller クラスを格納する
+- /models :　Model クラスを格納する
+- /views :View クラスを格納する
 
 ---
 
@@ -120,9 +120,9 @@ Railsのcontrollerでrenderを省略すると、代わりにapp/views/コント�
 
 ## モデルを作成
 
-- modelとは
-  - データベースを操作する。
-  - app/models下に配置される
+- model とは
+  - データベースを操作する
+  - app/models 下に配置される
   - テーブルごとに用意され、データの登録・取得・更新・削除などを行なう
 
 ### model作成コマンド
@@ -181,7 +181,7 @@ SHOW CREATE TABLE users;
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 |
 ```
 
-`rails g models`で設定したカラム名が作成されているのがわかる。
+`rails g models` で設定したカラム名が作成されているのがわかる。
 
 ### データベースにfooさんのレコードを追加してみる
 
@@ -230,7 +230,7 @@ User.find_by(id:2) # get a user with id:2
 
 ### controller
 
-```rb:app/controllers/users_controller.rb
+```rb title=app/controllers/users_controller.rb
 class UsersController < ApplicationController
   def index
     @users = User.all
@@ -240,7 +240,7 @@ end
 
 ### view
 
-```rb:app/view/index.html.erb
+```rb title=app/view/index.html.erb
  <body>
     <h1>Users</h1>
     <table>
@@ -274,7 +274,7 @@ end
   </body>
 ```
 
-```rb:app/views/layouts/application.html.erb
+```rb title=app/views/layouts/application.html.erb
 <!DOCTYPE html>
 <html>
   <head>
@@ -288,11 +288,11 @@ end
 
 ルーティングを変更
 
-```rb:app/config/routes.erb
+```rb title=app/config/routes.erb
 resources :users
 ```
 
-`rails routes`実行
+`rails routes` 実行
 
 ```rb
 # =>
@@ -310,9 +310,9 @@ resources :users
 ```
 
 次に上にある、「users GET    /users(.:format)  users#index」を実装
-UserControllerの中にshowアクションを作成
+UserController の中に show アクションを作成
 
-```rb:app/controllers/users_controller.rb
+```rb title=app/controllers/users_controller.rb
 class UsersController < ApplicationController
     def index
         @users = User.all
@@ -323,23 +323,23 @@ class UsersController < ApplicationController
 end
 ```
 
-```rb:app/views/users/index.html.erb
+```rb title=app/views/users/index.html.erb
 # user.nameのラインを下の様に変更
 <td><%= link_to user.name, user_path(user.id) %></td>
 # <% link_to ("A"."/B") %>
 # 上はhtml上で <a href="/B">A</a>に変化する。
 ```
 
-この時点で`rails s`で立ち上げると
+この時点で `rails s` で立ち上げると
 
 ### showアクション
 
-- users_pathはusers#indexへのリンク
-- new_user_pathはusers#newへのリンク
-- edit_user_pathはusers#editへのリンク
-- user_pathはusers#showへのリンク
+- users_path は users#index へのリンク
+- new_user_path は users#new へのリンク
+- edit_user_path は users#edit へのリンク
+- user_path は users#show へのリンク
 
-```rb:app/views/users/show.html.erb
+```rb title=app/views/users/show.html.erb
 <p id="notice"><%= notice %></p>
 <p>
   <strong>Name:</strong>
@@ -357,7 +357,7 @@ end
 
 ### show, edit アクションの定義
 
-```rb:app/controllers/users_controller.rb
+```rb title=app/controllers/users_controller.rb
 def show
   @user = User.find params[:id]
 end
@@ -367,7 +367,7 @@ def edit
 end
 ```
 
-```html:app/views/users/edit.html.erb
+```html title=app/views/users/edit.html.erb
 <%= form_with(model: @user, local: true) do |form| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -397,20 +397,20 @@ end
 
 ### 追加：2日目を参考にし、表示を触ってみる
 
-性別の値0 or 1を男性or女性で表示させる。
+性別の値 0 or 1 を男性 or 女性で表示させる。
 
-```rb:app/models/user.rb
+```rb title=app/models/user.rb
 class User < ApplicationRecord
   enum sex: { male: 0 ,female: 1}
 end
 ```
 
-男性、女性で表示されるようになった。だが、editページは、テキスト入力のままだ。
+男性、女性で表示されるようになった。だが、edit ページは、テキスト入力のまま
 
 ラジオボタンに変更
 
-```html:app/views/users/edit.html.erb
-<div class"field">
+```html title=app/views/users/edit.html.erb
+<div class="field">
     <%= form.label :sex %>
     <%= form.radio_button :sex, 'male' %>男性
     <%= form.radio_button :sex, 'female' %>女性
@@ -436,7 +436,7 @@ User.find_by(name: "foo") # confirm
 
 ### users_controller
 
-```rb:app/controllers/uupdate.rb
+```rb title=app/controllers/uupdate.rb
 def update
     @user = User.find params[:id]
     if @user.update(params.require(:user).permit(:name, :email, :sex, :age, :address, :attendance, :opinion))
@@ -465,13 +465,13 @@ end
 
 ### indexページからのdestroyへのリンク作成
 
-```html:app/views/users/index.html.erb
+```html title=app/views/users/index.html.erb
 <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 ```
 
 ### newページ編集
 
-```html:app/views/users/new.html.erb
+```html title=app/views/users/new.html.erb
 <h1>New User</h1>
 <%= form_with(model: @user, local: true) do |form| %>
   <% if @user.errors.any? %>
@@ -500,13 +500,13 @@ end
 
 ### indexからnewへのリンク作成
 
-```rb:app/views/users/index.html.erb
+```rb title=app/views/users/index.html.erb
 <%= link_to 'New User', new_user_path %>
 ```
 
 ### createアクション定義
 
-```rb:app/controllers/users_controller.rb
+```rb title=app/controllers/users_controller.rb
 def create
     @user = User.new(params.require(:user).permit(:name, :email, :sex, :age, :address, :attendance, :opinion))
     if @user.save
@@ -524,19 +524,19 @@ end
 ## リファクタリング
 
 > wikipedia
->> リファクタリング (refactoring) とは、コンピュータプログラミングにおいて、プログラムの外部から見た動作を変えずにソースコードの内部構造を整理することである。
+>> リファクタリング (refactoring) とは、コンピュータプログラミングにおいて、プログラムの外部から見た動作を変えずにソースコードの内部構造を整理すること
 
 ### createアクションとupdateアクションの共通化
 
-2アクションに下の共通箇所がある
+2 アクションに下の共通箇所がある
 
-```rb:app/controllers/users_controller.rb
+```rb title=app/controllers/users_controller.rb
 @user = User.new(params.require(:user).permit(:name, :email, :sex, :age, :address, :attendance, :opinion))
 ```
 
 リファクタリング後
 
-```rb:app/controllers/users_controller.rb
+```rb title=app/controllers/users_controller.rb
 def create
   @user = User.new(user_params)
   if @user.save
@@ -573,7 +573,7 @@ end
 
 ### show. edit. updata, destroyの共通化
 
-```rb:app/controllers/users_controller.rb
+```rb title=app/controllers/users_controller.rb
 # 共通している部分
 @user = User.find params[:id]
 
@@ -591,7 +591,7 @@ class UsersController < ApplicationController
 
 ### アクションのリファクタリング後（全体）
 
-```rb:app/controllers/users_controller.rb
+```rb title=app/controllers/users_controller.rb
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 

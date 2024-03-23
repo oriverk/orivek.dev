@@ -23,8 +23,8 @@ noindex: true
 ### 機能要件
 
 - アカウント登録・ログインができる
-  - ※悪意のあるファイルが UL されるのを防ぐため、自分しか登録・ログインできない様に。
-- ログイン時のみ、`.zip`ファイルをアップロードできる
+  - ※悪意のあるファイルが UL されるのを防ぐため、自分しか登録・ログインできない様に
+- ログイン時のみ、`.zip` ファイルをアップロードできる
 - 登録・ログイン無しでファイルをダウンロードできる
 
 ### 使用したもの
@@ -40,7 +40,7 @@ noindex: true
 
 以降はコードが多いので最初にまとめ。
 
-firestore, storage を使った公開サイトははじめてでしたが、そこそこ使われている様で嬉しく、また楽しかったです（※下画像中の2023年2月13日ものがメジャーアップデート）。ニッチな領域のツールなので、これ以上の DL 数は望めませんが、元々自分が楽する様に作ったツールが DL されて使われるのは気持ちが良いものです。
+firestore, storage を使った公開サイトは初めてでしたが、そこそこ使われている様で嬉しかったです。元々自分が楽する様に作ったツールなので良かったです。
 
 コードを見返すと、ロジックとビューがごちゃ混ぜになっていて汚い箇所があるので修正していきたいです。
 
@@ -52,13 +52,13 @@ firestore, storage を使った公開サイトははじめてでしたが、そ�
 
 ### firebase
 
-プロジェクトはまず firebase init で作りました。`.zip`の UL 先に FirebaseStorage、そのファイルの内容・DL 数のデータ情報・論理削除フラグなどのデータ保存先に Firestore を利用しました。
+プロジェクトはまず firebase init で作りました。`.zip` の UL 先に FirebaseStorage、そのファイルの内容・DL 数のデータ情報・論理削除フラグなどのデータ保存先に Firestore を利用しました。
 
-```shell
+```sh
 firebase init
 ```
 
-```plaintext:filrebase.rules
+```plaintext title=filrebase.rules
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -78,7 +78,7 @@ service cloud.firestore {
 }
 ```
 
-```plaintext:storage.rules
+```plaintext title=storage.rules
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
@@ -90,13 +90,13 @@ service firebase.storage {
 }
 ```
 
-通常であれば、`match /files/{user's UUID}/{fileID}`の様にするのが良かったのかもしれませんが、垢登録・UL を自分だけに制限するつもりでしたので、さぼりました。
+通常であれば、`match /files/{user's UUID}/{fileID}` の様にするのが良かったのかもしれませんが、垢登録・UL を自分だけに制限するつもりでしたので、さぼりました。
 
 また、storage へのアクセスで cors エラーが発生するので、ドキュメントを参照して対応しました。
 
 - [クロスオリジン リソース シェアリング（CORS）の構成](https://cloud.google.com/storage/docs/configuring-cors?hl=ja)
 
-```json:cors.json
+```json title=cors.json
 [
   {
     "origin": ["http://origin1.example.com"],
@@ -107,7 +107,7 @@ service firebase.storage {
 ]
 ```
 
-```shell
+```sh
 gsutil cors set path-to-cors-json-file gs://<bucket_name>...
 gsutil cors get gs://<bucket_name>
 ```
@@ -120,7 +120,7 @@ firebase v9 を使用しました。
 
 - [認証状態の永続性  |  Firebase](https://firebase.google.com/docs/auth/web/auth-state-persistence?hl=ja)
 
-```typescript:filebase.ts
+```ts title=filebase.ts
 import { initializeApp } from "firebase/app";
 import { getAuth, browserSessionPersistence, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -149,9 +149,9 @@ export { auth, provider, db, storage };
 
 #### file input form
 
-フォームへの`.zip`ファイルや各種データの入力等に`react-hook-form`と`zod`を、ファイルインプット領域には`react-dropzone`を利用しました。
+フォームへの `.zip` ファイルや各種データの入力等に `react-hook-form` と `zod` を、ファイルインプット領域には `react-dropzone` を利用しました。
 
-```jsx:newFile.ts
+```jsx title=newFile.ts
 import type { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -192,11 +192,11 @@ const NewFile: FC = () => {
 
 #### login form
 
-自分だけが登録できるようにするためパスワード認証を利用し、`.env`に登録された Email 以外は弾くようにしました。signup 認証は殆ど同じなので割愛します。
+自分だけが登録できるようにするためパスワード認証を利用し、`.env` に登録された Email 以外は弾くようにしました。signup 認証は殆ど同じなので割愛します。
 
 - [JavaScript でパスワード ベースのアカウントを使用して Firebase 認証を行う](https://firebase.google.com/docs/auth/web/password-auth?hl=ja)
 
-```jsx:login.tsx
+```jsx title=login.tsx
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -241,7 +241,7 @@ const Login: FC = () => {
 
 ログイン・非ログインでアクセスできるまたは表示するページを出しわけるためのコンポーネントを作り利用しました。
 
-```jsx:RequiredAuth.tsx
+```jsx title=RequiredAuth.tsx
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase";
@@ -271,9 +271,9 @@ const RequiredAuth: FC = () => {
 };
 ```
 
-admin ページは自分以外はアクセスしないので、パフォーマンスのためにも lazy import しました。
+自分以外は admin ページにアクセスしないので、パフォーマンスのためにも lazy import しました。
 
-```jsx:App.tsx
+```jsx title=App.tsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 const RequiredAuth = lazy(() => import("./components/RequiedAuth"))
 const Admin = lazy(() => import("./pages/admin"));

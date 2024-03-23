@@ -12,9 +12,7 @@ published: true
 
 ## 普段使っているアイコン画像
 
-GIMP、BlenderやWindownsプリインストールのペイントで良い感じの画像生成が自分にはできないので、TwitterやGitHub等で使っているアイコンは主にHTMLとCSSで生成している。
-
-[Easing Gradients](https://larsenwork.com/easing-gradients/#editor)などのCSSジェネレータで好きな色や形のCSSを取得し、HTMLに反映させて、それを画像変換ライブラリなどを使って生成している。基本的に青系統の色が好き。[ヱヴァンゲリヲン新劇場版：Q](https://www.evangelion.co.jp/3_0/index.html)や初音ミクもこんな色。[Top | Kawano Yudai](https://oriverk.dev/)では`--color-miku: #00e1ee;`とCSS変数を設定している。何色なのかわからないので、取り敢えず近い色を使用している初音ミクの名前を借りた。
+[Easing Gradients](https://larsenwork.com/easing-gradients/#editor) などの CSS ジェネレータで好きな色や形の CSS を取得し、HTML に反映させて、それを画像変換ライブラリなどを使って生成している。基本的に青系統の色が好き。[ヱヴァンゲリヲン新劇場版：Q](https://www.evangelion.co.jp/3_0/index.html) や初音ミクもこんな色。[Top | Kawano Yudai](https://oriverk.dev/) では `--color-miku: #00e1ee;` と CSS 変数を設定している。何色なのかわからないので、取り敢えず近い色を使用している初音ミクの名前を借りた。
 
 ## HTML と CSS
 
@@ -22,7 +20,7 @@ GIMP、BlenderやWindownsプリインストールのペイントで良い感じ�
 <div class='border forNow' />
 ```
 
-```css:gradient.css
+```css title=gradient.css
 #target {
   display: inline-block;
   padding: 50px;
@@ -58,14 +56,14 @@ GIMP、BlenderやWindownsプリインストールのペイントで良い感じ�
 
 ## PNG や SVG として取得
 
-今までは画像化ライブラリに[tsayen/dom-to-image](https://github.com/tsayen/dom-to-image)を使っていたが、当投稿中に[bubkoo/html-to-image](https://github.com/bubkoo/html-to-image#readme)を見つけたのでこちらを使う。
+今までは画像化ライブラリに [tsayen/dom-to-image](https://github.com/tsayen/dom-to-image) を使っていたが、当投稿中に [bubkoo/html-to-image](https://github.com/bubkoo/html-to-image#readme) を見つけたのでこちらを使う。
 
-```shell
+```sh
 npm create vite@latest gradient -- --template react-ts
 npm i html-to-image
 ```
 
-```jsx:App.tsx
+```jsx title=App.tsx
 import React, { useCallback, useRef } from 'react'
 import { toSvg } from 'html-to-image';
 
@@ -107,7 +105,7 @@ const App: React.FC = () => {
 export default App
 ```
 
-`toPng`を使うと、下の画像が得られる。
+`toPng` を使うと、下の画像が得られる。
 
 ![gradient icon image](https://i.imgur.com/sSlooVx.png)
 
@@ -115,7 +113,7 @@ export default App
 
 ※だいぶ前に書いたもの。
 
-```jsx:App.tsx
+```jsx title=App.tsx
 import React from 'react'
 import domtoimage from 'dom-to-image'
 
@@ -154,7 +152,7 @@ export default App;
 - [bubkoo/html-to-image: ✂️ Generates an image from a DOM node using HTML5 canvas and SVG.](https://github.com/bubkoo/html-to-image#readme)
 - [tsayen/dom-to-image: Generates an image from a DOM node using HTML5 canvas](https://github.com/tsayen/dom-to-image)
 
-- たまに使うその他のCSSジェネレータ・ツール
+- たまに使うその他の CSS ジェネレータ・ツール
   - [Smooth Shadow](https://shadows.brumm.af/)
   - [Get Waves – Create SVG waves for your next design](https://getwaves.io/)
   - [Blobmaker - Make organic SVG shapes for your next design](https://www.blobmaker.app/)

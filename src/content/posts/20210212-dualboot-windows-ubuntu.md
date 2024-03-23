@@ -13,41 +13,41 @@ published: true
   - Windows, intel core i5 8th
   - Storage: m.2 sata 500gb
   - RAM: 16GB
-  - US配列キーボード
-- Ubuntu用にした外付けSSD
+  - US 配列キーボード
+- Ubuntu 用にした外付け SSD
   - m.2 sata 128gb
 
 ### デュアルブートにしたきっかけ
 
-元はWindowsユーザーでしたが、最近はvirtualboxによる仮想環境でコードを触っていました。vmにRAM8GB弱を分け与えていたこともあり特に問題もなくやってましたが、最近になってChromeがパソコンが頻繁にフリーズするようになったので、デュアルブートを考えました。
+元は Windows ユーザーでしたが、最近は virtualbox による仮想環境でコードを触っていました。vm に RAM8GB 弱を分け与えていたこともあり特に問題もなくやってましたが、最近になって Chrome がパソコンが頻繁にフリーズするようになったので、デュアルブートを考えました。
 
 ## 本題：Ubuntuの用意
 
-今回は[Ubuntu Japanese Team](https://www.ubuntulinux.jp/)の20.10日本語Remix iso imageを使用した。
+今回は [Ubuntu Japanese Team](https://www.ubuntulinux.jp/) の 20.10 日本語 Remix iso image を使用した。
 
 ### インストールメディア
 
-インストールメディアの作成には[Rufus](https://rufus.ie/ja_JP.html)を使用し、isoイメージと作成先のUSBなどのメディアを選択するだけで、非常に簡単容易だった。
+インストールメディアの作成には [Rufus](https://rufus.ie/ja_JP.html) を使用し、iso イメージと作成先の USB などのメディアを選択するだけで、非常に簡単容易だった。
 
-通常だと内蔵SSDにUbuntuを作成する際はパーティションを弄るわけだが今回は空っぽの外付けSSDを使うので特に何もしなかった。
+通常だと内蔵 SSD に Ubuntu を作成する際はパーティションを弄るわけだが今回は空っぽの外付け SSD を使うので特に何もしなかった。
 
-再起動してBios設定画面でOSブートに先に作成したインストールメディアを使うように優先順位を設定して、また再起動して、Ubuntuを起動、『Ubuntuを試す』を選択した。
+再起動して Bios 設定画面で OS ブートに先に作成したインストールメディアを使うように優先順位を設定して、また再起動して、Ubuntu を起動、『Ubuntu を試す』を選択した。
 
 ### Ubuntuのインストール
 
-スワップ領域と言われても余りわからない人間なので、この[いおりのプログラミングめも](http://fanblogs.jp/iorisprogramming/archive/17/0)の記事を参考にした。画像も添えてあって非常にわかりやすかった。なのでこちらでは割愛。
+スワップ領域と言われても余りわからない人間なので、この [いおりのプログラミングめも](http://fanblogs.jp/iorisprogramming/archive/17/0) の記事を参考にした。画像も添えてあって非常にわかりやすかった。なのでこちらでは割愛。
 
 ## Ubuntuのセットアップ
 
 ### キーボード配列の変更
 
-今回はUbuntu日本語Remixを使用したのでインストール直後から日本語を使用できたが、パソコンのキーボードはUS配列なので、キーボード配列を変更する必要があった。
+今回は Ubuntu 日本語 Remix を使用したのでインストール直後から日本語を使用できたが、パソコンのキーボードは US 配列なので、キーボード配列を変更する必要があった。
 
 設定の『地域と言語』の入力ソースから英語を追加、元々入っている日本語と日本語(Mozc)のうち、日本語は不要だったので削除した。
 
 ![image](https://i.imgur.com/jfhBkpy.png)
 
-言語の切り替えはWindows＋Spaceでできるようだ。個人的に好きじゃないので、あとで変更したい。
+言語の切り替えは Windows＋Space でできるようだ。個人的に好きじゃないので、あとで変更したい。
 
 ### ディレクトリ名を日本語から英語に
 
@@ -89,23 +89,23 @@ sudo install ffmpeg
 
 ## 各種ソフトウェアのインストール
 
-基本的に`sudo apt install` で済ましたい
+基本的に `sudo apt install` で済ましたい
 
 ### 不要ソフトのアンインストール
 
-最小インストールをしておけば良かったけれどもしなかったので、UbuntuSoftware上で削除。
+最小インストールをしておけば良かったけれどもしなかったので、UbuntuSoftware 上で削除。
 
 ![image](https://i.imgur.com/ozMQiVC.png)
 
 - 削除したもの
   - ゲーム類: お遊び用パソコンじゃないので
-  - 写真・カレンダー・その他バックアップ、LibreOffice等
-    - Google使うので
-  - テキストエディタ類：VSCodeを使うので
+  - 写真・カレンダー・その他バックアップ、LibreOffice 等
+    - Google 使うので
+  - テキストエディタ類：VSCode を使うので
 
 ### google chrome
 
-Ubuntu用に .debが用意されているので、取り敢えずDL。
+Ubuntu 用に .deb が用意されているので、取り敢えず DL。
 
 ```sh
 # dl先にて
@@ -122,7 +122,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### vim
 
-VSCodeもvimも使う
+VSCode も vim も使う
 
 ```sh
 sudo apt remove nano
@@ -150,7 +150,7 @@ sudo apt-get install gyazo
 
 ### Solaar（マウス関連
 
-Logicoolのマウス管理ソフトにはLinux版がないので、代替として[Solaar](https://pwr-solaar.github.io/Solaar/)を使う。
+Logicool のマウス管理ソフトには Linux 版がないので、代替として [Solaar](https://pwr-solaar.github.io/Solaar/) を使う。
 
 ```sh
 sudo apt install solaar
@@ -171,10 +171,10 @@ sudo apt install v4l-utils
 v4l2-ctl --list-devices
 ```
 
-aptだけでやりたいなら、Releaseページで.debをDL。`howdy [-U user] [-y] command [argument]` な感じでセッティング。わからないときは、[arch linux wiki - howdy](https://wiki.archlinux.org/index.php/Howdy#Add_correct_IR_sensor)に載っている。
+apt だけでやりたいなら、Release ページで.deb を DL。`howdy [-U user] [-y] command [argument]` な感じでセッティング。わからないときは、[arch linux wiki - howdy](https://wiki.archlinux.org/index.php/Howdy#Add_correct_IR_sensor) に載っている。
 
 ### squoosh(画像圧縮)
 
-ソフトウェアではなくPWAだけれども。有能なので[サイト](https://squoosh.app/)からPWAを追加
+ソフトウェアではなく PWA だけれども。有能なので [サイト](https://squoosh.app/) から PWA を追加
 
 ![image](https://i.imgur.com/ROQt0fa.png)

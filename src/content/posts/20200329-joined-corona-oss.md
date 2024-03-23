@@ -56,7 +56,7 @@ Vue 何もわからないので、まず自然言語の表示の修正をする�
 - 表示言語選択メニューバー: [covid19/nuxt-i18n.config.ts](https://github.com/covid19-miyazaki/covid19/blob/development/nuxt-i18n.config.ts)
 - 他言語表示用 json: [covid19/assets/locales/](https://github.com/covid19-miyazaki/covid19/tree/development/assets/locales)
 
-1. `CODE_OF_CONDUCT.md`の修正
+1. `CODE_OF_CONDUCT.md` の修正
 
 ![Image from Gyazo](https://i.gyazo.com/e7577913f218da5a781a6f4699aedc14.png)
 
@@ -92,4 +92,4 @@ PR の機会ははじめてだったので、下を参照しながら行なっ�
 
 - 表示自然言語の部分を中心に修正改善
 - Warning と出ている部分の修正
-  - 恐らく Typescript の型由来の警告なので、ドキュメントと格闘しながら。
+  - 恐らく Typescript の型由来の警告なので、ドキュメントと格闘しながら

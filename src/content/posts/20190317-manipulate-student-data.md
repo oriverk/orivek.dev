@@ -13,19 +13,19 @@ published: true
 
 ## 9日目
 
-- rails newで動かない不具合
-  - stop springで解消
-- Ruby側で整数型をintと書き間違えることによるエラー
+- rails new で動かない不具合
+  - stop spring で解消
+- Ruby 側で整数型を int と書き間違えることによるエラー
   - **Rubyの整数型はinteger**
-  - MySQLはint（C++経験上、intの方が馴染み深い）
-- rails db:migrateコマでのエラー
-  - 中間テーブルを先に作ってしまったため。
-  - 中間テーブルは主テーブルのid等参照するので、作成は一番後。
+  - MySQL は int（C++経験上、int の方が馴染み深い）
+- rails db:migrate コマでのエラー
+  - 中間テーブルを先に作ってしまったため
+  - 中間テーブルは主テーブルの id 等参照するので、作成は一番後
 - 最適なデータ型を選択できなかった
 
-不具合改善のなかで、Vagrantfileで、使用できるRAMのサイズを8GBに変更
+不具合改善のなかで、Vagrantfile で、使用できる RAM のサイズを 8GB に変更
 
-```rb:Vagrantfile
+```rb title=Vagrantfile
 config.vm.provider "virtualbox" do |vb
   vb.memory = "8192"
 end
@@ -33,7 +33,7 @@ end
 
 ## Environment
 
-- 仮想環境OS: Ubuntu 18.04
+- 仮想環境 OS: Ubuntu 18.04
 - Ruby：2.51
 - Rails:5.2.2
 
@@ -57,13 +57,13 @@ end
 rails new self_univ -d mysql
 ```
 
-```rb:Gemfile
+```rb title=Gemfile
 gem 'mini_racer', platforms: :ruby
 ```
 
 `bundle install`
 
-```yml:app/config/database.yml
+```yml title=app/config/database.yml
 password:
 ```
 
@@ -71,11 +71,11 @@ password:
 
 ## scaffold(本段階
 
-- scaffoldではcontrollerとmodelが作成される
-- Rubyの整数型はinteger
+- scaffold では controller と model が作成される
+- Ruby の整数型は integer
 - 中間テーブルは一番最後に作成
-- 主キーを参照するcolumnをreferenceで指定
-  - 自動でbigintに設定される
+- 主キーを参照する column を reference で指定
+  - 自動で bigint に設定される
 
 ## rails g scaffold
 
@@ -170,7 +170,7 @@ Subject.create(name: '英語', max_score: 200);
 #### map
 
 要素の数だけ繰り返しブロックを実行し、ブロックの戻り値を集めた配列を作成して返す。
-collectメソッドの別名です。
+collect メソッドの別名です。
 
 ```rb
 # 配列の入った変数.map {|変数名| 処理内容 }
@@ -182,15 +182,15 @@ p numbers.map {|item| item.to_i(16) }
 
 #### to_a(Array)
 
-Arrayオブジェクトを返す
+Array オブジェクトを返す
 
 #### rand(max)
 
-maxが0の場合は0.0以上1.0未満の実数を、正の整数の場合は0以上max未満の整数を返す
+max が 0 の場合は 0.0 以上 1.0 未満の実数を、正の整数の場合は 0 以上 max 未満の整数を返す
 
 #### join(sep =)
 
-joinメソッドは、配列の各要素を文字列に変換し、引数sepを区切り文字として結合した文字列を返します。
+join メソッドは、配列の各要素を文字列に変換し、引数 sep を区切り文字として結合した文字列を返します。
 引数を省略すると区切り文字なしで要素を結合した文字列になる
 
 ---
@@ -200,12 +200,12 @@ joinメソッドは、配列の各要素を文字列に変換し、引数sepを�
 今回の流れ
 
 1. 中間テーブルにデータ入力
-2. 性別の0 or 1の表記を、male or femaleに変更
-3. Studentのshowページに、生徒ごとの試験結果など、データを出力
+2. 性別の 0 or 1 の表記を、male or female に変更
+3. Student の show ページに、生徒ごとの試験結果など、データを出力
 
 ## 実段階
 
-Studentsのshowページの、前回までの状態
+Students の show ページの、前回までの状態
 
 ![Image from Gyazo](https://i.gyazo.com/7d3266587cb423757ceceaab6069c6a7.png)
 
@@ -220,7 +220,7 @@ student1.save
 ### データ入力
 
 生徒の部活情報
-id1からid100までの生徒に、0から4個の部活(選択肢は13部)に入ってもらう。
+id1 から id100 までの生徒に、0 から 4 個の部活(選択肢は 13 部)に入ってもらう。
 
 ```rb
 (1..100).each do |i|
@@ -233,8 +233,8 @@ end
 ```
 
 生徒の試験結果情報
-id100までの生徒に、9科目の試験を受けてもらう。
-なお、点数は0点から各教科ごとに設定の最大点までのランダム
+id100 までの生徒に、9 科目の試験を受けてもらう。
+なお、点数は 0 点から各教科ごとに設定の最大点までのランダム
 
 ```rb
 (1..100).each do |i|
@@ -253,12 +253,12 @@ end
 
 ### Studentsのindexページの表記を変更
 
-```rb:app/models/studetns.rb
+```rb title=app/models/studetns.rb
 enum gender: { male: 0 ,female: 1}
 enum age: {"teen": 0, "twenty": 1}
 ```
 
-```rb:app/views/_form.html.erb
+```rb title=app/views/_form.html.erb
 <div class="field">
   <%= form.label :gender %>
   <%= form.radio_button :gender, 'male' %>男性
@@ -273,7 +273,7 @@ enum age: {"teen": 0, "twenty": 1}
 
 ### 出力を考える
 
-- 学生ごとのshowページで表示したいもの
+- 学生ごとの show ページで表示したいもの
   - 生徒のデータ(name, mail, gender, age, opinion)
   - 生徒の教科ごとの試験結果点数
   - 性と全体の試験結果の平均点、最大点、最小点
@@ -313,7 +313,7 @@ GROUP BY subjects.id, subjects.name
 - 参照
 - [Active Record クエリインターフェイス](https://railsguides.jp/active_record_querying.html#%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8B%E3%82%89%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%82%92%E5%8F%96%E3%82%8A%E5%87%BA%E3%81%99)
 
-```rb:app/controllers/studetns_controller.rb
+```rb title=app/controllers/studetns_controller.rb
 def show
   @students = 
     Student.joins(:subjects)
@@ -343,7 +343,7 @@ end
 
 ##### showページのviewを編集
 
-```rb:app/views/students/show.html.erb
+```rb title=app/views/students/show.html.erb
 <table border="1">
   <tr>
     <th>科目名</th>
@@ -370,17 +370,17 @@ end
 
 今回の流れ
 
-1. ExamResultsのindexページのデータ出力を編集
-2. ExamRusultの新規作成ページのUIを変更
-3. gem kaminariでページャー追加
+1. ExamResults の index ページのデータ出力を編集
+2. ExamRusult の新規作成ページの UI を変更
+3. gem kaminari でページャー追加
 
 ## 実段階a
 
 ### modify index page
 
-※`app/views/exam_results/show.html.erb`も同様にやる
+※`app/views/exam_results/show.html.erb` も同様にやる
 
-```rb:app/views/exam_results/index.html.erb
+```rb title=app/views/exam_results/index.html.erb
 # before edit
 # <td><%= exam_result.student %></td>
 # <td><%= exam_result.subject %></td>
@@ -394,7 +394,7 @@ end
 
 - [Action View Form Helpers](https://guides.rubyonrails.org/form_helpers.html#select-boxes-for-dealing-with-models)
 
-```rb:app/views/exam_results/_form.html.erb
+```rb title=app/views/exam_results/_form.html.erb
 <div class="field">
     <%= form.label :student_id %>
     <%= form.select :student_id, @students %>
@@ -405,7 +405,7 @@ end
 </div>
 ```
 
-```rb:app/controllers/exam_results_controller.rb
+```rb title=app/controllers/exam_results_controller.rb
 before_action :set_students_subjects, only: [:new, :edit]
 
 def set_students_subjects
@@ -422,12 +422,12 @@ end
 
 ## pagination by kaminari
 
-studentとExamResultのindexページを、数ページに区切って表示させたい。
-今回はgemの [kaminari](https://github.com/kaminari/kaminari) を用いる。
+student と ExamResult の index ページを、数ページに区切って表示させたい。
+今回は gem の [kaminari](https://github.com/kaminari/kaminari) を用いる。
 
 ### インストール
 
-```rb:Gemfile
+```rb title=Gemfile
 gem 'kaminari'
 ```
 
@@ -435,18 +435,18 @@ gem 'kaminari'
 
 ### studentのindexページから変更
 
-indexアクションを編集
+index アクションを編集
 
-```rb:app/controllers/students_controller.rb
+```rb title=app/controllers/students_controller.rb
 def index
 　　# 編集前：@students = Student.all
     @students = Student.page(params[:page]).per(20)
 end
 ```
 
-viewを編集
+view を編集
 
-```rb:app/views/students/index.html.erb
+```rb title=app/views/students/index.html.erb
 # ファイル先頭行に追加
 <div class="page-header">
 # ファイル最終行に追加
@@ -458,7 +458,7 @@ viewを編集
 
 ### ExamResultのindexページ編集
 
-`app/controllers/exam_result_controller.rb` のindexアクションと
+`app/controllers/exam_result_controller.rb` の index アクションと
 `app/view/exam_results/index.html.erb` を同様に編集
 
 ### ページャの見た目を変える
@@ -486,11 +486,11 @@ rails g kaminari:config
 # ここで作成されたファイルに設定がある。
 ```
 
-Bootstrap対応のページャテーマもある。
+Bootstrap 対応のページャテーマもある。
 
 - [amatsuda/kaminari_themes](https://github.com/amatsuda/kaminari_themes)
 
-```rb:config/initializers/kaminari_config.rb
+```rb title=config/initializers/kaminari_config.rb
 # frozen_string_literal: true
 Kaminari.configure do |config|
   # config.default_per_page = 25
@@ -511,21 +511,21 @@ end
 
 ### kaminariの別のファイル設定
 
-- modelsにpaginates_per 30と記述
-- controllerのindexアクションの末尾にある、per()を削除
+- models に paginates_per 30 と記述
+- controller の index アクションの末尾にある、per()を削除
   - (ビューファイルは同じ)
 
-exam_resultも編集は同じ。
+exam_result も編集は同じ。
 
-```rb:app/models/student.rb
+```rb title=app/models/student.rb
 paginates_per 30
 ```
 
-```rb:app/controllers/students_controller.rb
+```rb title=app/controllers/students_controller.rb
 @students = Student.page(params[:page])
 ```
 
-```rb:app/views/students/index.html.erb
+```rb title=app/views/students/index.html.erb
 # ファイル先頭
 <div class="page-header">
 # ファイル末尾
@@ -537,11 +537,11 @@ paginates_per 30
 
 リンクを作成
 
-```rb:app/views/student/index.html.erb
+```rb title=app/views/student/index.html.erb
 <td><%= link_to 'New Exam Result', new_exam_result_path(student_id: student.id) %></td>
 ```
 
-```rb:app/controllers/exam_results_controller.rb
+```rb title=app/controllers/exam_results_controller.rb
 def new
   if params[:student_id]
     @student = Student.find(params[:student_id])
@@ -551,29 +551,29 @@ def new
 end
 ```
 
-```rb:app/views/exam_result/_form.html.erb
+```rb title=app/views/exam_result/_form.html.erb
 <%= form.select :student_id, options_for_select(@students, @selected_student) %>
 ```
 
-student indexから'New Exam Result'リンクを押すと、exam_resultのnewページに飛び、フォームのセレクトボタンのうち、生徒が自動で選択される。
+student index から'New Exam Result'リンクを押すと、exam_result の new ページに飛び、フォームのセレクトボタンのうち、生徒が自動で選択される。
 
 ---
 
 ## 14日目
 
-今週からは、scaffoldで作成した大学データと、gemのdevise、Bootstrapなどを組み合わせる。
+今週からは、scaffold で作成した大学データと、gem の devise、Bootstrap などを組み合わせる。
 
 ### What I did
 
-- Railsの命名規則(単数形と複数形)
-- DBのカラム定義を後から変更
+- Rails の命名規則(単数形と複数形)
+- DB のカラム定義を後から変更
 - render partial: 部分テンプレの参照
 - validation
 - **UNSIGNEDという型が存在しないPostgreSQL**
 
 ### Railsの命名規則(単数形と複数形)
 
-rails gコマンドで、controller名やmodel名を指定する際に、混乱した。
+rails g コマンドで、controller 名や model 名を指定する際に、混乱した。
 
 ```sh
 # rails generate scaffold model名の単数形　フィールド名の型と並び
@@ -582,16 +582,16 @@ rails gコマンドで、controller名やmodel名を指定する際に、混乱�
 # rails generate migration AddカラムToモデル名の複数形 フィールド名と並び
 ```
 
-- modelは単数形で、頭文字を大文字
-  - scaffoldの場合、modelが基準
-- controller名は複数形、頭文字を大文字
-  - 1つのcontrollerに複数のactionが含まれるため
+- model は単数形で、頭文字を大文字
+  - scaffold の場合、model が基準
+- controller 名は複数形、頭文字を大文字
+  - 1 つの controller に複数の action が含まれるため
 
 ### DBのカラム定義を後から変更
 
 `rails g scaffold` 時に "refereces" とミスタイプしていた。
 
-```rb:db/migrate/20190326030303_create_club_students.rb
+```rb title=db/migrate/20190326030303_create_club_students.rb
 class CreateClubStudents < ActiveRecord::Migration[5.2]
   def change
     create_table :club_students do |t|
@@ -605,8 +605,8 @@ class CreateClubStudents < ActiveRecord::Migration[5.2]
 end
 ```
 
-なお、ALTTER TABLEコマンドを使って、あとから修正する方法は
-DB内のデータを書き換えるだけで、アプリ自体のファイル等は編集されない。
+なお、ALTTER TABLE コマンドを使って、あとから修正する方法は
+DB 内のデータを書き換えるだけで、アプリ自体のファイル等は編集されない。
 
 ```sql
 -- ALTER TABLE テーブル名 MODIFY COLUMN カラム名 新しい定義
@@ -619,12 +619,12 @@ ALTER TABLE ClubStudent MODIFY COLUMN student references
 
 - 参照: [render - rails docs](http://railsdoc.com/references/render)
 
-すべてのページのヘッダーに、ログアウトや他のstudentやclubsなどのリンクを乗せる
+すべてのページのヘッダーに、ログアウトや他の student や clubs などのリンクを乗せる
 
-共通して表示させるので、/app/views/layouts/application.html.erbを編集する。
+共通して表示させるので、/app/views/layouts/application.html.erb を編集する。
 なお、部分テンプレファイル名は『_』アンダースコア始まり
 
-```rb:/app/views/layouts/application.html.erb
+```rb title=/app/views/layouts/application.html.erb
 <body>
   <%= render :partial => 'shared/header' %>
 </body>
@@ -632,7 +632,7 @@ ALTER TABLE ClubStudent MODIFY COLUMN student references
 
 表示させたいリンクを書きこむ。
 
-```rb:/app/views/shared/_header.html.erb
+```rb title=/app/views/shared/_header.html.erb
 <%= link_to 'Student list', students_path %> 
 <%= link_to 'subjects list', subjects_path %> 
 <%= link_to 'clubs list', clubs_path %> 
@@ -645,7 +645,7 @@ ALTER TABLE ClubStudent MODIFY COLUMN student references
 
 - 参照: [Active Record Validations](https://guides.rubyonrails.org/active_record_validations.html)
 
-バリデーションは有効なデータだけをDBに保存するのを確実にするための最善策。
+バリデーションは有効なデータだけを DB に保存するのを確実にするための最善策。
 
 ### validate条件
 
@@ -668,12 +668,12 @@ validates :name, exclusion: { in: %w(部 サークル) }
 # 『含む』ならinclusion
 ```
 
-空白や文字列長、『サークル』という語には、validatesが発動するが、『テニスサークル』だと発動しないので、正規表現などを使う必要がある。
+空白や文字列長、『サークル』という語には、validates が発動するが、『テニスサークル』だと発動しないので、正規表現などを使う必要がある。
 
 ## type "unsigned" does not exist (※Postgresql)
 
-validatesの実装していく最中に、エラーに気づいた
-studentのeditページで更新すると、
+validates の実装していく最中に、エラーに気づいた
+student の edit ページで更新すると、
 
 ```sh
 # ActiveRecord::StatementInvalid in StudentsController#show
@@ -682,9 +682,9 @@ studentのeditページで更新すると、
 ```
 
 とエラーを吐き、ブラウザの戻るボタンで戻ると更新されている。
-また、エラー原因であると思わる`StudentController#show`は
+また、エラー原因であると思わる `StudentController#show` は
 
-```rb:app/controllers/students_controller.rb
+```rb title=app/controllers/students_controller.rb
 def show
   @students = 
     Student.joins(:subjects)
@@ -704,54 +704,54 @@ def show
 # (以下略)
 ```
 
-因みに、このcontrollerは、以前の大学データのcontrollerからコピーしてきたものだ。
-つまり、MySQLで動くアプリのcontroller。
+因みに、この controller は、以前の大学データの controller からコピーしてきたものだ。
+つまり、MySQL で動くアプリの controller。
 
 ### unsigned　(MySQL)
 
-- MySQLにおいては正と負の整数を扱うことができる。
-- unsignedを指定すると、正の数しか格納できなくなり、代わりに範囲が2倍になる。
+- MySQL においては正と負の整数を扱うことができる
+- unsigned を指定すると、正の数しか格納できなくなり、代わりに範囲が 2 倍になる
 - **unsignedにした値が負になると、エラーを起こす**
-  - UNSIGNEDは、マイナス値が入らないだけでなく、マイナスになる計算もできない。
-  - CASTで一時的に型を変えることで回避は可能。
+  - UNSIGNED は、マイナス値が入らないだけでなく、マイナスになる計算もできない
+  - CAST で一時的に型を変えることで回避は可能
 
 ### Postgresqlにはunsined型は存在しない(最重要)
 
 対応するには
 
-- unsignedをintなどの型に置き換える
-  - 今回は試験点数を扱っていて、intで事足りると思われる。
-  - ただ、MySQLでint unsignedだと、範囲が正の方向に2倍になっている。
+- unsigned を int などの型に置き換える
+  - 今回は試験点数を扱っていて、int で事足りると思われる
+  - ただ、MySQL で int unsigned だと、範囲が正の方向に 2 倍になっている
   - **扱う数によっては、intより1つ上のbigintに変える必要がある**
-- CAST as unsignedの部分を消す
-  - MySQLでCAST as unsingedは、一時的に型を指定している
+- CAST as unsigned の部分を消す
+  - MySQL で CAST as unsinged は、一時的に型を指定している
 
-前回の大学データに倣って、今回はcast as intに変更した
+前回の大学データに倣って、今回は cast as int に変更した
 
-```rb:app/controllers/students_controller.rb
+```rb title=app/controllers/students_controller.rb
 # (該当部分だけ抜き出し）
 .select('CAST((exam_results.score / subjects.max_score) * 100 as int) as ratio')
 .select('CAST(AVG(exam_results.score) as int) as avg_score')
 ```
 
-正常に、studentデータのedit、updateが機能した。
+正常に、student データの edit、update が機能した。
 
 ## データ入力にはpassword情報が必要
 
-deviseの関係上、パスワード情報入りのデータでないと、コンソールから入力できない。
+devise の関係上、パスワード情報入りのデータでないと、コンソールから入力できない。
 
 ### passwordカラムの追加
 
-deviseのモデルなどがある、Studentテーブルに、パスワードカラムを追加した。
+devise のモデルなどがある、Student テーブルに、パスワードカラムを追加した。
 
 ```sh
 # rails generate migration AddカラムToモデル名の複数形 フィールド名と並び
 rails g migration AddPasswordToStudents password:string
 ```
 
-db/migrate下にファイルが生成される
+db/migrate 下にファイルが生成される
 
-```rb:/db/migrate/20190327144825_add_password_to_students.rb
+```rb title=/db/migrate/20190327144825_add_password_to_students.rb
 class AddPasswordToStudents < ActiveRecord::Migration[5.2]
   def change
     add_column :students, :password, :integer
@@ -759,7 +759,7 @@ class AddPasswordToStudents < ActiveRecord::Migration[5.2]
 end
 ```
 
-これで、パスワード情報入りの生徒データをDBに入力できる。
+これで、パスワード情報入りの生徒データを DB に入力できる。
 
 ### input data
 

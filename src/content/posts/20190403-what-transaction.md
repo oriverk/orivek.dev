@@ -16,12 +16,12 @@ published: true
 
 ### ACID 標準
 
-また、トランザクション処理システムは4つの属性の機能をサポートしており、頭文字からACID標準という。
+また、トランザクション処理システムは 4 つの属性の機能をサポートしており、頭文字から ACID 標準という。
 
-- A : Atomic不可分性
-- C : Consistency一貫性
-- I : Isolation独立性
-- D : Durability永続性
+- A : Atomic 不可分性
+- C : Consistency 一貫性
+- I : Isolation 独立性
+- D : Durability 永続性
 
 ## 実際に動かしてみる
 
@@ -29,13 +29,13 @@ published: true
 
 - 参照: [13.3.1 START TRANSACTION、COMMIT、および ROLLBACK 構文　-MySQLリファレンス](https://dev.mysql.com/doc/refman/5.6/ja/commit.html)
 
-MySQLはデフォルトで、自動コミットモードが有効になった状態で動作し、実行するとすぐに、ディスクに格納されて永続的になります。この変更はロールバックできない。
+MySQL はデフォルトで、自動コミットモードが有効になった状態で動作し、実行するとすぐに、ディスクに格納されて永続的になります。この変更はロールバックできない。
 
-自動コミットモードを暗黙的に無効にするには、START TRANSACTIONをし、その後、COMMITまたはROLLBACKで終了するまで、自動コミットは無効のままになります。そのあと、自動コミットモードはその以前の状態に戻ります。
+自動コミットモードを暗黙的に無効にするには、START TRANSACTION をし、その後、COMMIT または ROLLBACK で終了するまで、自動コミットは無効のままになります。そのあと、自動コミットモードはその以前の状態に戻ります。
 
 #### 実作業
 
-今回はMySQLと、以前に作成した大学生徒データAppのデータを再利用する
+今回は MySQL と、以前に作成した大学生徒データ App のデータを再利用する
 
 ```sh
 mysql -u root -p
@@ -136,7 +136,7 @@ SELECT name FROM students WHERE id = 3;
 
 ### try on RubyonRails
 
-新しく、アプリを作成する。今回はDBの操作だけなので、rails g modelコマンドのみ使用。テーブルはUserとReviewの２つ。
+新しく、アプリを作成する。今回は DB の操作だけなので、rails g model コマンドのみ使用。テーブルは User と Review の２つ。
 
 ```sh
 rails new transact_self -d mysql
@@ -162,7 +162,7 @@ end
 end
 ```
 
-DB内で確認
+DB 内で確認
 
 ```sql
 SELECT * FROM users;
@@ -184,18 +184,18 @@ SELECT * FROM reviews;
 -- ...
 ```
 
-userとreviewとの、関連付け
+user と review との、関連付け
 
-```rb:app/models/user.rb
+```rb title=app/models/user.rb
 class User < ApplicationRecord
   has_many :reviews
 end
 ```
 
-reviewモデルにvalidation追加
-approvedカラムを空欄不可にしておく。
+review モデルに validation 追加
+approved カラムを空欄不可にしておく。
 
-```rb:app/models/review.rb
+```rb title=app/models/review.rb
 class Review < ApplicationRecord
   belongs_to :user
   validates :approved, presence: true
@@ -204,7 +204,7 @@ end
 
 #### コンソールで、トランザクション処理の挙動を確認
 
-トランザクション処理に成功し、commitされるパターン
+トランザクション処理に成功し、commit されるパターン
 
 ```rb
 user = User.first
@@ -222,7 +222,7 @@ end
 #<Review id: 3, user_id: 1, rate: 3, approved: true, created_at: "2019-04-03 09:01:38", updated_at: "2019-04-03 09:01:38">,
 ```
 
-userテーブルのid1のtaro-1が、更新されてる
+user テーブルの id1 の taro-1 が、更新されてる
 
 ```sql
 select * from users;
@@ -232,7 +232,7 @@ select * from users;
 -- |  1 | taro-1 |        0 |       0 | 2019-04-03 09:01:31 | 2019-04-03 09:10:46 |
 ```
 
-トランザクション処理に失敗し、rollbackされるパターン
+トランザクション処理に失敗し、rollback されるパターン
 
 ```rb
 user = User.first
@@ -251,11 +251,11 @@ Traceback (most recent call last):
 ActiveRecord::RecordInvalid (Validation failed: Approved can't be blank)
 ```
 
-トランザクション処理に失敗し、rollbackしたため、DBに変化はない。
+トランザクション処理に失敗し、rollback したため、DB に変化はない。
 
 #### modelファイルを編集して実装
 
-```rb:app/models/user.rb
+```rb title=app/models/user.rb
 class User < ApplicationRecord
   has_many :reviews
 

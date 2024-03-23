@@ -25,7 +25,7 @@ published: true
 
 ブログを書くときにいつも使う。
 
-```javascript:pre-minified.js
+```js title=pre-minified.js
 // copy text to clipboard: e.g. [Google](https://www.google.com/)
 
 'use strict'; (
@@ -40,18 +40,18 @@ published: true
 )();
 ```
 
-```javascript:minified.js
+```js title=minified.js
 'use strict'; (function(){const a=`[${document.title.trim()}](${location.href})`;navigator.clipboard.writeText(a).then(()=>{alert(`Successfully copied ${a}`)},()=>{alert("Unfortunately failed to copy..")})})();
 ```
 
 ### はみ出した Element を見つけるやつ
 
-- [TAK on Twitter: "予期せぬ余白や横スクロールが生じた際に全称セレクタ＋outline指定で確認している人が多いけど、デベロッパーツールのConsoleに以下のスクリプトをコピペしたほうが速いと思ってます 枠線の表示だけでなく、実際に横スクロールを起こしている要素も出力可能です サンプル: https://t.co/gkFmFg6ZCk https://t.co/tsRwkQqZ7h" / Twitter](https://twitter.com/tak_dcxi/status/1454019066608304134)
+- [横スクロールバーの発生源を素早く特定する方法と最新の防止策 | TAKLOG](https://www.tak-dcxi.com/article/methods-to-quickly-identify-the-source-of-horizontal-scrolling-and-the-latest-prevention-measures)
 - [CODEPEN | tack-dcxi 横スクロールの原因を調べる](https://codepen.io/tak-dcxi/pen/ZEJJWxE)
 
-こちらのコードをそのまま利用すると`Uncaught ReferenceError: $$ is not defined`となるので、一部弄って
+こちらのコードをそのまま利用すると `Uncaught ReferenceError: $$ is not defined` となるので、一部弄って
 
-```javascript:pre-minified.js
+```js title=pre-minified.js
 (
   function () {
     const a = document.documentElement.clientWidth;
@@ -63,7 +63,7 @@ published: true
 )();
 ```
 
-```javascript:minified.js
+```js title=minified.js
 'use strict';(function(){const b=document.documentElement.clientWidth;Array.from(document.getElementsByTagName("*")).forEach(function(a){a.style.outline="1px solid tomato";b<a.clientWidth&&console.log(a)})})();
 ```
 

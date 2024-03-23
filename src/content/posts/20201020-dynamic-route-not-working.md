@@ -36,8 +36,8 @@ hybrid amp と getStaticPaths / getStaticProps を併用すると、dev / build 
 ### solution
 
 - hybrid 下での getStaticPaths などを止める
-- hybrid を止め、`amp: true` とする。
+- hybrid を止め、`amp: true` とする
 
 ## conclusion
 
-元々AMP に技術に完全に乗っかるのは？と思いつつも、amp hybrid を進めてきましたが、自分がしたかったものは現状できない様なので[https://oriverk.dev](https://oriverk.dev)は AMP を採用しないことにした。AMP はその他の playground や趣味ブログに適用予定。
+元々AMP に技術に完全に乗っかるのは？と思いつつも、amp hybrid を進めてきましたが、自分がしたかったものは現状できない様なので [https://oriverk.dev](https://oriverk.dev) は AMP を採用しないことにした。AMP はその他の playground や趣味ブログに適用予定。

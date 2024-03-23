@@ -7,7 +7,7 @@ description: "GitHubでアラート記法を使えるようになったので、
 published: true
 ---
 
-GitHubで`> [!NOTE]`といったアラート記法を使えるようになったので、VSCodeでスニペットを設定しました。
+GitHub で `> [!NOTE]` といったアラート記法を使えるようになったので、VSCode でスニペットを設定しました。
 
 ## アラートについて
 
@@ -109,6 +109,6 @@ GitHubで`> [!NOTE]`といったアラート記法を使えるようになった
 
 ## remark plugin
 
-markdownを処理する際のremark plugin として、`remark-github-alerts`を利用した。
+markdown を処理する際の remark plugin として、`remark-github-alerts` を利用した。
 
 [hyoban/remark-github-alerts: Support GitHub-style alerts for remark](https://github.com/hyoban/remark-github-alerts)

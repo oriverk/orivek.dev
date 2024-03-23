@@ -11,17 +11,17 @@ published: true
 
 ## はじめに
 
-趣味関係で開発・メンテナンスしている JS 製のツールを GoogleDive で配布していたのですが、代替サービスを探していました。探す中で作れそうだ・作ってみたいと思い、2022年8月にサイトを公開しました。
+趣味関係で開発・メンテナンスしている JS 製のツールを GoogleDive で配布していたのですが、代替サービスを探していました。探す中で作れそうだ・作ってみたいと思い、2022 年 8 月にサイトを公開しました。
 
 ※自ツール配布のためだけのサイトであり、また悪意のあるファイルを他者に UL されると困るので、サイト URL と GitHub リポジトリは非公開です。
 
 ### どんなサービス
 
-`.zip`ファイルを説明文とともに UL し、また DL できるサービス。UL にはユーザー登録を必要とし、DL は非登録ユーザーでも可能。
+`.zip` ファイルを説明文とともに UL し、また DL できるサービス。UL にはユーザー登録を必要とし、DL は非登録ユーザーでも可能。
 
 ![Image from Gyazo](https://i.gyazo.com/ca3fe099cecbd3ae3190071178432e52.png)
 
-`.zip`ファイルの種別やサイズ、最終更新、ダウンロード数、説明文を閲覧できる。
+`.zip` ファイルの種別やサイズ、最終更新、ダウンロード数、説明文を閲覧できる。
 
 ![Image from Gyazo](https://i.gyazo.com/a196d0a42cc76e0bcdabbbb4658cde5a.png)
 
@@ -31,7 +31,7 @@ published: true
 
 ### 利用状況
 
-基本的に月上旬に1回、不具合などあればマイナーアップデート版と言った風にしています。※メンテナンス・開発を引き継ぐ前から、日時ベースのバージョン管理となっていました。
+基本的に月上旬に 1 回、不具合などあればマイナーアップデート版と言った風にしています。※メンテナンス・開発を引き継ぐ前から、日時ベースのバージョン管理となっていました。
 
 ![Image from Gyazo](https://i.gyazo.com/ac6ea63d60e6b9ddb707f95bb9b1b9d8.png)
 
@@ -41,7 +41,7 @@ published: true
 
 ### 利用した技術・サービス
 
-サイトデザイン等は省力化のために[Tailwind CSS Components](https://tailwindcomponents.com/)を参照しました。
+サイトデザイン等は省力化のために [Tailwind CSS Components](https://tailwindcomponents.com/) を参照しました。
 
 - React, TypeScript, TailwindCSS
   - [CSFrequency/react-firebase-hooks: React Hooks for Firebase.](https://github.com/CSFrequency/react-firebase-hooks)
@@ -53,13 +53,13 @@ published: true
 
 ### Form components
 
-`react-hook-form`を使い、`TextInput.tsx`, `PasswordInput.tsx`, `Textarea.tsx`, `Checkbox.tsx` などを作成し、signup や login 認証やファイル UL 時のフォームで利用しました。また、ファイル UL の為のドロップゾーンは`react-dropzone`を利用しましたが、コードが長いので割愛します。
+signup や login 認証やファイル UL 時のフォームに必要なコンポーネントを `react-hook-form` を使って作成しました。また、ファイル UL の為のドロップゾーンは `react-dropzone` を利用しましたが、コードが長いので割愛します。
 
 <details>
 
 <summary>PasswordInput.tsx</summary>
 
-```typescript
+```ts
 import type { ComponentProps, FC } from "react";
 import { useState, useCallback } from "react"
 import { useFormContext } from "react-hook-form";
@@ -135,17 +135,17 @@ export const PasswordInput: FC<InputProps> = (props) => {
 
 ### 認証機能
 
-ユーザー登録を私のみに制限するために、メールアドレス・パスワードによる Firebase 認証を選択し、`.env`で設定されたメールアドレスのみ使えるようにしました。
+ユーザー登録を私のみに制限するために、メールアドレス・パスワードによる Firebase 認証を選択し、`.env` で設定されたメールアドレスのみ使えるようにしました。
 
 - [JavaScript でパスワード ベースのアカウントを使用して Firebase 認証を行う](https://firebase.google.com/docs/auth/web/password-auth?hl=ja)
 
 #### zod
 
-バリデーションのために`react-hook-form`の`zodResolver`を利用しました。
+バリデーションのために `react-hook-form` の `zodResolver` を利用しました。
 
 - [react-hook-form/resolvers: 📋 Validation resolvers: Yup, Zod, AJV, Joi, Superstruct, Vest, class-validator, io-ts, typanion, Ajv, TypeBox, Valibot and nope.](https://github.com/react-hook-form/resolvers#zod)
 
-```typescript
+```ts
 import * from z from "zod";
 
 const emailSchema = z
@@ -166,7 +166,7 @@ export const SignUpWithEmailAndPasswordSchema = z.object({
 
 <summary>Signup.tsx</summary>
 
-```typescript
+```ts
 import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
@@ -261,7 +261,7 @@ service cloud.firestore {
 
 ### Storage
 
-UL された`.zip`ファイルを保存するために利用しました。
+UL された `.zip` ファイルを保存するために利用しました。
 
 ```plaintext
 <!-- storage.rules -->
@@ -291,7 +291,7 @@ Firebase Storage を利用する際にあたって、CORS の設定をしまし�
 - [クロスオリジン リソース シェアリング（CORS）の構成](https://cloud.google.com/storage/docs/configuring-cors?hl=ja)
 - [gsutil をインストールする  |  Cloud Storage  |  Google Cloud](https://cloud.google.com/storage/docs/gsutil_install?hl=ja)
 
-```json:cors.json
+```json title=cors.json
 [
   {
     "origin": [
@@ -312,4 +312,4 @@ gsutil cors get gs://<bucket_name>
 
 ## おわりに
 
-当初はドメイン代程度の赤字でも良いと思っていました。現在では毎日の粗食1杯程度の広告収入由来の利益は出ており、運用コストを抑えることのできる Firebase に感謝したいです。
+当初はドメイン代程度の赤字でも良いと思っていました。現在では毎日の粗食 1 杯程度の広告収入由来の利益は出ており、運用コストを抑えることのできる Firebase に感謝したいです。

@@ -10,7 +10,7 @@ from [Qiita：Bootstrapを初めて触ってみた](https://qiita.com/OriverK/it
 
 ## Environment
 
-仮想環境OS: Ubuntu 18.04
+仮想環境 OS: Ubuntu 18.04
 Ruby 2.5.1p57
 Rails 5.2.2
 MySQL
@@ -72,7 +72,7 @@ end
 
 - 参照: [Bootstrap introduction](https://getbootstrap.com/docs/4.3/getting-started/introduction/)
 
-```html:app/views/layouts/application.html.erb
+```html title=app/views/layouts/application.html.erb
 <!-- <head>の中で読み込む -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -86,21 +86,21 @@ end
 
 ### indexページのNewUserボタンの変更
 
-```rb:app/views/users/index.html.erb
+```rb title=app/views/users/index.html.erb
 # 元のコード
 <%= link_to 'New User', new_user_path" %>
 # Bootstrap用のclass追加
 <%= link_to 'New User', new_user_path , class: "btn btn-primary"%>
 ```
 
-同様にshow、edit、destroyボタンも変更
+同様に show、edit、destroy ボタンも変更
 
 ### tableの見栄えも変更
 
 - 参照
   - [bootstrap table](https://getbootstrap.com/docs/4.3/content/tables/)
 
-```html:app/views/layouts/application.html.erb
+```html title=app/views/layouts/application.html.erb
 <!-- # 元のコード -->
 <table>
 <!-- # 修正後 -->
@@ -111,13 +111,13 @@ end
 
 ### 授業のなかで言われたこと
 
-- headかbodyどうかが、ユーザビリティに影響を与える
-  - head内：jsファイルが重い場合は、jsファイルが読み込まれるまで、ページが表示されない。
-  - body内：先にページが表示されて、その後にjsファイルが読み込まれます。
-  - HTML解析前に実行されるべきjsファイルなどはheadタグ内に記述するべし
+- head か body どうかが、ユーザビリティに影響を与える
+  - head 内：js ファイルが重い場合は、js ファイルが読み込まれるまで、ページが表示されない
+  - body 内：先にページが表示されて、その後に js ファイルが読み込まれる
+  - HTML 解析前に実行されるべき js ファイルなどは head タグ内に記述するべし
 
 ### ページ読み込み時間は、ユーザーの直帰率等に影響を及ぼす
 
 [一次データ:Does Page Load Time Really Affect Bounce Rate? pingdom](https://royal.pingdom.com/page-load-time-really-affect-bounce-rate/)
 
-上の一次データによると、ページ読み込み時間3秒までは直帰率は10％弱だが、5秒で38%、7秒で50%を超える
+上の一次データによると、ページ読み込み時間 3 秒までは直帰率は 10％弱だが、5 秒で 38%、7 秒で 50%を超える

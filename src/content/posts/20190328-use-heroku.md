@@ -45,7 +45,7 @@ heroku login --interactive
 
 ### deploy app to heroku
 
-アプリのソースコードを受け取るHerokuを準備する
+アプリのソースコードを受け取る Heroku を準備する
 
 ```sh
 heroku create

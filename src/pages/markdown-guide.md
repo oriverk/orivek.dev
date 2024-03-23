@@ -4,7 +4,7 @@ title: Markdown記法一覧
 create: '2023-04-12'
 ---
 
-Markdown 記法の確認用。md ファイルを汎用的に使いまわせる様に、可能な限り GitHub Flavored Markdown に準拠したい。
+可能な限り GitHub Flavored Markdown に準拠したい。
 
 ```diff
 const hello = null;
@@ -40,10 +40,10 @@ function hello (){
   * Hi!
 ```
 
-- Hello!
-- Hola!
-  - Bonjour!
-  - Hi!
+- Hello
+- Hola
+  - Bonjour
+  - Hi
 
 ### 番号付きリスト
 
@@ -107,4 +107,4 @@ bold **太字**
 
 ~~打ち消し線~~
 
-インラインで`code`を挿入する
+インラインで `code` を挿入する。

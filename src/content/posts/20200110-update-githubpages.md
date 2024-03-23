@@ -19,7 +19,7 @@ published: true
 
 ### デザイン変更
 
-[ページ表示速度](https://developers.google.com/speed/pagespeed/insights/?hl=JA&url=https%3A%2F%2Foriverk.github.io%2F&tab=mobile)を向上させるため、メニュータブにしか使っていない Bootstrap 由来の JS と CSS を排除し、自作の js スクリプトを追加した。
+[ページ表示速度](https://developers.google.com/speed/pagespeed/insights/?hl=JA&url=https%3A%2F%2Foriverk.github.io%2F&tab=mobile) を向上させるため、メニュータブにしか使っていない Bootstrap 由来の JS と CSS を排除し、自作の js スクリプトを追加した。
 
 ```js
 <script>
@@ -56,7 +56,7 @@ Posts.index と Post.show ページは jekyll 通りなので割愛。
 gem 'rouge'
 ```
 
-```yml:_config.yml
+```yml title=_config.yml
 # this is defualt setting to use hightlight and endhighlight
 markdown: kramdown
 highlighter: rouge
@@ -69,7 +69,7 @@ kramdown:
 highlighter: rouge
 ```
 
-あとは`rougify style [<theme-name>]`でシンタックスハイライト用の css、今回は molokai を生成し、一部修正、適用させた。
+あとは `rougify style [<theme-name>]` でシンタックスハイライト用の css、今回は molokai を生成し、一部修正、適用させた。
 
 ### 改修予定
 
