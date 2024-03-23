@@ -1,3 +1,129 @@
+<script lang="ts">
+import "katex/dist/katex.min.css";
+import "remark-github-alerts/styles/github-base.css";
+import "remark-github-alerts/styles/github-colors-dark-class.css";
+import "remark-github-alerts/styles/github-colors-light.css";
+</script>
+
 <div class="markdown">
   <slot />
 </div>
+
+<style>
+  :global(.markdown){
+    & > :where(*+*) {
+      margin-block-start: 2rem;
+    }
+
+    & h2, & h3 {
+      margin-block-start: 2rem;
+    }
+
+    & h2::before {
+      content: "##";
+      content: "##" / "";
+      margin-inline-end: 1rem;
+      color: rgb(var(--color-miku));
+    }
+
+    & h3::before {
+      content: "###";
+      content: "###" / "";
+      margin-inline-end: 1rem;
+      color: rgb(var(--color-miku));
+    }
+
+    & h2[id], & h3[id] {
+      scroll-margin-top: 5rem;
+    }
+
+    & hr {
+      border: 1px solid gray;
+    }
+
+    & details {
+      background-color: rgba(var(--color-hover));
+
+      & > summary {
+        padding: 1rem;
+        font-size: .9rem;
+        cursor: pointer;
+        user-select: none;
+        touch-action: manipulation;
+
+        &:hover{
+          background-color: rgba(0 0 0 / 0.3);
+        }
+      }
+    }
+
+  & details[open] {
+    & > summary {
+      background-color: rgba(0 0 0 / 0.3);
+
+      &:hover {
+        background-color: rgba(var(--color-hover));
+      }
+    }
+  }
+
+    & table {
+      margin-inline: auto;
+      border-collapse: collapse;
+
+      & th, & td {
+        padding-inline: 1rem;
+        padding-block: .5rem;
+        border: 1px solid gray;
+      }
+    }
+
+    & figcaption {
+      text-align: center;
+      color: gray;
+    }
+
+    & img {
+      width: 100%;
+    }
+
+    & :not(pre) > code::before, & :not(pre) > code::after {
+      content: "`";
+      content: "`" / "";
+    }
+
+    & blockquote {
+      padding-inline: 1rem;
+      border-left: none;
+      border: 1px solid gray;
+      border-radius: .5rem;
+
+      & > p::before {
+        content: "> ";
+        content: '> ' / '';
+      }
+      & > blockquote {
+        border: none;
+      }
+      & > blockquote > p::before {
+        content: "> > ";
+        content: '> > ' / '';
+      }
+    }
+
+    & strong::before, & strong::after {
+      content: "**";
+      content: "**" / "";
+    }
+
+    & del::before, & del::after {
+      content: "~~";
+      content: "~~" / "";
+    }
+
+    & em::before, & em::after {
+      content: "_";
+      content: "_" / "";
+    }
+  }
+</style>

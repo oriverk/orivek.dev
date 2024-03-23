@@ -1,0 +1,82 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import PostTag from "../../components/PostTag.svelte";
+import ContentWrapper from "../../components/ui/ContentWrapper.svelte";
+import Details from "../../components/ui/Details.svelte";
+import Markdown from "../../components/ui/Markdown.svelte";
+import Toc from "../../components/ui/Toc/index.svelte";
+import Layout from "../../layouts/Layout.astro";
+import { getPosts, getTocHierarchy } from "../../utils/getPosts";
+
+export const getStaticPaths = (async () => {
+  const posts = await getPosts();
+  const result = posts.map((post) => {
+    return {
+      params: { slug: post.slug },
+      props: { post },
+    };
+  });
+  return result;
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { post } = Astro.props as Props;
+const { id, body, collection, render, data } = post;
+const place = `${collection}/${id}`;
+const { title, tags, create, update, image, published } = data;
+const { Content, headings } = await render();
+const toc = getTocHierarchy(headings);
+---
+
+<Layout {title}>
+  <article>
+    <ContentWrapper>
+      <div class="container">
+        <div>
+          <h1>{title}</h1>
+          <div class="info">
+            <time>{update || create}</time>
+            {tags.length && (
+              <>
+                <span>/</span>
+                <div class="tags">
+                  {tags.map(tag => <PostTag {tag} />)}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+        <nav>
+          <Details summary="TOC">
+            <Toc {toc} />
+          </Details>
+        </nav>
+        <Markdown>
+          <Content />
+        </Markdown>
+        </div>
+    </ContentWrapper>
+  </article>
+</Layout>
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  .info {
+    margin-inline: auto;
+  }
+  .info, .tags {
+    display: flex;
+    gap: .5rem;
+  }
+
+</style>
+
+

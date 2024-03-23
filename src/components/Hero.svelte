@@ -5,7 +5,7 @@ import Search from "./Search/index.svelte";
 import Dialog from "./ui/Dialog.svelte";
 import Icon from "./ui/Icon.svelte";
 
-const { blogPath, github, zenn, x } = siteConfig;
+const { github, zenn, x } = siteConfig;
 
 let dialog: HTMLDialogElement;
 function openDialog() {
@@ -36,7 +36,7 @@ function closeDialog() {
       <Icon type="magnifyingGlass" size="medium" />
       <span class="sr-only">Search</span>
     </button>
-    <a href={blogPath} title="Blog" target="_blank" rel="noopener noreferrer">
+    <a href="/posts" title="Blog">
       <Icon type="pencil" size="medium" />
       <span class="sr-only">Blog link</span>
     </a>
