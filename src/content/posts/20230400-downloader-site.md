@@ -58,7 +58,7 @@ firestore, storage を使った公開サイトははじめてでしたが、そ�
 firebase init
 ```
 
-```txt:filrebase.rules
+```plaintext:filrebase.rules
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -78,7 +78,7 @@ service cloud.firestore {
 }
 ```
 
-```txt:storage.rules
+```plaintext:storage.rules
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {

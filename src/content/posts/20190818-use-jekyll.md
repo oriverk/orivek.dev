@@ -273,7 +273,7 @@ gem 'jekyll-coffeescript'
 
 自分の結果
 
-```txt
+```plaintext
 # ...
 # .
 # ├── _config.yml

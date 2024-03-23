@@ -82,7 +82,7 @@ yarn create next-app next-portfolio
 
 今回は React Next.js の勉強も兼ねているので、default の方を利用した。
 
-```txt
+```plaintext
 # directory
 - public
   - favicon.ico, vercel.svg
@@ -420,7 +420,7 @@ export async function getPostData(id) {
 
 ![Image from Gyazo](https://i.gyazo.com/d606404dd05463c96bf9d16d8c6d8478.png)
 
-```txt:frontmatter
+```plaintext:frontmatter
 ---
 date: '2020-05-26'
 author: Kawano Yudai
@@ -581,7 +581,7 @@ post の情報を集約した postPages.json を作成した。ファイル更�
 
 postsMap generator script
 
-```mjs:script/genPagesMap.mjs
+```js:script/genPagesMap.mjs
 import path from 'path'
 import fs from 'fs'
 import matter from 'gray-matter'
@@ -653,7 +653,7 @@ sitemap.xml の基本構成
 
 **xmlはファイル頭に空白行が入ると、`<?xml ?>`の宣言が無いと言ってエラーを吐く**
 
-```mjs:script/genSiteMap.mjs
+```js:script/genSiteMap.mjs
 import path from 'path'
 import fs from 'fs'
 
@@ -747,7 +747,7 @@ RSS と Atom のジェネレーターコードは、基本的に sitemap.xml と
 
 RSS 2.0 ジェネレータ
 
-```mjs:script/genRss.mjs
+```js:script/genRss.mjs
 import path from 'path'
 import fs from 'fs'
 
@@ -783,7 +783,7 @@ fs.writeFileSync(path.join(process.cwd(),'public/rss.xml'), rss)
 
 Atom 1.0 ジェネレーター
 
-```mjs:script/genRss.mjs
+```js:script/genRss.mjs
 import path from 'path'
 import fs from 'fs-extra'
 

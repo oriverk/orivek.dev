@@ -18,7 +18,7 @@ GIMP、BlenderやWindownsプリインストールのペイントで良い感じ�
 
 ## HTML と CSS
 
-```htmlembedded
+```html
 <div class='border forNow' />
 ```
 

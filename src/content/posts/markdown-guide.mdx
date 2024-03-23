@@ -6,7 +6,6 @@ tags: [markdown, test]
 description: テスト記事
 published: true
 ---
-
 Markdown記法の確認用。mdファイルを汎用的に使いまわせる様に、可能な限りGitHub Flavored Markdownに準拠したい。
 
 ```diff javascript
@@ -16,18 +15,29 @@ const hello = null;
 console.log("normal")
 ```
 
-```js:index.js
+```js title=index.js {1}
 function hello (){
   console.log('hello')
 }
 hello()
 ```
 
+<details>
+<summary>hoge</summary>
+
 ```ts:index.ts
 function sayHello(name: string){
   console.log(`hello, ${name}`);
 }
 ```
+
+</details>
+
+<details>
+
+ja-nn
+
+</details>
 
 ## new alerts
 
@@ -45,6 +55,8 @@ function sayHello(name: string){
 
 > [!CAUTION]
 > Advises about risks or negative outcomes of certain actions.
+
+
 
 ## 見出し heading
 
@@ -90,11 +102,13 @@ function sayHello(name: string){
 
 [oriverk.dev](https://oriverk.dev)
 
+[posts](/posts)
+
 ### bare link
 
 in MDX v2, bare link and link with `<>` is completely deprecated to avoid `<>` as jsx component.
 
-```txt
+```plaintext
 https://ixanary.com
 ```
 
@@ -114,15 +128,18 @@ https://ixanary.com
 
 ## テーブル
 
-| Head | Head | Head |
-| :--- | :--: | ---: |
-| Text | Text | Text |
+
+| Head |  Head  |  Head |
+| :----- | :------: | ------: |
+| Text |  Text  |  Text |
 | left | center | right |
 
 ## 引用
 
 > quote
-> > quote
+>
+>> quote
+>>
 
 ## 区切り線
 
@@ -137,3 +154,4 @@ bold **太字**
 ~~打ち消し線~~
 
 インラインで`code`を挿入する。
+

@@ -115,7 +115,7 @@ Astroだけでもサイトは作れますが、Astroと他UIフレームワー�
 
 ### Init astro app
 
-```shell
+```sh
 npm create astro@latest -- --template basics
 ```
 
@@ -125,7 +125,7 @@ AstroとAstronautを掛けているのか、Houstonという名前の顔文字�
 
 ![basics](https://user-images.githubusercontent.com/4677417/186188965-73453154-fdec-4d6b-9c34-cb35c248ae5b.png)
 
-```shell
+```sh
 npm i -D npm-run-all
 npm i -D @commitlint/{config-conventional,cli}
 # echo '{"extends": ["@commitlint/config-conventional"]}' > .commitlintrc.json
@@ -150,7 +150,7 @@ npm i sass cssnano autoprefixer
 
 AstroとSvelteを混ぜるので当然なのですが、両者用の設定が必要でした。なので、init svelte appの箇所に加えて
 
-```shell!
+```sh
 npm i -D eslint-plugin-svelte3 prettier-plugin-svelte
 ```
 
