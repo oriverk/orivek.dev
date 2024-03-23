@@ -1,0 +1,51 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getPosts } from "../../utils/getPosts"
+import Layout from "../../layouts/Layout.astro";
+import ContentWrapper from "../../components/ui/ContentWrapper.svelte";
+import PostPagination from "../../components/PostPagination.svelte"
+import PostCard from "../../components/PostCard.svelte"
+
+export const getStaticPaths = (async({ paginate }) => {
+  const posts = await getPosts()
+  return paginate(posts, { pageSize: 12})
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const { data: posts, ...rest } = page;
+---
+
+<Layout title="posts">
+  <ContentWrapper>
+    <h1>Posts</h1>
+    <div class="pagination">
+      <PostPagination {...rest} />
+    </div>
+    <div class="posts">
+      {posts.map(post => {
+        const {slug, data} = post
+        const {title, tags, update = "", create} = data;
+        const href = `/posts/${slug}`
+        return (
+          <PostCard {href} {title} {tags} {create} update={update || ""} />
+        )
+      })}
+    </div>
+    <div class="pagination">
+      <PostPagination {...rest} />
+    </div>
+  </ContentWrapper>
+</Layout>
+
+<style>
+  .posts {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill,minmax(256px,1fr));
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: space-evenly;
+  }
+</style>

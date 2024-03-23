@@ -1,10 +1,10 @@
 ---
-import * as post from "../../.contents/cv.md";
+// import * as post from "../../.contents/cv.md";
 import ContentWrapper from "../components/ui/ContentWrapper.svelte";
 import Markdown from "../components/ui/Markdown.svelte";
 import Layout from "../layouts/Layout.astro";
 
-const { frontmatter, Content } = post;
+// const { frontmatter, Content } = post;
 ---
 
 <Layout title="About" noindex>
@@ -12,7 +12,7 @@ const { frontmatter, Content } = post;
     <ContentWrapper>
       <div class="about">
         <h1>About</h1>
-        {
+        <!-- {
           !!Object.keys(frontmatter).length && (
             <table>
               <caption>Frontmatter</caption>
@@ -29,7 +29,7 @@ const { frontmatter, Content } = post;
         }
         <Markdown>
           <Content />
-        </Markdown>
+        </Markdown> -->
       </div>
     </ContentWrapper>
   </article>
