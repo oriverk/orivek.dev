@@ -6,10 +6,23 @@ import RepositoryList from "../components/RepositoryList.svelte";
 import ContentWrapper from "../components/ui/ContentWrapper.svelte";
 import Layout from "../layouts/Layout.astro";
 import { getFeedItems } from "../utils/feed";
+import { getPosts } from "../utils/getPosts";
 import { getUserContent } from "../utils/github/getUserContent";
 
 const userContent = getUserContent();
 const feedItems = getFeedItems();
+const postItems = (await getPosts()).map((post) => {
+  const {slug, data} = post
+  const { title, tags, create, update } = data;
+  const link = `/posts/${slug}`;
+  const isoDate = update ?? create;
+  const dateMiliSeconds = new Date(isoDate).getTime();
+  return {
+    title, contentSnipett: tags, link, isoDate, dateMiliSeconds
+  }
+})
+const items = [...feedItems, ...postItems]
+  .sort((a , b) => b.dateMiliSeconds - a.dateMiliSeconds)
 const { repositoryItems, contributionCalendar } = userContent;
 const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
 ---
@@ -37,6 +50,7 @@ const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
             {!!contributionCalendar && (
               <div class="github-contributions">
                 <h3 id="contributions">Contributions</h3>
+                <p>update once a week</p>
                 <ActivityCalendar
                   blockMargin={3}
                   blockRadius={2}
@@ -53,12 +67,12 @@ const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
     )
   }
   {
-    !!feedItems.length && (
+    !!items.length && (
       <section class="home-feed">
         <ContentWrapper>
           <div class="feed">
             <h2 id="feed">Feed</h2>
-            <FeedList items={feedItems} displayItemsCount={12} />
+            <FeedList {items} displayItemsCount={12} />
           </div>
         </ContentWrapper>
       </section>

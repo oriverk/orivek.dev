@@ -19,11 +19,6 @@ import Parser from 'rss-parser'
 
 const sources = [
   {
-    id: "blog.oriverk",
-    url: "https://blog.oriverk.dev/feed.xml",
-    includeUrlRegex: "blog.oriverk.dev/entry/",
-  },
-  {
     id: "zenn.dev",
     url: "https://zenn.dev/oriverk/feed"
   }
@@ -77,7 +72,7 @@ async function getFeedItemsFromSources(sources) {
   let feedItems = [];
   for (const source of sources) {
     const { url, includeUrlRegex } = source;
-    let items = await fetchFeedItems(url);
+    let items = fetchFeedItems(url);
     if (includeUrlRegex) {
       items = items.filter(item => {
         return item.link.match(new RegExp(includeUrlRegex))
@@ -90,12 +85,12 @@ async function getFeedItemsFromSources(sources) {
 }
 
 async function getFeedItems() {
-  const items = await getFeedItemsFromSources(sources);
+  const items = getFeedItemsFromSources(sources);
   items.sort((a, b) => b.dateMiliSeconds - a.dateMiliSeconds);
   return items
 }
 
-(async function () {
+(async () => {
   const items = await getFeedItems();
   fs.ensureDirSync(".contents");
   fs.writeJsonSync(".contents/feed.json", items);

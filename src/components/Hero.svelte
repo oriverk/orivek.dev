@@ -29,7 +29,7 @@ function closeDialog() {
 </script>
 
 <div class="hero">
-  <h1>Kawano Yudai</h1>
+  <h1>oriverk.dev</h1>
   <p><span class="text-gradient">Agr.</span> → ? / Bicycle</p>
   <div class="links">
     <button type="button" on:click={openDialog} title="Search">
