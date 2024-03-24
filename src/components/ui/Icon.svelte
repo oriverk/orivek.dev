@@ -10,7 +10,8 @@ interface $$Props {
     | "pencil"
     | "magnifyingGlass"
     | "repository"
-    | "star";
+    | "star"
+    | "link-external";
   size?: "small" | "medium" | "large" | "xlarge";
   color?: "white" | "black" | "gray";
   style?: string;
@@ -108,5 +109,9 @@ export { type, size, color, style };
 
   .star::before {
     mask-image: url('/assets/star.svg');
+  }
+
+  .link-external {
+    mask-image: url("/assets/link-external.svg")
   }
 </style>

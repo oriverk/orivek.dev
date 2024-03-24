@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Hierarchy } from "../../../utils/getPosts";
+import type { Hierarchy } from "../../../utils/getBlog";
 import TocList from "./TocList.svelte";
 
 export let toc: Hierarchy[];

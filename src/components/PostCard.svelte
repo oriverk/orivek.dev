@@ -22,14 +22,14 @@ export { title, tags, create, update, href };
     <time>{update || create}</time>
     <div class="tags">
       {#each tags as tag}
-        <PostTag {tag} href={`/posts/tags/${tag}`} />
+        <PostTag {tag} href={`/blog/tags/${tag}`} />
       {/each}
     </div>
   </div>
 </article>
 
 <style>
-  a:hover {
+  a {
     text-decoration: none;
   }
 

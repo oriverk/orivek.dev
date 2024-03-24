@@ -1,8 +1,8 @@
 import { getCollection } from "astro:content";
 import type { MarkdownHeading } from "astro";
 
-export async function getPosts() {
-  const collection = await getCollection("posts", ({ data }) => {
+export async function getBlog() {
+  const collection = await getCollection("blog", ({ data }) => {
     return import.meta.env.PROD ? data.published : true;
   });
 
@@ -19,7 +19,7 @@ export async function getPosts() {
 }
 
 export async function getTags() {
-  const posts = await getPosts();
+  const posts = await getBlog();
   const tags = posts.flatMap((post) => post.data.tags ?? []);
   return [...new Set(tags)];
 }

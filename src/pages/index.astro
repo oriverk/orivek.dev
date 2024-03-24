@@ -6,22 +6,22 @@ import RepositoryList from "../components/RepositoryList.svelte";
 import ContentWrapper from "../components/ui/ContentWrapper.svelte";
 import Layout from "../layouts/Layout.astro";
 import { getFeedItems } from "../utils/feed";
-import { getPosts } from "../utils/getPosts";
+import { getBlog } from "../utils/getBlog";
 import { getUserContent } from "../utils/github/getUserContent";
 
 const userContent = getUserContent();
 const feedItems = getFeedItems();
-const postItems = (await getPosts()).map((post) => {
+const blogItems = (await getBlog()).map((post) => {
   const {slug, data} = post
   const { title, tags, create, update } = data;
-  const link = `/posts/${slug}`;
+  const link = `/blog/${slug}`;
   const isoDate = update ?? create;
   const dateMiliSeconds = new Date(isoDate).getTime();
   return {
     title, contentSnipett: tags, link, isoDate, dateMiliSeconds
   }
 })
-const items = [...feedItems, ...postItems]
+const items = [...feedItems, ...blogItems]
   .sort((a , b) => b.dateMiliSeconds - a.dateMiliSeconds)
 const { repositoryItems, contributionCalendar } = userContent;
 const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];

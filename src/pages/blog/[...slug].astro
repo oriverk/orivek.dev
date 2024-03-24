@@ -6,11 +6,11 @@ import Details from "../../components/ui/Details.svelte";
 import Markdown from "../../components/ui/Markdown.svelte";
 import Toc from "../../components/ui/Toc/index.svelte";
 import Layout from "../../layouts/Layout.astro";
-import { getPosts, getTocHierarchy } from "../../utils/getPosts";
+import { getBlog, getTocHierarchy } from "../../utils/getBlog";
 
 export const getStaticPaths = (async () => {
-  const posts = await getPosts();
-  const result = posts.map((post) => {
+  const blog = await getBlog();
+  const result = blog.map((post) => {
     return {
       params: { slug: post.slug },
       props: { post },

@@ -1,0 +1,51 @@
+---
+import type { GetStaticPaths } from "astro";
+import PostCard from "../../components/PostCard.svelte";
+import PostPagination from "../../components/PostPagination.svelte";
+import ContentWrapper from "../../components/ui/ContentWrapper.svelte";
+import Layout from "../../layouts/Layout.astro";
+import { getBlog } from "../../utils/getBlog";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const blog = await getBlog();
+  return paginate(blog, { pageSize: 12 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const { data, ...rest } = page;
+---
+
+<Layout title="blog">
+  <ContentWrapper>
+    <h1>Blog</h1>
+    <div class="pagination">
+      <PostPagination {...rest} />
+    </div>
+    <div class="blog">
+      {data.map(post => {
+        const {slug, data} = post
+        const { update, ...rest } = data;
+        const href = `/blog/${slug}`
+        return (
+          <PostCard {href} update={update || ""} {...rest} />
+        )
+      })}
+    </div>
+    <div class="pagination">
+      <PostPagination {...rest} />
+    </div>
+  </ContentWrapper>
+</Layout>
+
+<style>
+  .blog {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill,minmax(256px,1fr));
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: space-evenly;
+  }
+</style>

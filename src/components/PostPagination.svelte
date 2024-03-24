@@ -14,7 +14,7 @@ const tab = (index: number) => (index === currentPage ? -1 : 0);
 <ol>
   {#if prev}
     <li>
-      <a href="/posts">&lt;&lt;</a>
+      <a href="/blog">&lt;&lt;</a>
     </li>
     <li>
       <a href={prev}>&lt;</a>
@@ -22,12 +22,12 @@ const tab = (index: number) => (index === currentPage ? -1 : 0);
   {/if}
   {#if size < total}
     <li>
-      <a href="/posts" aria-current={curr(1)} tabindex={tab(1)}>1</a>
+      <a href="/blog" aria-current={curr(1)} tabindex={tab(1)}>1</a>
     </li>
   {/if}
   {#each [...Array(maxPage - 1)] as _, index}
     <li>
-      <a href={`/posts/${index+2}`} aria-current={curr(index+2)} tabindex={tab(index+2)}>{index+2}</a>
+      <a href={`/blog/${index+2}`} aria-current={curr(index+2)} tabindex={tab(index+2)}>{index+2}</a>
     </li>
   {/each}
   {#if next}
@@ -35,7 +35,7 @@ const tab = (index: number) => (index === currentPage ? -1 : 0);
       <a href={next}>&gt;</a>
     </li>
     <li>
-      <a href={`/posts/${lastPage}`}>&gt;&gt;</a>
+      <a href={`/blog/${lastPage}`}>&gt;&gt;</a>
     </li>
   {/if}
 </ol>

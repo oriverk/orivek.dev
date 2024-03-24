@@ -1,31 +1,36 @@
 ---
 import type { GetStaticPaths } from "astro";
-import PostCard from "../../components/PostCard.svelte";
-import PostPagination from "../../components/PostPagination.svelte";
-import ContentWrapper from "../../components/ui/ContentWrapper.svelte";
-import Layout from "../../layouts/Layout.astro";
-import { getPosts } from "../../utils/getPosts";
+import PostCard from "../../../../components/PostCard.svelte";
+import PostPagination from "../../../../components/PostPagination.svelte";
+import ContentWrapper from "../../../../components/ui/ContentWrapper.svelte";
+import Layout from "../../../../layouts/Layout.astro";
+import { getBlog, getTags } from "../../../../utils/getBlog";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await getPosts();
-  return paginate(posts, { pageSize: 12 });
+  const blog = await getBlog();
+  const tags = await getTags();
+  return tags.flatMap((tag) => {
+    const blogWithTag = blog.filter((post) => post.data.tags.includes(tag));
+    return paginate(blogWithTag, { params: { tag }, pageSize: 12 });
+  });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
 const { data, ...rest } = page;
+const { tag } = Astro.params;
 ---
 
-<Layout title="posts">
+<Layout title={`#${tag} blog`}>
   <ContentWrapper>
-    <h1>Posts</h1>
+    <h1><span>#{tag}</span> Blog</h1>
     <div class="pagination">
       <PostPagination {...rest} />
     </div>
-    <div class="posts">
+    <div class="blog">
       {data.map(post => {
         const {slug, data} = post
         const { update, ...rest } = data;
-        const href = `/posts/${slug}`
+        const href = `/blog/${slug}`
         return (
           <PostCard {href} update={update || ""} {...rest} />
         )
@@ -38,7 +43,11 @@ const { data, ...rest } = page;
 </Layout>
 
 <style>
-  .posts {
+  h1 span {
+    color: rgb(var(--color-miku));
+  }
+
+  .blog {
     display: grid;
     gap: 2rem;
     grid-template-columns: repeat(auto-fill,minmax(256px,1fr));
@@ -49,3 +58,5 @@ const { data, ...rest } = page;
     justify-content: space-evenly;
   }
 </style>
+
+

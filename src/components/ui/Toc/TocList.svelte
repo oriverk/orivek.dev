@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { Hierarchy } from "../../../utils/getPosts";
+import type { Hierarchy } from "../../../utils/getBlog";
 
 export let heading: Hierarchy;
 const { slug, text, subHeadings } = heading;

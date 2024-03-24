@@ -36,7 +36,7 @@ function closeDialog() {
       <Icon type="magnifyingGlass" size="medium" />
       <span class="sr-only">Search</span>
     </button>
-    <a href="/posts" title="Blog">
+    <a href="/blog" title="Blog">
       <Icon type="pencil" size="medium" />
       <span class="sr-only">Blog link</span>
     </a>
@@ -68,7 +68,7 @@ function closeDialog() {
       <span class="sr-only">Zenn.dev link</span>
     </a>
   </div>
-  <Dialog bind:dialog on:closeDialog={closeDialog}>
+  <Dialog bind:dialog on:closeDialog={closeDialog} id="search-dialog">
     <Search />
   </Dialog>
 </div>

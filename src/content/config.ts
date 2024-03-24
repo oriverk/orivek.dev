@@ -4,15 +4,6 @@ const blogCollection = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
-    create: z.string(),
-    update: z.string(),
-  }),
-});
-
-const postsCollection = defineCollection({
-  type: "content",
-  schema: z.object({
-    title: z.string(),
     description: z.string().nullable().default(""),
     create: z.string(),
     update: z.string().nullable().optional(),
@@ -24,5 +15,4 @@ const postsCollection = defineCollection({
 
 export const collections = {
   blog: blogCollection,
-  posts: postsCollection,
 };
