@@ -3,11 +3,11 @@ import type { HTMLDialogAttributes } from "svelte/elements";
 
 interface $$Props extends Omit<HTMLDialogAttributes, "class"> {
   className?: string;
-  dialog: HTMLDialogElement
+  dialog: HTMLDialogElement;
 }
 
-let { id , className, dialog } = $$props as $$Props;
-export { dialog, id, className }
+let { id, className, dialog } = $$props as $$Props;
+export { dialog, id, className };
 // const dispatch = createEventDispatcher();
 // function onClose(){
 //   dispatch('closeDialog')

@@ -7,7 +7,10 @@ export async function getBlog() {
   });
 
   const posts = collection.sort((a, b) => {
-    return new Date(b.data.update ?? b.data.create).getTime() - new Date(a.data.update ?? a.data.create).getTime()
+    return (
+      new Date(b.data.update ?? b.data.create).getTime() -
+      new Date(a.data.update ?? a.data.create).getTime()
+    );
   });
 
   return posts;

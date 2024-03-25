@@ -1,12 +1,12 @@
 ---
+import { getCollection } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import ContentWrapper from "../components/ui/ContentWrapper.svelte";
 import Markdown from "../components/ui/Markdown.svelte";
 import Layout from "../layouts/Layout.astro";
-import { getCollection } from "astro:content";
 
 export const getStaticPaths = (async () => {
-  const posts = await getCollection("static")
+  const posts = await getCollection("static");
   const result = posts.map((post) => {
     return {
       params: { slug: post.slug },

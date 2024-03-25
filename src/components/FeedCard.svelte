@@ -12,7 +12,7 @@ export { title, link, dateMiliSeconds };
 const timeString = `${getTimeFromNow(dateMiliSeconds)} ago`;
 const isExternal = link.startsWith("http");
 const url = isExternal ? link : "https://oriverk.dev";
-const { hostname, origin } = new URL(url)
+const { hostname, origin } = new URL(url);
 </script>
 
 <a  href={link} target={isExternal ? "_blank" : ""} rel={isExternal ? "noopenner noreferrer" : ""}>

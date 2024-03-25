@@ -13,7 +13,7 @@ export interface Props {
 
 const { origin, href, hostname } = Astro.url;
 const { title, description, image, noindex } = Astro.props;
-const siteName = hostname
+const siteName = hostname;
 const siteTitle = title ? `${title} | ${siteName}` : siteName;
 ---
 

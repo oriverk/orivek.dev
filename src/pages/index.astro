@@ -12,17 +12,22 @@ import { getUserContent } from "../utils/github/getUserContent";
 const userContent = getUserContent();
 const feedItems = getFeedItems();
 const blogItems = (await getBlog()).map((post) => {
-  const {slug, data} = post
+  const { slug, data } = post;
   const { title, tags, create, update } = data;
   const link = `/blog/${slug}`;
   const isoDate = update ?? create;
   const dateMiliSeconds = new Date(isoDate).getTime();
   return {
-    title, contentSnipett: tags, link, isoDate, dateMiliSeconds
-  }
-})
-const items = [...feedItems, ...blogItems]
-  .sort((a , b) => b.dateMiliSeconds - a.dateMiliSeconds)
+    title,
+    contentSnipett: tags,
+    link,
+    isoDate,
+    dateMiliSeconds,
+  };
+});
+const items = [...feedItems, ...blogItems].sort(
+  (a, b) => b.dateMiliSeconds - a.dateMiliSeconds,
+);
 const { repositoryItems, contributionCalendar } = userContent;
 const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
 ---

@@ -1,7 +1,7 @@
 <script lang="ts">
 import clsx from "clsx";
 export let className = "";
-export let style = ""
+export let style = "";
 </script>
 
 <div class={clsx('content-wrapper', className)} style={style}>
