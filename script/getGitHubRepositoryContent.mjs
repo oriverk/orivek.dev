@@ -73,7 +73,7 @@ async function fetchRepositoryContent(githubToken, owner, repo, expression) {
   }
 }
 
-;(async function () {
+;(async () => {
   const token = process.env.SECRET_GITHUB_PERSONAL_ACCESS_TOKEN || ''
   const owner = process.env.GITHUB_USER_NAME || ''
   const repositoryName = process.env.GITHUB_REPOSITORY_NAME || ''
@@ -91,6 +91,6 @@ async function fetchRepositoryContent(githubToken, owner, repo, expression) {
     .replace('{{ age }}', getAge('1993-09-11').toString())
     .replace('{{ date }}', format(new Date(), 'yyyy年MM月dd日'))
 
-  fs.ensureDirSync('src/content/blog')
-  fs.writeFileSync('src/content/blog/cv.md', replacedMd)
+  fs.ensureDirSync('src/content/page')
+  fs.writeFileSync('src/content/page/cv.md', replacedMd)
 })()

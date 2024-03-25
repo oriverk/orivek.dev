@@ -1,0 +1,62 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/ui/Card.svelte"
+---
+
+<Layout title="Home">
+  <section>
+    <div class="hero">
+      <h1 class="text-gradient">404<br />Page Not Found</h1>
+      <p>このページはすでに削除されているか、<wbr />URLが間違っている可能性があります。</p>
+      <a href="/">
+        <Card>
+          トップページへ
+        </Card>
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  section {
+    content: content;
+  }
+  .hero {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 2rem;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    transition: background-size 200ms var(--cubic-bezier);
+
+    &:hover {
+      background-size: 100%;
+    }
+  }
+
+  p {
+    margin: 0;
+    font-weight: bold;
+    word-break: keep-all;
+  }
+
+  a {
+    text-decoration: none;
+  }
+</style>

@@ -45,7 +45,9 @@ const parser = new Parser();
  */
 async function fetchFeedItems(url) {
   const feed = await parser.parseURL(url);
+  
   if(!feed?.items?.length) return []
+
   return feed.items
     .map(({ title, contentSnippet, link, isoDate }) => {
       return {
@@ -61,7 +63,6 @@ async function fetchFeedItems(url) {
     )
 }
 
-
 /**
  * @param {Source[]} sources
  * @returns {FeedItem[]}
@@ -72,7 +73,8 @@ async function getFeedItemsFromSources(sources) {
   let feedItems = [];
   for (const source of sources) {
     const { url, includeUrlRegex } = source;
-    let items = fetchFeedItems(url);
+    let items = await fetchFeedItems(url);
+    
     if (includeUrlRegex) {
       items = items.filter(item => {
         return item.link.match(new RegExp(includeUrlRegex))
@@ -85,7 +87,7 @@ async function getFeedItemsFromSources(sources) {
 }
 
 async function getFeedItems() {
-  const items = getFeedItemsFromSources(sources);
+  const items = await getFeedItemsFromSources(sources);
   items.sort((a, b) => b.dateMiliSeconds - a.dateMiliSeconds);
   return items
 }

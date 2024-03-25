@@ -77,7 +77,7 @@ async function fetchUserContent(githubToken, owner, pinnedItemsNum, calendarFrom
   }
 }
 
-;(async function () {
+;(async () => {
   const token = process.env.SECRET_GITHUB_PERSONAL_ACCESS_TOKEN || ''
   const owner = process.env.GITHUB_USER_NAME || ''
 
@@ -87,8 +87,8 @@ async function fetchUserContent(githubToken, owner, pinnedItemsNum, calendarFrom
 
   const lastYear = subYears(new Date(), 1)
   const start = startOfWeek(lastYear, { weekStartsOn: 0 })
-  const from = format(start, 'yyyy-MM-dd') + 'T00:00:00'
-  const to = format(new Date(), 'yyyy-MM-dd') + 'T00:00:00'
+  const from = `${format(start, 'yyyy-MM-dd')}T00:00:00`
+  const to = `${format(new Date(), 'yyyy-MM-dd')}T00:00:00`
 
   const user = await fetchUserContent(token, owner, 4, from, to)
   if (!user) {
