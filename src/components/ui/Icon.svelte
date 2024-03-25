@@ -7,6 +7,7 @@ interface $$Props {
     | "github"
     | "zenn"
     | "x"
+    | "algolia"
     | "pencil"
     | "magnifyingGlass"
     | "repository"
@@ -92,6 +93,11 @@ export { type, size, color, style };
 
   .x::before {
     mask-image: url('/assets/x.svg');
+  }
+
+  .algolia::before {
+    mask-image: url('/assets/algolia.svg');
+    aspect-ratio: 572 / 64;
   }
 
   /* general icon */

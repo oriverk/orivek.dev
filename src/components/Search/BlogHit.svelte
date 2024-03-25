@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Hit } from "@algolia/client-search";
-import type { AlgoliaBlog } from "../../types/algolia";
+import type { AlgoliaBlog } from "@/types/algolia";
 
 interface $$Props extends Hit<AlgoliaBlog> {
   selected: boolean;
@@ -11,7 +11,7 @@ export { selected, id, title, tags };
 </script>
 
 <a
-  href={`https://blog.oriverk.dev/entry/${id}`}
+  href={`/blog/${id}`}
   class:active={selected}
   on:mouseover
   on:focus

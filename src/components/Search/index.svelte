@@ -1,9 +1,9 @@
 <script lang="ts">
 import type { Hit, SearchResponse } from "@algolia/client-search";
 import { onMount } from "svelte";
-import type { AlgoliaBlog } from "../../types/algolia";
-import { searchAlgolia } from "../../utils/algolia";
-import AlgoliaIcon from "./AlgoliaIcon.svelte";
+import type { AlgoliaBlog } from "@/types/algolia";
+import { searchAlgolia } from "@/utils/algolia";
+import Icon from "../ui/Icon.svelte";
 import BlogHit from "./BlogHit.svelte";
 import SearchInput from "./SearchInput.svelte";
 
@@ -55,7 +55,7 @@ function selectHit() {
   if (hits[activeHit]) {
     const { id } = results.hits[activeHit];
     if (!anchor || !id) return;
-    anchor.setAttribute("href", `https://blog.oriverk.dev/entry/${id}`);
+    anchor.setAttribute("href", `/blog/${id}`);
     anchor.click();
   }
 }
@@ -88,7 +88,7 @@ $: {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <AlgoliaIcon height="1.25rem" />
+      <Icon type="algolia" />
     </a>
   </div>
   {#if !results?.nbHits}
@@ -129,5 +129,9 @@ $: {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .search-icon-wrapper :global(.icon.algolia::before) {
+    height: 1.25rem;
   }
 </style>

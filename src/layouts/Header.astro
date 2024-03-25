@@ -11,7 +11,7 @@ const isCurrent = (path: string) => path === Astro.url.pathname;
   <div class="header-right">
     <ul>
       <li>
-        <a href="/blog" class:list={[{acitve: isCurrent("/blog")}]}>Blog</a>
+        <a href="/blog" class:list={[{acitve: isCurrent("/blog")}]} data-astro-prefetch>Blog</a>
       </li>
       <li>
         <a href="https://oriverk.github.io/" target="_blank" rel="noopener noreferrer" title="GitHub Page">

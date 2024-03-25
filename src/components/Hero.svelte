@@ -36,7 +36,7 @@ function closeDialog() {
       <Icon type="magnifyingGlass" size="medium" />
       <span class="sr-only">Search</span>
     </button>
-    <a href="/blog" title="Blog">
+    <a href="/blog" title="Blog" data-astro-prefetch>
       <Icon type="pencil" size="medium" />
       <span class="sr-only">Blog link</span>
     </a>
