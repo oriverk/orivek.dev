@@ -74,12 +74,12 @@ async function fetchRepositoryContent(githubToken, owner, repo, expression) {
 }
 
 ;(async () => {
-  const token = process.env.SECRET_GITHUB_PERSONAL_ACCESS_TOKEN || ''
-  const owner = process.env.GITHUB_USER_NAME || ''
-  const repositoryName = process.env.GITHUB_REPOSITORY_NAME || ''
-  const repositoryExpression = process.env.GITHUB_REPOSITORY_EXPRESSION || ''
+  const token = process.env.SECRET_GH_PAT || "";
+  const owner = "oriverk"
+  const repositoryName = "oriverk-docs"
+  const repositoryExpression = "HEAD:cv/index.md";
 
-  if (!token || !owner || !repositoryName || !repositoryExpression) {
+  if (!token) {
     return console.error('Env is Not Found.')
   }
 

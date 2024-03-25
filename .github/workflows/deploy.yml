@@ -32,8 +32,7 @@ jobs:
           npm run build
         env:
           MODE: production
-          SECRET_GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.SECRET_GITHUB_PERSONAL_ACCESS_TOKEN }}
-          PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
+          SECRET_GH_PAT: ${{ secrets.SECRET_GH_PAT }}
           PUBLIC_ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
           PUBLIC_ALGOLIA_SEARCH_KEY: ${{ secrets.ALGOLIA_SEARCH_KEY }}
           PUBLIC_ALGOLIA_INDEX_BLOG: ${{ secrets.ALGOLIA_INDEX_BLOG }}
@@ -45,4 +44,4 @@ jobs:
           projectName: astro-site
           directory: dist
           # Optional: Enable this if you want to have GitHub Deployments triggered
-          # gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          # gitHubToken: ${{ secrets.SECRET_GH_PAT }}

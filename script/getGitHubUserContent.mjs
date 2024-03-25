@@ -78,10 +78,10 @@ async function fetchUserContent(githubToken, owner, pinnedItemsNum, calendarFrom
 }
 
 ;(async () => {
-  const token = process.env.SECRET_GITHUB_PERSONAL_ACCESS_TOKEN || ''
-  const owner = process.env.GITHUB_USER_NAME || ''
+  const token = process.env.SECRET_GH_PAT || "";
+  const owner = "oriverk"
 
-  if (!token || !owner) {
+  if (!token) {
     return console.log('Env is Not Found.')
   }
 
