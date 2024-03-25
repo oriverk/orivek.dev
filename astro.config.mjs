@@ -17,6 +17,7 @@ import {
 export default defineConfig({
   site: "https://oriverk.dev",
   publicDir: "./public",
+  prefetch: true,
   integrations: [
     svelte(),
     // NOTE: expressiveCode must be before mdx
