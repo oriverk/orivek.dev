@@ -46,26 +46,26 @@ const tab = (index: number) => (index === currentPage ? -1 : 0);
     list-style: none;
     display: flex;
     gap: .5rem;
-  }
 
-  a {
-    text-decoration: none;
-    color: white;
-    width: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    aspect-ratio: 1;
-    border-radius: 0.5rem;
-    transition: background-color 100ms ease-in;
-    background-color: rgb(var(--color-hover));
+    & > li > a {
+      text-decoration: none;
+      color: white;
+      width: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      aspect-ratio: 1;
+      border-radius: 0.5rem;
+      transition: background-color 100ms ease-in;
+      background-color: rgb(var(--color-hover));
 
-    &[aria-current="page"] {
-      pointer-events: none;
-    }
+      &[aria-current="page"] {
+        pointer-events: none;
+      }
 
-    &:hover, &[aria-current="page"] {
-      background-color: rgba(0 0 0 / 0.3);
+      &:hover, &[aria-current="page"] {
+        background-color: rgba(0 0 0 / 0.3);
+      }
     }
   }
 </style>

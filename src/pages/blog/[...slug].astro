@@ -23,12 +23,12 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { post } = Astro.props as Props;
 const { id, body, collection, render, data } = post;
 const place = `${collection}/${id}`;
-const { title, tags, create, update, image, published } = data;
+const { title, description, tags, create, update, image, published, noindex } = data;
 const { Content, headings } = await render();
 const toc = getTocHierarchy(headings);
 ---
 
-<Layout {title}>
+<Layout {title} {description} {noindex}>
   <article>
     <ContentWrapper>
       <div class="container">

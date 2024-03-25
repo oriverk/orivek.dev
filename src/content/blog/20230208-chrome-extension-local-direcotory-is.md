@@ -3,7 +3,6 @@ title: Chrome拡張機能のフォルダはどこに保存されているか
 create: "2024-02-08"
 update: "2024-02-08"
 tags: ["chrome extension"]
-description: 
 published: true
 ---
 

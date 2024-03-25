@@ -1,5 +1,4 @@
 import mdx from "@astrojs/mdx";
-import partytown from "@astrojs/partytown";
 import svelte from "@astrojs/svelte";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import expressiveCode from "astro-expressive-code";
@@ -16,13 +15,9 @@ import {
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://oriverk.dev",
   publicDir: "./public",
   integrations: [
-    partytown({
-      config: {
-        forward: ["datalayer.push"],
-      },
-    }),
     svelte(),
     // NOTE: expressiveCode must be before mdx
     expressiveCode({

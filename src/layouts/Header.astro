@@ -1,5 +1,6 @@
 ---
 import Icon from "../components/ui/Icon.svelte";
+const isCurrent = (path: string) => path === Astro.url.pathname;
 ---
 
 <nav>
@@ -7,11 +8,22 @@ import Icon from "../components/ui/Icon.svelte";
     <Icon type="oriver" size="medium" />
     <span class="sr-only">home</span>
   </a>
-  <a href="/about" class="about">About me</a>
+  <div class="header-right">
+    <ul>
+      <li>
+        <a href="/blog" class:list={[{acitve: isCurrent("/blog")}]}>Blog</a>
+      </li>
+      <li>
+        <a href="https://oriverk.github.io/" target="_blank" rel="noopener noreferrer" title="GitHub Page">
+          About
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>
 
 <style is:global>
-  .icon.oriver::before {
+  .home .icon.oriver::before {
     background-size: 100%;
     transition: background-size 600ms var(--cubic-bezier);
   }
@@ -35,15 +47,24 @@ import Icon from "../components/ui/Icon.svelte";
     margin: 0.5rem;
   }
 
-  .about {
-    font-size: 1.5rem;
-    line-height: 2rem;
-    color: rgb(var(--color-white));
-    text-decoration-color: transparent;
-    transition: text-decoration-color 200ms var(--cubic-bezier);
-  }
+  .header-right > ul {
+    display: flex;
+    gap: 1rem;
 
-  .about {
-    text-decoration-color: rgb(var(--color-miku));
+    & > li {
+      list-style: none;
+
+      & > a {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        color: rgb(var(--color-white));
+        text-decoration-color: transparent;
+        transition: text-decoration-color 300ms var(--cubic-bezier);
+
+        &:hover {
+          text-decoration-color: rgb(var(--color-miku));
+        }
+      }
+    }
   }
 </style>

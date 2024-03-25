@@ -7,12 +7,7 @@ export async function getBlog() {
   });
 
   const posts = collection.sort((a, b) => {
-    const lastUpdateA = a.data.update || a.data.create;
-    const lastUpdateB = b.data.update || b.data.create;
-    if (lastUpdateA !== lastUpdateB) {
-      return lastUpdateA > lastUpdateB ? -1 : 1;
-    }
-    return 0;
+    return new Date(b.data.update ?? b.data.create).getTime() - new Date(a.data.update ?? a.data.create).getTime()
   });
 
   return posts;

@@ -1,61 +1,48 @@
 ---
-import siteConfig from "../../site.config";
+import { ViewTransitions } from "astro:transitions";
 import ContentWrapper from "../components/ui/ContentWrapper.svelte";
 import Footer from "./Footer.astro";
 import Header from "./Header.astro";
 
 export interface Props {
   title?: string;
+  description?: string;
+  image?: string;
   noindex?: boolean;
 }
-const { title, noindex } = Astro.props;
-const siteTitle = title ? `${title} | ${siteConfig.title}` : siteConfig.title;
-const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+
+const { origin, href, hostname } = Astro.url;
+const { title, description, image, noindex } = Astro.props;
+const siteName = hostname
+const siteTitle = title ? `${title} | ${siteName}` : siteName;
 ---
 
 <!doctype html>
 <html lang="ja">
   <head>
-    <script
-      type="text/partytown"
-      src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-    ></script>
-    <script type="text/partytown">
-      window.dataLayer = window.dataLayer || []
-      function gtag() {
-        dataLayer.push(arguments)
-      }
-      gtag('js', new Date())
-      gtag('config', gaMeasurementId)
-    </script>
     <meta charset="UTF-8" />
+    <title>{siteTitle}</title>
+    {noindex && <meta name="robots" content="noindex" />}
     <meta name="viewport" content="width=device-width" />
     <meta name="format-detection" content="email=no,telephone=no,address=no" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/assets/image/icon16x.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/assets/image/icon32x.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/assets/image/icon180x.png"
-    />
-    <meta name="apple-mobile-web-app-title" content={siteConfig.title} />
-    <meta name="theme-color" content="#00e1ee" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content={siteConfig.title} />
+    <link rel="canonical" href={href} />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link href="/sitemap-index.xml" rel="sitemap" />
+    <link rel="alternate" type="application/rss+xml" title={siteName} href={`${Astro.site}rss.xml`} />
+    <meta name="theme-color" content="#00e1ee">
     <meta name="generator" content={Astro.generator} />
-    {noindex && <meta name="robots" content="noindex" />}
-    <title>{siteTitle}</title>
+    <meta property="og:url" content={href} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={siteTitle} />
+    {description && <meta name="og:description" content={description} />}
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image" content="" />
+    <meta content="ja_JP" property="og:locale" />
+    <ViewTransitions />
   </head>
   <body>
     <div id="astro">
@@ -190,6 +177,8 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 
   main {
     flex-grow: 1;
+    /* display: flex; */
+    /* flex-direction: column; */
     scroll-snap-type: y mandatory;
     margin-top: var(--header-height);
   }

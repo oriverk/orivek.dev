@@ -1,9 +1,7 @@
 ---
 title: ブログ作成のための( ..)φメモメモ
 create: '2022-05-20'
-update:
 tags: []
-image:
 description: ( ..)φメモメモ
 published: false
 ---
