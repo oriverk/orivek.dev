@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
+import Markdown from "@/components/ui/Markdown.svelte";
+import Layout from "@/layouts/Layout.astro";
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection("static");
+  const result = posts.map((post) => {
+    return {
+      params: { slug: post.slug },
+      props: { post },
+    };
+  });
+  return result;
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { post } = Astro.props as Props;
+const { render, data } = post;
+const { title, create, description, update, noindex } = data;
+const { Content } = await render();
+---
+
+<Layout {title} {description} {noindex}>
+  <article>
+    <ContentWrapper>
+      <div class="container">
+        <div>
+          <h1>{title}</h1>
+          <div class="info">
+            <p>create: <time>{create}</time></p>
+            {update && ( <p>update: <time>{update}</time></p>)}
+          </div>
+        </div>
+        <Markdown>
+          <Content />
+        </Markdown>
+        </div>
+    </ContentWrapper>
+  </article>
+</Layout>
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+</style>

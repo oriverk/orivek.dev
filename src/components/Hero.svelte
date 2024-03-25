@@ -1,42 +1,42 @@
 <script lang="ts">
-  import urlJoin from 'url-join'
-  import siteConfig from '../../site.config'
-  import Icon from './ui/Icon.svelte'
-  import Search from './Search/index.svelte'
-  import Dialog from './ui/Dialog.svelte'
+import urlJoin from "url-join";
+import siteConfig from "../../site.config";
+import Search from "./Search/index.svelte";
+import Dialog from "./ui/Dialog.svelte";
+import Icon from "./ui/Icon.svelte";
 
-  const { blogPath, github, zenn, x } = siteConfig
+const { github, zenn, x } = siteConfig;
 
-  let dialog: HTMLDialogElement
-  function openDialog() {
-    dialog.showModal()
-    dialog.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        dialog?.close()
-      }
-    })
+let dialog: HTMLDialogElement;
+function openDialog() {
+  dialog.showModal();
+  dialog.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      dialog?.close();
+    }
+  });
 
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) {
-        dialog?.close()
-      }
-    })
-  }
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) {
+      dialog?.close();
+    }
+  });
+}
 
-  function closeDialog() {
-    dialog.close()
-  }
+function closeDialog() {
+  dialog.close();
+}
 </script>
 
 <div class="hero">
-  <h1>Kawano Yudai</h1>
+  <h1>oriverk.dev</h1>
   <p><span class="text-gradient">Agr.</span> → ? / Bicycle</p>
   <div class="links">
     <button type="button" on:click={openDialog} title="Search">
       <Icon type="magnifyingGlass" size="medium" />
       <span class="sr-only">Search</span>
     </button>
-    <a href={blogPath} title="Blog" target="_blank" rel="noopener noreferrer">
+    <a href="/blog" title="Blog">
       <Icon type="pencil" size="medium" />
       <span class="sr-only">Blog link</span>
     </a>
@@ -68,7 +68,7 @@
       <span class="sr-only">Zenn.dev link</span>
     </a>
   </div>
-  <Dialog bind:dialog on:closeDialog={closeDialog}>
+  <Dialog bind:dialog on:closeDialog={closeDialog} id="search-dialog">
     <Search />
   </Dialog>
 </div>

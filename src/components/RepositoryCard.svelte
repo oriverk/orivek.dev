@@ -1,28 +1,28 @@
 <script lang="ts">
-  import type { Repository, Language } from '@octokit/graphql-schema'
-  import Card from './ui/Card.svelte'
-  import Icon from './ui/Icon.svelte'
+import type { Language, Repository } from "@octokit/graphql-schema";
+import Card from "./ui/Card.svelte";
+import Icon from "./ui/Icon.svelte";
 
-  interface $$Props
-    extends Pick<
-      Repository,
-      'name' | 'description' | 'url' | 'stargazerCount' | 'isArchived'
-    > {
-    primaryLanguage: Pick<Language, 'name' | 'color'>
-  }
+interface $$Props
+  extends Pick<
+    Repository,
+    "name" | "description" | "url" | "stargazerCount" | "isArchived"
+  > {
+  primaryLanguage: Pick<Language, "name" | "color">;
+}
 
-  let {
-    name,
-    description,
-    url,
-    stargazerCount = 0,
-    isArchived = false,
-    primaryLanguage,
-  } = $$props as $$Props
-  export { name, description, url, stargazerCount, isArchived, primaryLanguage }
+let {
+  name,
+  description,
+  url,
+  stargazerCount = 0,
+  isArchived = false,
+  primaryLanguage,
+} = $$props as $$Props;
+export { name, description, url, stargazerCount, isArchived, primaryLanguage };
 </script>
 
-<a class="repository-card" href={url} target="_blank" rel="noopener noreferrer">
+<a href={url} target="_blank" rel="noopener noreferrer">
   <Card>
     <div class="repository">
       <div class="title">
@@ -57,6 +57,10 @@
 </a>
 
 <style>
+  a {
+    text-decoration: none;
+  }
+
   .repository {
     height: 100%;
     display: flex;

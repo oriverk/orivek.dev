@@ -1,14 +1,14 @@
 <script lang="ts">
-  import type { FeedItem } from '../types/feed'
-  import FeedCard from './FeedCard.svelte'
+import type { FeedItem } from "../types/feed";
+import FeedCard from "./FeedCard.svelte";
 
-  interface $$Props {
-    items: FeedItem[]
-    displayItemsCount?: number
-  }
+interface $$Props {
+  items: FeedItem[];
+  displayItemsCount?: number;
+}
 
-  let { items, displayItemsCount = 12 } = $$props as $$Props
-  export { items, displayItemsCount }
+let { items, displayItemsCount = 12 } = $$props as $$Props;
+export { items, displayItemsCount };
 </script>
 
 <div class="feed-list">

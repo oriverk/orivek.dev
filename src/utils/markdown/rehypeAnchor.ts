@@ -1,18 +1,17 @@
-import type { Plugin } from 'unified'
-import { visit } from 'unist-util-visit'
-import { is } from 'unist-util-is'
+import type { Plugin } from "unified";
+import type { Parent } from "unist";
+import { visit } from "unist-util-visit";
+import { isAnchor, isParent } from "./isHastNode";
 
-type Options = Record<string, any>
+export const rehypeAnchor: Plugin = () => {
+  return (tree) => {
+    visit(tree, isAnchor, (node, _index, parent: Parent | undefined) => {
+      if (!isParent(parent)) return;
+      const { href } = node.properties as { href: string };
+      if (!href.startsWith("http")) return;
 
-export const rehypeAnchor: Plugin = (options: Options = {}) => {
-  return (tree: any) => {
-    visit(tree, (node: any) => {
-      if (is(node, { tagName: 'a' })) {
-        let props: any = node.properties || (node.properties = {})
-
-        props.target = '_blank'
-        props.rel = 'noopener noreferrer'
-      }
-    })
-  }
-}
+      node.properties.target = "_blank";
+      node.properties.rel = "noopener noreferrer";
+    });
+  };
+};

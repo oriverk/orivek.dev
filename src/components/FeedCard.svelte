@@ -1,19 +1,21 @@
 <script lang="ts">
-  import type { FeedItem } from '../types/feed'
-  import { getFaviconSrcFromOrigin } from '../utils/feed'
-  import { getTimeFromNow } from '../utils/getTimeFromNow'
-  import Card from './ui/Card.svelte'
+import type { FeedItem } from "../types/feed";
+import { getFaviconSrcFromOrigin } from "../utils/feed";
+import { getTimeFromNow } from "../utils/getTimeFromNow";
+import Card from "./ui/Card.svelte";
 
-  interface $$Props
-    extends Pick<FeedItem, 'title' | 'link' | 'dateMiliSeconds'> {}
+interface $$Props
+  extends Pick<FeedItem, "title" | "link" | "dateMiliSeconds"> {}
 
-  let { title, link, dateMiliSeconds } = $$props as $$Props
-  export { title, link, dateMiliSeconds }
-  const timeString = getTimeFromNow(dateMiliSeconds) + ' ago'
-  const { hostname, origin } = new URL(link)
+let { title, link, dateMiliSeconds } = $$props as $$Props;
+export { title, link, dateMiliSeconds };
+const timeString = `${getTimeFromNow(dateMiliSeconds)} ago`;
+const isExternal = link.startsWith("http");
+const url = isExternal ? link : "https://oriverk.dev";
+const { hostname, origin } = new URL(url);
 </script>
 
-<a class="feed-card" href={link} target="_blank" rel="noopenner noreferrer">
+<a  href={link} target={isExternal ? "_blank" : ""} rel={isExternal ? "noopenner noreferrer" : ""}>
   <Card>
     <div class="feed">
       <time>{timeString}</time>
@@ -32,9 +34,13 @@
 </a>
 
 <style>
+  a {
+    text-decoration: none;
+  }
+
   .feed {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
     gap: 0.5rem;
     height: 100%;
   }
@@ -44,7 +50,6 @@
   }
 
   .title {
-    flex-grow: 1;
     margin: 0;
     font-size: 1.25rem;
   }

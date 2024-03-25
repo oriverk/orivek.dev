@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { PinnedItem } from '../types/github'
-  import RepositoryCard from './RepositoryCard.svelte'
+import type { PinnedItem } from "../types/github";
+import RepositoryCard from "./RepositoryCard.svelte";
 
-  export let repositoryItems: PinnedItem[] = []
+export let repositoryItems: PinnedItem[] = [];
 </script>
 
 <div class="github-list">
