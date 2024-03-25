@@ -1,7 +1,7 @@
 import type { SearchResponse } from "@algolia/client-search";
 import type { SearchClient, SearchIndex } from "algoliasearch";
 import algolia from "algoliasearch";
-import type { AlgoliaBlog } from "../types/algolia";
+import type { AlgoliaBlog } from "@/types/algolia";
 
 const {
   PUBLIC_ALGOLIA_APP_ID,

@@ -1,6 +1,6 @@
 import contributionsJson from "../../../.contents/contributions.json";
 import repositoryJson from "../../../.contents/repository.json";
-import type { UserContent } from "../../types/github";
+import type { UserContent } from "@/types/github";
 
 export function getUserContent(): UserContent {
   const repositoryItems: UserContent["repositoryItems"] = repositoryJson.filter(

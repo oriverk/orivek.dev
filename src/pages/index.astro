@@ -1,13 +1,13 @@
 ---
-import ActivityCalendar from "../components/ActivityCalendar/index.svelte";
-import FeedList from "../components/FeedList.svelte";
-import Hero from "../components/Hero.svelte";
-import RepositoryList from "../components/RepositoryList.svelte";
-import ContentWrapper from "../components/ui/ContentWrapper.svelte";
-import Layout from "../layouts/Layout.astro";
-import { getFeedItems } from "../utils/feed";
-import { getBlog } from "../utils/getBlog";
-import { getUserContent } from "../utils/github/getUserContent";
+import ActivityCalendar from "@/components/ActivityCalendar/index.svelte";
+import FeedList from "@/components/FeedList.svelte";
+import Hero from "@/components/Hero.svelte";
+import RepositoryList from "@/components/RepositoryList.svelte";
+import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
+import Layout from "@/layouts/Layout.astro";
+import { getFeedItems } from "@/utils/feed";
+import { getBlog } from "@/utils/getBlog";
+import { getUserContent } from "@/utils/github/getUserContent";
 
 const userContent = getUserContent();
 const feedItems = getFeedItems();
