@@ -1,5 +1,5 @@
-import FeedJson from "../../.contents/feed.json";
 import type { FeedItem } from "@/types/feed";
+import FeedJson from "../../.contents/feed.json";
 
 export function getFeedItems() {
   const results: FeedItem[] = FeedJson;

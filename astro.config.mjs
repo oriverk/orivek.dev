@@ -17,6 +17,7 @@ import {
 export default defineConfig({
   site: "https://oriverk.dev",
   publicDir: "./public",
+  // add data-astro-prefetch to anchor element
   prefetch: true,
   integrations: [
     svelte(),

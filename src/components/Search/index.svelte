@@ -1,8 +1,8 @@
 <script lang="ts">
-import type { Hit, SearchResponse } from "@algolia/client-search";
-import { onMount } from "svelte";
 import type { AlgoliaBlog } from "@/types/algolia";
 import { searchAlgolia } from "@/utils/algolia";
+import type { Hit, SearchResponse } from "@algolia/client-search";
+import { onMount } from "svelte";
 import Icon from "../ui/Icon.svelte";
 import BlogHit from "./BlogHit.svelte";
 import SearchInput from "./SearchInput.svelte";

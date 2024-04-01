@@ -4,11 +4,11 @@ const staticCollection = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
-    description: z.string().optional().default(""),
+    description: z.string().optional(),
     create: z.string(),
     update: z.string().optional(),
-    noindex: z.boolean().optional().default(false),
-    published: z.boolean().optional().default(false),
+    noindex: z.boolean().optional(),
+    published: z.boolean().optional(),
   }),
 });
 
@@ -16,13 +16,13 @@ const blogCollection = defineCollection({
   type: "content",
   schema: z.object({
     title: z.string(),
-    description: z.string().optional().default(""),
-    create: z.string(),
-    update: z.string().optional(),
+    description: z.string().optional(),
+    create: z.coerce.date(),
+    update: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
-    image: z.string().optional().default(""),
-    noindex: z.boolean().optional().default(false),
-    published: z.boolean().optional().default(false),
+    image: z.string().optional(),
+    noindex: z.boolean().optional(),
+    published: z.boolean(),
   }),
 });
 

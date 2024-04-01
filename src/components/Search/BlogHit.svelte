@@ -1,6 +1,6 @@
 <script lang="ts">
-import type { Hit } from "@algolia/client-search";
 import type { AlgoliaBlog } from "@/types/algolia";
+import type { Hit } from "@algolia/client-search";
 
 interface $$Props extends Hit<AlgoliaBlog> {
   selected: boolean;

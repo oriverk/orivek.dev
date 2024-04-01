@@ -1,6 +1,6 @@
+import type { Activity } from "@/types/activityCalendar";
 import type { ContributionCalendarDay } from "@octokit/graphql-schema";
 import { getMonth, parseISO } from "date-fns";
-import type { Activity } from "@/types/activityCalendar";
 
 export function parseContributionCalendarDay(
   day: ContributionCalendarDay,
