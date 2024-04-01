@@ -27,7 +27,7 @@ const { data, ...rest } = page;
         const { update, ...rest } = data;
         const href = `/blog/${slug}`
         return (
-          <PostCard {href} update={update || ""} {...rest} />
+          <PostCard {href} update={update} {...rest} />
         )
       })}
     </div>

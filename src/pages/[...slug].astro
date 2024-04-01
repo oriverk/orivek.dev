@@ -20,6 +20,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { post } = Astro.props as Props;
 const { render, data } = post;
 const { title, create, description, update, noindex } = data;
+
 const { Content } = await render();
 ---
 

@@ -26,6 +26,13 @@ const { id, slug, body, collection, render, data } = post;
 const place = `${collection}/${id}`;
 const { title, description, tags, create, update, image, published, noindex } =
   data;
+const lastModified = update || create;
+const date = lastModified.toLocaleDateString('ja-JP', {
+  year: "numeric",
+  month: 'long',
+  day: "numeric",
+})
+const isoDate = lastModified.toISOString()
 const { Content, headings } = await render();
 const toc = getTocHierarchy(headings);
 const ogImage = urlJoin(Astro.url.origin, "/api/og/blog", `${slug}.png`)
@@ -38,7 +45,7 @@ const ogImage = urlJoin(Astro.url.origin, "/api/og/blog", `${slug}.png`)
         <div>
           <h1>{title}</h1>
           <div class="info">
-            <time>{update || create}</time>
+            <time datetime={isoDate}>{date}</time>
             {tags.length && (
               <>
                 <span>/</span>

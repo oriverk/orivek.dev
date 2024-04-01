@@ -9,7 +9,7 @@ export async function GET(context: APIContext) {
     const link = `/blog/${slug}`;
     return {
       title,
-      pubDate: new Date(create),
+      pubDate: create,
       description: description ?? undefined,
       link,
     };
