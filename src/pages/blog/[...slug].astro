@@ -7,6 +7,7 @@ import Markdown from "@/components/ui/Markdown.svelte";
 import Toc from "@/components/ui/Toc/index.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { getBlog, getTocHierarchy } from "@/utils/getBlog";
+import urlJoin from "url-join";
 
 export const getStaticPaths = (async () => {
   const blog = await getBlog();
@@ -21,15 +22,16 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { post } = Astro.props as Props;
-const { id, body, collection, render, data } = post;
+const { id, slug, body, collection, render, data } = post;
 const place = `${collection}/${id}`;
 const { title, description, tags, create, update, image, published, noindex } =
   data;
 const { Content, headings } = await render();
 const toc = getTocHierarchy(headings);
+const ogImage = urlJoin(Astro.url.origin, "/api/og/blog", `${slug}.png`)
 ---
 
-<Layout {title} {description} {noindex}>
+<Layout {title} {description} {noindex} image={ogImage}>
   <article>
     <ContentWrapper>
       <div class="container">
