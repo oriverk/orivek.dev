@@ -2,19 +2,23 @@
 import type { CollectionEntry } from "astro:content";
 import PostTag from "./PostTag.svelte";
 
-interface $$Props extends Pick<CollectionEntry<"blog">["data"], 'title' | 'tags' | 'create' | 'update'> {
+interface $$Props
+  extends Pick<
+    CollectionEntry<"blog">["data"],
+    "title" | "tags" | "create" | "update"
+  > {
   href: string;
 }
 
 let { title, tags = [], create, update, href } = $$props as $$Props;
 export { title, tags, create, update, href };
 const lastModified = update || create;
-const date = lastModified.toLocaleDateString('ja-JP', {
+const date = lastModified.toLocaleDateString("ja-JP", {
   year: "numeric",
-  month: 'long',
+  month: "long",
   day: "numeric",
-})
-const isoDate = lastModified.toISOString()
+});
+const isoDate = lastModified.toISOString();
 </script>
 
 <article>

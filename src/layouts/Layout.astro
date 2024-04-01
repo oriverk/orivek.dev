@@ -1,9 +1,9 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
+import urlJoin from "url-join";
 import Footer from "./Footer.astro";
 import Header from "./Header.astro";
-import urlJoin from "url-join";
 
 export interface Props {
   title?: string;
@@ -16,7 +16,7 @@ const { origin, href, hostname } = Astro.url;
 const { title, description, image, noindex } = Astro.props;
 const siteName = hostname;
 const siteTitle = title ? `${title} | ${siteName}` : siteName;
-const ogImage = image ?? urlJoin(origin, 'og.png')
+const ogImage = image ?? urlJoin(origin, "og.png");
 ---
 
 <!doctype html>
