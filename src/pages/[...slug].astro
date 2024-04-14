@@ -4,6 +4,7 @@ import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
 import Markdown from "@/components/ui/Markdown.svelte";
 import Layout from "@/layouts/Layout.astro";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import AstroLink from "@/components/AstroLink.astro"
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("static");
@@ -22,6 +23,10 @@ const { render, data } = post;
 const { title, create, description, update, noindex } = data;
 
 const { Content } = await render();
+
+export const components = {
+  a: AstroLink,
+}
 ---
 
 <Layout {title} {description} {noindex}>
@@ -36,7 +41,7 @@ const { Content } = await render();
           </div>
         </div>
         <Markdown>
-          <Content />
+          <Content {components} />
         </Markdown>
         </div>
     </ContentWrapper>

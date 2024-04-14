@@ -1,0 +1,12 @@
+{
+  "https://google.com": {
+    "title": "Google",
+    "description": "世界中のあらゆる情報を検索するためのツールを提供しています。さまざまな検索機能を活用して、お探しの情報を見つけてください。",
+    "image": ""
+  },
+  "https://oriverk.dev/blog/20240300-gfm-alerts/": {
+    "title": "GFM Alerts記法のスニペットを設定する | oriverk.dev",
+    "description": "",
+    "image": "https://oriverk.dev/api/og/blog/20240300-gfm-alerts.png"
+  }
+}

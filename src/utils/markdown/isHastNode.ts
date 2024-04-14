@@ -31,3 +31,7 @@ interface Anchor extends Element {
 export function isAnchor(node: unknown): node is Anchor {
   return isElement(node) && node.tagName === "a";
 }
+
+export function isBareLink(node: unknown) {
+  return isAnchor(node) && isLiteral(node.children[0]) && node.children[0].value === node.properties.href
+}
