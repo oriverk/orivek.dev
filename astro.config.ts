@@ -1,4 +1,4 @@
-import mdx from "@astrojs/mdx";
+import mdx, { type MdxOptions } from "@astrojs/mdx";
 import svelte from "@astrojs/svelte";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import expressiveCode from "astro-expressive-code";
@@ -13,7 +13,6 @@ import {
   remarkFencedCodeBlock,
 } from "./src/utils/markdown";
 
-// https://astro.build/config
 export default defineConfig({
   site: "https://oriverk.dev",
   publicDir: "./public",
@@ -42,7 +41,11 @@ export default defineConfig({
       remarkFencedCodeBlock,
       remarkGithubAlerts,
     ],
-    rehypePlugins: [rehypeAnchor, rehypeFigure, rehypeKatex],
+    rehypePlugins: [
+      rehypeAnchor,
+      rehypeFigure,
+      rehypeKatex
+    ],
     gfm: true,
   },
 });

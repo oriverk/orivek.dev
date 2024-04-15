@@ -1,4 +1,5 @@
 ---
+import AstroLink from "@/components/AstroLink.astro";
 import PostTag from "@/components/PostTag.svelte";
 import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
 import Details from "@/components/ui/Details.svelte";
@@ -36,6 +37,10 @@ const isoDate = lastModified.toISOString();
 const { Content, headings } = await render();
 const toc = getTocHierarchy(headings);
 const ogImage = urlJoin(Astro.url.origin, "/api/og/blog", `${slug}.png`);
+
+export const components = {
+  a: AstroLink
+}
 ---
 
 <Layout {title} {description} {noindex} image={ogImage}>
@@ -62,7 +67,7 @@ const ogImage = urlJoin(Astro.url.origin, "/api/og/blog", `${slug}.png`);
           </Details>
         </nav>
         <Markdown>
-          <Content />
+          <Content {components} />
         </Markdown>
         </div>
     </ContentWrapper>
