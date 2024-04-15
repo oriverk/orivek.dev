@@ -3,7 +3,7 @@ import type { AlgoliaBlog } from "@/types/algolia";
 import { searchAlgolia } from "@/utils/algolia";
 import type { Hit, SearchResponse } from "@algolia/client-search";
 import { onMount } from "svelte";
-import Icon from "../ui/Icon.svelte";
+// import Icon from "@/components/ui/Icon.astro";
 import BlogHit from "./BlogHit.svelte";
 import SearchInput from "./SearchInput.svelte";
 
@@ -88,7 +88,8 @@ $: {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <Icon type="algolia" />
+      <!-- <Icon type="algolia" /> -->
+      <span class="icon alogolia" />
     </a>
   </div>
   {#if !results?.nbHits}
@@ -121,6 +122,20 @@ $: {
     margin: 1rem 0;
     display: flex;
     justify-content: flex-end;
+
+    & > .icon.algolia {
+      &::before {
+        content: '';
+    display: inline-block;
+    mask: no-repeat center;
+    mask-size: contain;
+    background-color: currentColor;
+        height: 1.25rem;
+        mask-image: url('/assets/algolia.svg');
+        aspect-ratio: 572 / 64;
+      }
+      display: flex;
+    }
   }
 
   .search-results-wrapper {
@@ -131,7 +146,7 @@ $: {
     gap: 0.5rem;
   }
 
-  .search-icon-wrapper :global(.icon.algolia::before) {
+  /* .search-icon-wrapper :global(.icon.algolia::before) {
     height: 1.25rem;
-  }
+  } */
 </style>

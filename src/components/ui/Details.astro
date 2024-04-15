@@ -1,23 +1,20 @@
-<script lang="ts">
-import type { HTMLDetailsAttributes } from "svelte/elements";
+---
+import type { HTMLAttributes } from 'astro/types';
 
-interface $$Props extends Omit<HTMLDetailsAttributes, "class"> {
+interface Props extends Omit<HTMLAttributes<"details">, "class"> {
   summary: string;
   className?: string;
 }
 
-let { summary, className } = $$props as $$Props;
-export { summary, className };
-</script>
+const { summary, className, ...restProps } = Astro.props;
+---
 
-<details
-  {...$$restProps}
->
-  {#if summary}
+<details class={className} {...restProps}>
+  {!!summary && (
     <summary>
       {summary}
     </summary>
-  {/if}
+  )}
   <slot />
 </details>
 

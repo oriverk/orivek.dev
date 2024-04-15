@@ -1,13 +1,14 @@
 ---
-import ActivityCalendar from "@/components/ActivityCalendar/index.svelte";
-import FeedList from "@/components/FeedList.svelte";
-import Hero from "@/components/Hero.svelte";
-import RepositoryList from "@/components/RepositoryList.svelte";
-import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
+import ActivityCalendar from "@/components/ActivityCalendar/index.astro";
+import FeedList from "@/components/FeedList.astro";
+import Hero from "@/components/Hero.astro";
+import RepositoryList from "@/components/RepositoryList.astro";
+import ContentWrapper from "@/components/ui/ContentWrapper.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getFeedItems } from "@/utils/feed";
 import { getBlog } from "@/utils/getBlog";
 import { getUserContent } from "@/utils/github/getUserContent";
+import SearchIconButton from "@/components/SvelteSearch/SearchIconButton.svelte";
 
 const userContent = getUserContent();
 const feedItems = getFeedItems();
@@ -36,7 +37,9 @@ const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
   <section class="home-hero">
     <ContentWrapper>
       <div class="hero">
-        <Hero client:only="svelte" />
+        <Hero>
+          <SearchIconButton client:only="svelte" />
+        </Hero>
       </div>
     </ContentWrapper>
   </section>
