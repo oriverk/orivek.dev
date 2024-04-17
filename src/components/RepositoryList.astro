@@ -1,17 +1,20 @@
-<script lang="ts">
+---
 import type { PinnedItem } from "../types/github";
-import RepositoryCard from "./RepositoryCard.svelte";
+import RepositoryCard from "./RepositoryCard.astro";
 
-export let repositoryItems: PinnedItem[] = [];
-</script>
+interface Props {
+  repositoryItems: PinnedItem[]
+}
 
+const { repositoryItems } = Astro.props;
+---
 <div class="github-list">
   <ol class="grid">
-    {#each repositoryItems as item}
+    {repositoryItems.map(item => (
       <li>
         <RepositoryCard {...item} />
       </li>
-    {/each}
+    ))}
   </ol>
 </div>
 

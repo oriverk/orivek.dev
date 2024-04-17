@@ -1,7 +1,7 @@
 <script lang="ts">
 import clsx from "clsx";
 import type { HTMLInputAttributes } from "svelte/elements";
-import Icon from "../ui/Icon.svelte";
+import SearchIcon from "./SearchIcon.svelte";
 
 interface $$Props extends Omit<HTMLInputAttributes, "class"> {
   className?: string;
@@ -15,7 +15,7 @@ export { className, value, placeholder };
   <label for="search" class="sr-only">検索</label>
   <div class="search-input-wrapper">
     <div class="search-icon">
-      <Icon type="magnifyingGlass" size="small" />
+      <SearchIcon size="small" />
     </div>
     <input class="search-input" {placeholder} bind:value {...$$restProps} />
   </div>

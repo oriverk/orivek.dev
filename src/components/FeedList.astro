@@ -1,23 +1,22 @@
-<script lang="ts">
+---
 import type { FeedItem } from "../types/feed";
-import FeedCard from "./FeedCard.svelte";
+import FeedCard from "./FeedCard.astro";
 
-interface $$Props {
+interface Props {
   items: FeedItem[];
   displayItemsCount?: number;
 }
 
-let { items, displayItemsCount = 12 } = $$props as $$Props;
-export { items, displayItemsCount };
-</script>
+const { items, displayItemsCount = 12 } = Astro.props;
+---
 
 <div class="feed-list">
   <ol class="grid">
-    {#each items.slice(0, displayItemsCount) as item}
+    {items.slice(0, displayItemsCount).map(item => (
       <li>
         <FeedCard {...item} />
       </li>
-    {/each}
+    ))}
   </ol>
 </div>
 

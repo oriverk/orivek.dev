@@ -1,16 +1,16 @@
-<script lang="ts">
+---
 import "katex/dist/katex.min.css";
 import "remark-github-alerts/styles/github-base.css";
 import "remark-github-alerts/styles/github-colors-dark-class.css";
 import "remark-github-alerts/styles/github-colors-light.css";
-</script>
+---
 
 <div class="markdown">
   <slot />
 </div>
 
-<style>
-  :global(.markdown){
+<style is:global>
+  .markdown {
     & > :where(*+*) {
       margin-block-start: 2rem;
     }

@@ -1,19 +1,23 @@
-<script lang="ts">
+---
 import type { Hierarchy } from "../../../utils/getBlog";
-import TocList from "./TocList.svelte";
+import TocList from "./TocList.astro";
 
-export let toc: Hierarchy[];
-</script>
+interface Props {
+  toc: Hierarchy[];
+}
 
-{#if toc.length}
+const { toc } = Astro.props;
+---
+
+{!!toc.length && (
   <nav>
     <ol>
-      {#each toc as heading}
+      {toc.map(heading => (
         <TocList {heading} />
-      {/each}
+      ))}
     </ol>
   </nav>
-{/if}
+)}
 
 <style>
   ol {

@@ -1,8 +1,8 @@
-<script lang="ts">
+---
 import type { Activity, ActivityCalendar } from "../../types/activityCalendar";
-import ActivityDay from "./ActivityDay.svelte";
+import ActivityDay from "./ActivityDay.astro";
 
-interface $$Props
+interface Props
   extends Pick<
     ActivityCalendar,
     "colors" | "blockMargin" | "blockRadius" | "blockSize"
@@ -12,7 +12,7 @@ interface $$Props
   translateX: number;
 }
 
-let {
+const {
   colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
   week,
   textHeight,
@@ -20,20 +20,11 @@ let {
   blockRadius,
   blockSize,
   translateX,
-} = $$props as $$Props;
-export {
-  colors,
-  week,
-  textHeight,
-  blockMargin,
-  blockRadius,
-  blockSize,
-  translateX,
-};
-</script>
+} = Astro.props;
+---
 
 <g transform={`translate(${translateX}, 0)`}>
-  {#each week as { date, level, count }, weekday}
+  {week.map(({ date, level, count }, weekday) => (
     <ActivityDay
       day={{ date, level, count }}
       color={colors[level]}
@@ -41,5 +32,5 @@ export {
       {blockRadius}
       {blockSize}
     />
-  {/each}
+  ))}
 </g>

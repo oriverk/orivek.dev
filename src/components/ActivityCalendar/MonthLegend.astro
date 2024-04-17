@@ -1,8 +1,8 @@
-<script lang="ts">
-import type { Activity, ActivityCalendar } from "../../types/activityCalendar";
-import { getMonthLabels } from "../../utils/github/getActivityCalendar";
+---
+import type { Activity, ActivityCalendar } from "@/types/activityCalendar";
+import { getMonthLabels } from "@/utils/github/getActivityCalendar";
 
-interface $$Props
+interface Props
   extends Pick<
     ActivityCalendar,
     "monthLabels" | "blockSize" | "blockMargin" | "fontSize"
@@ -10,14 +10,11 @@ interface $$Props
   weeks: Activity[][];
 }
 
-let { weeks, monthLabels, blockSize, blockMargin, fontSize } =
-  $$props as $$Props;
-export { weeks, monthLabels, blockSize, blockMargin, fontSize };
+const { weeks, monthLabels, blockSize, blockMargin, fontSize } = Astro.props;
 const labels = getMonthLabels(weeks, monthLabels);
-</script>
-
+---
 <g>
-  {#each labels as { text, x }}
+  {labels.map(({text, x}) => (
     <text
       x={(blockSize + blockMargin) * x}
       y={0}
@@ -26,7 +23,7 @@ const labels = getMonthLabels(weeks, monthLabels);
     >
       {text}
     </text>
-  {/each}
+  ))}
 </g>
 
 <style>
