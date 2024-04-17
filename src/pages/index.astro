@@ -8,7 +8,6 @@ import Layout from "@/layouts/Layout.astro";
 import { getFeedItems } from "@/utils/feed";
 import { getBlog } from "@/utils/getBlog";
 import { getUserContent } from "@/utils/github/getUserContent";
-import SearchIconButton from "@/components/SvelteSearch/SearchIconButton.svelte";
 
 const userContent = getUserContent();
 const feedItems = getFeedItems();
@@ -37,9 +36,7 @@ const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
   <section class="home-hero">
     <ContentWrapper>
       <div class="hero">
-        <Hero>
-          <SearchIconButton client:only="svelte" />
-        </Hero>
+        <Hero />
       </div>
     </ContentWrapper>
   </section>

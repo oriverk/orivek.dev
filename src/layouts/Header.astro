@@ -1,6 +1,9 @@
 ---
 import Icon from "@/components/ui/Icon.astro";
-const isCurrent = (path: string) => path === Astro.url.pathname;
+import HeaderSearch from "@/components/SvelteSearch/SearchButton.svelte"
+const { pathname } = Astro.url;
+const subpath = pathname.match(/[^\/]+/g);
+const isActive = (href: string) => href === pathname || href === `/${subpath?.[0]}`;
 ---
 
 <nav>
@@ -11,7 +14,10 @@ const isCurrent = (path: string) => path === Astro.url.pathname;
   <div class="header-right">
     <ul>
       <li>
-        <a href="/blog" class:list={[{acitve: isCurrent("/blog")}]} data-astro-prefetch>Blog</a>
+        <HeaderSearch client:only="svelte" />
+      </li>
+      <li>
+        <a href="/blog" class:list={[{acitve: isActive("/blog")}]} data-astro-prefetch>Blog</a>
       </li>
       <li>
         <a href="https://oriverk.github.io/" target="_blank" rel="noopener noreferrer" title="GitHub Page">
