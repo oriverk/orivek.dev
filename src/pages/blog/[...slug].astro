@@ -36,7 +36,7 @@ const date = lastModified.toLocaleDateString("ja-JP", {
 const isoDate = lastModified.toISOString();
 const { Content, headings } = await render();
 const toc = getTocHierarchy(headings);
-const ogImage = urlJoin(Astro.url.origin, "/api/og/blog", `${slug}.png`);
+const ogImage = urlJoin(Astro.url.origin, "/api/og/blog", slug);
 
 export const components = {
   a: AstroLink
