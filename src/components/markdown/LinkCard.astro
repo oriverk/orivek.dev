@@ -1,13 +1,18 @@
 ---
+import clsx from "clsx";
 import { getFaviconSrcFromOrigin } from '@/utils/feed';
 import { getSiteMetadata } from '@/utils/getSiteMetadata';
-import Card from './ui/Card.astro';
+import Card from '../ui/Card.astro';
 
 interface Props {
   href: string;
+  target: string;
+  rel: string;
+  class: string;
+  "data-embed": string;
 }
 
-const { href } = Astro.props;
+const { href, class: className, ...restProps } = Astro.props;
 
 const {title, description, image} = await getSiteMetadata(href);
 const { origin, hostname } = new URL(href)
@@ -15,7 +20,7 @@ const favicon = getFaviconSrcFromOrigin(origin)
 ---
 
 <div>
-  <a {href} class="card" target="_blank" rel="noopener noreferrer">
+  <a {href} class={clsx("card", className)} {...restProps}>
     <Card>
       <div class="content">
         <div class="left">
@@ -51,6 +56,7 @@ const favicon = getFaviconSrcFromOrigin(origin)
   .content {
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
   }
 
   .left {
@@ -58,15 +64,19 @@ const favicon = getFaviconSrcFromOrigin(origin)
     flex-direction: column;
   }
 
-  .title {
-    &::before {
-      content: none;
-    }
-
-    font-weight: bold;
+  .title, .description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 
   .title {
+    &::before {
+      content: revert;
+    }
+
+    font-weight: bold;
     margin: 0;
     font-size: 1.2rem;
   }
@@ -75,10 +85,6 @@ const favicon = getFaviconSrcFromOrigin(origin)
     flex: 1;
     justify-items: center;
     font-size: 0.9rem;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
   }
 
   .info {
@@ -96,6 +102,14 @@ const favicon = getFaviconSrcFromOrigin(origin)
   }
 
   .ogimage {
-    width: 25%;
+    display: none;
+    min-width: 25%;
+    max-width: 25%;
+  }
+
+  @media (768px <= width) {
+    .ogimage {
+      display: block;
+    }
   }
 </style>

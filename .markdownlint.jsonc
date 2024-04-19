@@ -5,6 +5,7 @@
   "line-length": false,
   // for GFM Alerts > [!NOTE]
   "no-blanks-blockquote": false,
+  "no-bare-urls": false,
   "no-inline-html": {
     "allowed_elements": [
       "details",
