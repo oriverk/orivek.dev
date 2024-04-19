@@ -1,0 +1,96 @@
+---
+// import clsx from "clsx";
+import { getTweet } from "@/utils/getTweet.ts"
+import { getFaviconSrcFromOrigin } from '@/utils/feed';
+import Card from "@/components/ui/Card.astro";
+
+interface Props {
+  href: string;
+  target: string;
+  rel: string;
+  class: string;
+  "data-embed": string;
+}
+
+interface ResponseType {
+  url: string;
+  author_name: string;
+  author_url: string;
+  html: string;
+  width: number;
+  height: number | null;
+  type: string;
+  cache_age: string;
+  provider_name: string;
+  provider_url: string;
+  version: string;
+}
+
+const { href, class: className, ...restProps } = Astro.props;
+
+const result = await getTweet(href, {
+  hide_media: false,
+  hide_thread: true,
+  align: "center",
+  omit_script: true,
+  dnt: true,
+  theme: "dark",
+  lang: "ja"
+})
+const { html, provider_name, provider_url } = result
+const favicon = getFaviconSrcFromOrigin(provider_url)
+---
+
+<div class="embed-twitter">
+  <article>
+  <Card className="fallback" disabled>
+      <Fragment set:html={html} />
+      <div class="footer">
+        <img
+          src={favicon}
+          width="14"
+          height="14"
+          alt={provider_name}
+        />
+        <span>{provider_name}</span>
+      </div>
+    </Card>
+  </article>
+  <Fragment set:html={html} />
+</div>
+
+<style is:global>
+  .fallback {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    & blockquote.twitter-tweet:not(.twitter-tweet-rendered) {
+      border: revert;
+      margin: 0;
+      padding-inline: 0;
+    }
+
+    & .footer {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+
+      & > img {
+        width: revert;
+      }
+
+      & > span {
+        color: rgb(var(--color-lightgray));
+      }
+    }
+  }
+
+  :not(.fallback) > blockquote.twitter-tweet:not(.twitter-tweet-rendered) {
+    display: none;
+  }
+
+  .fallback:has(.twitter-tweet-rendered) {
+    display: none;
+  }
+</style>

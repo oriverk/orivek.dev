@@ -1,5 +1,5 @@
 ---
-import AstroLink from "@/components/AstroLink.astro";
+import AstroLink from "@/components/markdown/AstroLink.astro";
 import PostTag from "@/components/PostTag.astro";
 import ContentWrapper from "@/components/ui/ContentWrapper.astro";
 import Details from "@/components/ui/Details.astro";
@@ -73,6 +73,15 @@ export const components = {
     </ContentWrapper>
   </article>
 </Layout>
+
+<script is:inline>
+  if(document.getElementsByClassName("twitter-tweet").length){
+    const script = document.createElement("script");
+    script.src = "https://platform.twitter.com/widgets.js";
+    document.body.appendChild(script);
+    script.remove()
+  }
+</script>
 
 <style>
   .container {
