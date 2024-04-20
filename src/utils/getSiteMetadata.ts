@@ -28,6 +28,7 @@ export async function getSiteMetadata(url: string) {
     }
 
   } else {
+    console.log("now fetching site metadata...")
     const { title = "", description = "", image } = await fetchSiteMetadata(url);
     result = {
       title,
