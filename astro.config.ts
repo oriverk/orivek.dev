@@ -1,12 +1,12 @@
-import mdx, { type MdxOptions } from "@astrojs/mdx";
+import mdx from "@astrojs/mdx";
 import svelte from "@astrojs/svelte";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import expressiveCode from "astro-expressive-code";
 import { defineConfig } from "astro/config";
-import rehypeKatex from "rehype-katex";
+// import rehypeKatex from "rehype-katex";
 import remarkComment from "remark-comment";
 import remarkGithubAlerts from "remark-github-alerts";
-import remarkMath from "remark-math";
+// import remarkMath from "remark-math";
 import {
   rehypeAnchor,
   rehypeFigure,
@@ -37,14 +37,14 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [
       remarkComment,
-      remarkMath,
+      // remarkMath,
       remarkFencedCodeBlock,
       remarkGithubAlerts,
     ],
     rehypePlugins: [
       rehypeAnchor,
       rehypeFigure,
-      rehypeKatex
+      // rehypeKatex
     ],
     gfm: true,
   },

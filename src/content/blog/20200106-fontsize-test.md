@@ -69,8 +69,8 @@ int c_p = 0, c_p1 = 0, c_p2 = 0, c_p3 = 0;
 
 [a tag link あいうえお](http://google.com)
 
-## katex
+<!-- ## katex -->
 
-$$
+<!-- $$
 y = x^3 + 2ax^2 + b
-$$
+$$ -->
