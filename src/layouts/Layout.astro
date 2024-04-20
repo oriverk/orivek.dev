@@ -1,9 +1,10 @@
 ---
 import { ViewTransitions } from "astro:transitions";
 import ContentWrapper from "@/components/ui/ContentWrapper.astro";
-import urlJoin from "url-join";
 import Footer from "./Footer.astro";
 import Header from "./Header.astro";
+import defaultOgImage from "@/assets/images/og.png"
+import urlJoin from "url-join"
 
 export interface Props {
   title?: string;
@@ -12,11 +13,12 @@ export interface Props {
   noindex?: boolean;
 }
 
-const { origin, href, hostname } = Astro.url;
+const { href, hostname } = Astro.url;
 const { title, description, image, noindex } = Astro.props;
 const siteName = hostname;
 const siteTitle = title ? `${title} | ${siteName}` : siteName;
-const ogImage = image ?? urlJoin(origin, "og.png");
+const ogImage = image ?? defaultOgImage.src
+const rssHref = Astro.site ? urlJoin(Astro.site.toString() ?? "", "rss.xml") : undefined;
 ---
 
 <!doctype html>
@@ -29,11 +31,12 @@ const ogImage = image ?? urlJoin(origin, "og.png");
     <meta name="format-detection" content="email=no,telephone=no,address=no" />
     <link rel="canonical" href={href} />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" sizes="32x32" href="/favicon.ico">
     <link rel="manifest" href="/site.webmanifest">
     <link href="/sitemap-index.xml" rel="sitemap" />
-    <link rel="alternate" type="application/rss+xml" title={siteName} href={`${Astro.site}rss.xml`} />
+    {rssHref && (
+      <link rel="alternate" type="application/rss+xml" title={siteName} href={rssHref} />
+    )}
     <meta name="theme-color" content="#00e1ee">
     <meta name="generator" content={Astro.generator} />
     <meta property="og:url" content={href} />
