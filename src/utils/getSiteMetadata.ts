@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import fetchSiteMetadata from "fetch-site-metadata";
 import type { CardLinkEmbedType } from "@/types/oembed";
+import { getEmbedImageSrc } from "./getEmbedImageSrc";
 
 const dir = "./.contents"
 const jsonPath = `${dir}/card-links.json`;
@@ -26,7 +27,6 @@ export async function getSiteMetadata(url: string) {
       description,
       image
     }
-
   } else {
     console.log("now fetching site metadata...")
     const { title = "", description = "", image } = await fetchSiteMetadata(url);
@@ -41,6 +41,10 @@ export async function getSiteMetadata(url: string) {
       fs.writeFileSync(jsonPath, JSON.stringify(linksJson, null, 2))
     }
   }
+
+  // if(result.image){
+  //   const hoge = await getEmbedImageSrc(result.image)
+  // }
 
   return {
     src: url,

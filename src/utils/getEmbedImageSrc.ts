@@ -15,11 +15,22 @@ const size = 400;
 //   })
 // }
 
-export async function getEmbedImageSrc(url: string){
-  const hash = await hashStringToSHA256(url);
-  const imagePath = path.join(publicPath, dir, `${hash}.${extension}`);
+if(!fs.existsSync("./.contents")){
+  fs.mkdirSync("./.contents")
+}
+if(!fs.existsSync("./.contents/external-image.json")){
+  fs.writeFileSync("./.contents/external-image.json", "{}")
+}
+const externalImageJson: Record<string, string> = JSON.parse(fs.readFileSync("./.contents/external-image.json", {encoding: "utf-8"}))
 
-  if(!fs.existsSync(imagePath)) {
+export async function getEmbedImageSrc(url: string){
+  let src = ""
+
+  if(externalImageJson[url]){
+    src = externalImageJson[url]
+  } else if(import.meta.env.PROD){
+    const hash = await hashStringToSHA256(url);
+    const imagePath = path.join(publicPath, dir, `${hash}.${extension}`);
     const response = await fetch(url)
     if(!response.ok) {
       throw new Error(`Failed to fetch the image. Status code: ${response.status}`);
@@ -32,8 +43,9 @@ export async function getEmbedImageSrc(url: string){
       })
       .toBuffer();
     fs.writeFileSync(imagePath, imageBuffer)
+    const result = `/assets/${hash}.${extension}`
+    return result;
+  } else {
+    return url;
   }
-
-  const result = `/assets/${hash}.${extension}`
-  return result;
 }
