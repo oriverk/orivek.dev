@@ -4,7 +4,7 @@ import satori from "satori";
 import sharp from "sharp";
 
 interface Options {
-  extension: "jpg" | "png" |"webp" | "avif";
+  extension: "jpg" | "png" | "webp" | "avif";
   quality: number;
   debug: boolean;
 }
@@ -19,7 +19,7 @@ export async function getOgImage(title: string, options?: Partial<Options>) {
     "./src/assets/fonts/noto-sans-jp-japanese-700-normal.woff",
   );
 
-  const { extension = "webp", quality = 75, debug = false } = options || {}
+  const { extension = "webp", quality = 75, debug = false } = options || {};
 
   const satoriOptions: SatoriOptions = {
     debug,

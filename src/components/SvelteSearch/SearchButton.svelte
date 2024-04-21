@@ -1,7 +1,7 @@
 <script lang="ts">
-import Search from "./index.svelte";
 import Dialog from "@/components/ui/Dialog.svelte";
-import SearchIcon from "./SearchIcon.svelte"
+import SearchIcon from "./SearchIcon.svelte";
+import Search from "./index.svelte";
 
 let dialog: HTMLDialogElement;
 function openDialog() {

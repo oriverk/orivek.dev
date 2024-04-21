@@ -1,10 +1,10 @@
 ---
 import { ViewTransitions } from "astro:transitions";
+import defaultOgImage from "@/assets/images/og.png";
 import ContentWrapper from "@/components/ui/ContentWrapper.astro";
+import urlJoin from "url-join";
 import Footer from "./Footer.astro";
 import Header from "./Header.astro";
-import defaultOgImage from "@/assets/images/og.png"
-import urlJoin from "url-join"
 
 export interface Props {
   title?: string;
@@ -17,8 +17,10 @@ const { href, hostname } = Astro.url;
 const { title, description, image, noindex } = Astro.props;
 const siteName = hostname;
 const siteTitle = title ? `${title} | ${siteName}` : siteName;
-const ogImage = image ?? defaultOgImage.src
-const rssHref = Astro.site ? urlJoin(Astro.site.toString() ?? "", "rss.xml") : undefined;
+const ogImage = image ?? defaultOgImage.src;
+const rssHref = Astro.site
+  ? urlJoin(Astro.site.toString() ?? "", "rss.xml")
+  : undefined;
 ---
 
 <!doctype html>

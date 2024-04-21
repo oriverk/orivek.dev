@@ -1,6 +1,6 @@
 ---
-import AstroLink from "@/components/markdown/AstroLink.astro";
 import PostTag from "@/components/PostTag.astro";
+import AstroLink from "@/components/markdown/AstroLink.astro";
 import ContentWrapper from "@/components/ui/ContentWrapper.astro";
 import Details from "@/components/ui/Details.astro";
 import Markdown from "@/components/ui/Markdown.astro";
@@ -39,8 +39,8 @@ const toc = getTocHierarchy(headings);
 const ogImage = urlJoin(Astro.url.origin, "/api/og/blog", slug);
 
 export const components = {
-  a: AstroLink
-}
+  a: AstroLink,
+};
 ---
 
 <Layout {title} {description} {noindex} image={ogImage}>

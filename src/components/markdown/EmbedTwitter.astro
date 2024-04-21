@@ -1,7 +1,7 @@
 ---
-import { getTweet } from "@/utils/getTweet.ts"
-import { getFaviconSrcFromOrigin } from '@/utils/feed';
 import Card from "@/components/ui/Card.astro";
+import { getFaviconSrcFromOrigin } from "@/utils/feed";
+import { getTweet } from "@/utils/getTweet.ts";
 
 interface Props {
   href: string;
@@ -34,10 +34,10 @@ const result = await getTweet(href, {
   omit_script: true,
   dnt: true,
   theme: "dark",
-  lang: "ja"
-})
-const { html, provider_name, provider_url } = result
-const favicon = getFaviconSrcFromOrigin(provider_url)
+  lang: "ja",
+});
+const { html, provider_name, provider_url } = result;
+const favicon = getFaviconSrcFromOrigin(provider_url);
 ---
 
 <div class="embed-twitter">

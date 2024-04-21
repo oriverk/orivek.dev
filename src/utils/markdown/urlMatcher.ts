@@ -4,7 +4,7 @@
 export function isValidHttpUrl(str: string) {
   try {
     const url = new URL(str);
-    return url.protocol === 'http:' || url.protocol === 'https:';
+    return url.protocol === "http:" || url.protocol === "https:";
   } catch (_) {
     return false;
   }
@@ -12,6 +12,6 @@ export function isValidHttpUrl(str: string) {
 
 export function isTweetUrl(url: string): boolean {
   return /^https:\/\/(twitter|x)\.com\/[a-zA-Z0-9_-]+\/status\/[a-zA-Z0-9?=&\-_]+$/.test(
-    url
+    url,
   );
 }

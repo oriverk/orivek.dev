@@ -33,7 +33,10 @@ export function isAnchor(node: unknown): node is Anchor {
 }
 
 export function isBareLink(node: unknown, parent: unknown) {
-  const isAnchorWithTextChild = isAnchor(node) && isLiteral(node.children[0]) && node.children[0].value === node.properties.href;
+  const isAnchorWithTextChild =
+    isAnchor(node) &&
+    isLiteral(node.children[0]) &&
+    node.children[0].value === node.properties.href;
   const isParentParagraph = isElement(parent) && parent.tagName === "p";
   return isAnchorWithTextChild && isParentParagraph;
 }

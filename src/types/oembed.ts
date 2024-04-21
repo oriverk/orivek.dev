@@ -10,7 +10,7 @@ export interface TweetOptionType {
   hide_media: boolean;
   // When set to true, a collapsed version of the previous Tweet in a conversation thread will not be displayed when the requested Tweet is in reply to another Tweet.
   hide_thread: boolean;
-  // When set to true, the <script> responsible for loading widgets.js will not be returned. 
+  // When set to true, the <script> responsible for loading widgets.js will not be returned.
   omit_script: boolean;
   // Specifies whether the embedded Tweet should be floated left, right, or center in the page relative to the parent element.
   align: "left" | "right" | "center" | "none";

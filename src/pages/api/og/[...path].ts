@@ -1,13 +1,13 @@
 import fs from "node:fs";
 import { getBlog } from "@/utils/getBlog";
 import { getOgImage } from "@/utils/getOgImage";
+import { hashStringToSHA256 } from "@/utils/hashStringToSHA256";
 import type {
   APIContext,
   APIRoute,
   GetStaticPaths,
   InferGetStaticPropsType,
 } from "astro";
-import { hashStringToSHA256 } from "@/utils/hashStringToSHA256";
 
 const blog = await getBlog();
 
@@ -34,26 +34,26 @@ export const GET: APIRoute = async (context: APIContext) => {
   const post = blog.find((post) => `${post.collection}/${post.slug}` === path);
   if (!post || !title) return new Response("Page not found", { status: 404 });
 
-  let imageBuffer: Buffer
-  const hash = await hashStringToSHA256(path)
-  const imageDir = "./src/assets/images/og"
-  const extension: "jpg" | "png" |"webp" | "avif" = "webp"
+  let imageBuffer: Buffer;
+  const hash = await hashStringToSHA256(path);
+  const imageDir = "./src/assets/images/og";
+  const extension: "jpg" | "png" | "webp" | "avif" = "webp";
   const imagePath = `${imageDir}/${hash}.${extension}`;
 
-  if(!fs.existsSync(imageDir)){
-    fs.mkdirSync(imageDir)
+  if (!fs.existsSync(imageDir)) {
+    fs.mkdirSync(imageDir);
   }
 
-  if(fs.existsSync(imagePath)){
+  if (fs.existsSync(imagePath)) {
     imageBuffer = fs.readFileSync(imagePath);
   } else {
     const result = await getOgImage(title, {
       extension,
       quality: 75,
-      debug: import.meta.env.DEV, 
+      debug: import.meta.env.DEV,
     });
     imageBuffer = result;
-    fs.writeFileSync(imagePath, imageBuffer)
+    fs.writeFileSync(imagePath, imageBuffer);
   }
 
   return new Response(imageBuffer);
