@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import * as nodePath from "node:path";
 import { getBlog } from "@/utils/getBlog";
 import { getOgImage } from "@/utils/getOgImage";
 import { hashStringToSHA256 } from "@/utils/hashStringToSHA256";
@@ -8,13 +9,19 @@ import type {
   GetStaticPaths,
   InferGetStaticPropsType,
 } from "astro";
+import urlJoin from "url-join";
 
 const blog = await getBlog();
+const extension: "jpg" | "png" | "webp" | "avif" = "webp";
+
+export function getOgImageSrc(origin: string, pathname: string) {
+  return urlJoin(origin, "api/og", `${pathname}.${extension}`)
+}
 
 export const getStaticPaths = (async () => {
   const results = [...blog].map((post) => {
     const { collection, slug, data } = post;
-    const path = `${collection}/${slug}`;
+    const path = `${collection}/${slug}.${extension}`;
     return {
       params: { path },
       props: {
@@ -31,18 +38,13 @@ export const GET: APIRoute = async (context: APIContext) => {
   const { params, props } = context;
   const { path = "" } = params;
   const { title } = props as Props;
-  const post = blog.find((post) => `${post.collection}/${post.slug}` === path);
+  const post = blog.find((post) => `${post.collection}/${post.slug}.${extension}` === path);
   if (!post || !title) return new Response("Page not found", { status: 404 });
 
   let imageBuffer: Buffer;
   const hash = await hashStringToSHA256(path);
-  const imageDir = "./src/assets/images/og";
-  const extension: "jpg" | "png" | "webp" | "avif" = "webp";
-  const imagePath = `${imageDir}/${hash}.${extension}`;
-
-  if (!fs.existsSync(imageDir)) {
-    fs.mkdirSync(imageDir);
-  }
+  const dirPath = nodePath.join(process.cwd(), "src/assets/images/og");
+  const imagePath = nodePath.join(dirPath, `${hash}.${extension}`);
 
   if (fs.existsSync(imagePath)) {
     imageBuffer = fs.readFileSync(imagePath);
@@ -53,7 +55,10 @@ export const GET: APIRoute = async (context: APIContext) => {
       debug: import.meta.env.DEV,
     });
     imageBuffer = result;
-    fs.writeFileSync(imagePath, imageBuffer);
+
+    if (import.meta.env.PROD) {
+      fs.writeFileSync(imagePath, imageBuffer);
+    }
   }
 
   return new Response(imageBuffer);

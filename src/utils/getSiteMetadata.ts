@@ -1,21 +1,16 @@
 import fs from "node:fs";
 import type { CardLinkEmbedType } from "@/types/oembed";
 import fetchSiteMetadata from "fetch-site-metadata";
-import { getEmbedImageSrc } from "./getEmbedImageSrc";
 
 const dir = "./.contents";
 const jsonPath = `${dir}/card-links.json`;
-if (!fs.existsSync(dir)) {
-  fs.mkdirSync(dir);
-}
 if (!fs.existsSync(jsonPath)) {
   fs.writeFileSync(jsonPath, JSON.stringify({}, null, 2));
 }
 
-const jsonString = fs.readFileSync("./.contents/card-links.json", {
-  encoding: "utf-8",
-});
-const linksJson: Record<string, CardLinkEmbedType> = JSON.parse(jsonString);
+const linksJson: Record<string, CardLinkEmbedType> = JSON.parse(
+  fs.readFileSync("./.contents/card-links.json", { encoding: "utf-8" }),
+);
 
 export async function getSiteMetadata(url: string) {
   let result: CardLinkEmbedType;
@@ -28,7 +23,6 @@ export async function getSiteMetadata(url: string) {
       image,
     };
   } else {
-    console.log("now fetching site metadata...");
     const {
       title = "",
       description = "",
@@ -45,10 +39,6 @@ export async function getSiteMetadata(url: string) {
       fs.writeFileSync(jsonPath, JSON.stringify(linksJson, null, 2));
     }
   }
-
-  // if(result.image){
-  //   const hoge = await getEmbedImageSrc(result.image)
-  // }
 
   return {
     src: url,

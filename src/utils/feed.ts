@@ -1,8 +1,14 @@
+import fs from "node:fs";
 import type { FeedItem } from "@/types/feed";
-import FeedJson from "../../.contents/feed.json";
+
+if (!fs.existsSync("./.contents/feed.json")) {
+  fs.writeFileSync("./.contents/feed.json", "[]");
+}
 
 export function getFeedItems() {
-  const results: FeedItem[] = FeedJson;
+  const results: FeedItem[] = JSON.parse(
+    fs.readFileSync("./.contents/feed.json", { encoding: "utf-8" }),
+  );
   return results;
 }
 
