@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "node:fs";
 import Parser from 'rss-parser'
 
 /**
@@ -20,9 +20,9 @@ import Parser from 'rss-parser'
 const sources = [
   {
     id: "zenn.dev",
-    url: "https://zenn.dev/oriverk/feed"
-  }
-]
+    url: "https://zenn.dev/oriverk/feed",
+  },
+];
 
 /**
  * @param {string} url
@@ -94,7 +94,9 @@ async function getFeedItems() {
 
 (async () => {
   const items = await getFeedItems();
-  fs.ensureDirSync(".contents");
-  fs.writeJsonSync(".contents/feed.json", items);
+  if(!fs.existsSync(".contents")){
+    fs.mkdirSync(".contents")
+  }
+  fs.writeFileSync(".contents/feed.json", JSON.stringify(items, null, 2))
 })()
 

@@ -1,6 +1,6 @@
 import { graphql, GraphqlResponseError } from '@octokit/graphql'
 import { format } from 'date-fns'
-import fs from 'fs-extra'
+import fs from "node:fs"
 
 /**
  * @param {string} birthdate '2020-01-01'
@@ -91,6 +91,8 @@ async function fetchRepositoryContent(githubToken, owner, repo, expression) {
     .replace('{{ age }}', getAge('1993-09-11').toString())
     .replace('{{ date }}', format(new Date(), 'yyyy年MM月dd日'))
 
-  fs.ensureDirSync('src/content/page')
-  fs.writeFileSync('src/content/page/cv.md', replacedMd)
+  if (!fs.existsSync("./src/content/static")) {
+    fs.mkdirSync("./src/content/static");
+  }
+  fs.writeFileSync("./src/content/static/cv.md", replacedMd)
 })()

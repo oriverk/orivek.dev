@@ -4,8 +4,7 @@ import { getFaviconSrcFromOrigin } from "../utils/feed";
 import { getTimeFromNow } from "../utils/getTimeFromNow";
 import Card from "./ui/Card.astro";
 
-interface Props
-  extends Pick<FeedItem, "title" | "link" | "dateMiliSeconds"> {}
+interface Props extends Pick<FeedItem, "title" | "link" | "dateMiliSeconds"> {}
 
 const { title, link, dateMiliSeconds } = Astro.props;
 const timeString = `${getTimeFromNow(dateMiliSeconds)} ago`;

@@ -3,14 +3,16 @@ import type { Language, Repository } from "@octokit/graphql-schema";
 import Card from "./ui/Card.astro";
 import Icon from "./ui/Icon.astro";
 
-interface Props extends Pick<
+interface Props
+  extends Pick<
     Repository,
     "name" | "description" | "url" | "stargazerCount" | "isArchived"
   > {
   primaryLanguage: Pick<Language, "name" | "color">;
 }
 
-const { name, description, url, stargazerCount, isArchived, primaryLanguage } = Astro.props;
+const { name, description, url, stargazerCount, isArchived, primaryLanguage } =
+  Astro.props;
 ---
 
 <a href={url} target="_blank" rel="noopener noreferrer" class="repository">

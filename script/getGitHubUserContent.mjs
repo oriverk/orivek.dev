@@ -1,6 +1,6 @@
 import { graphql, GraphqlResponseError } from '@octokit/graphql'
 import { subYears, startOfWeek, format } from 'date-fns'
-import fs from 'fs-extra'
+import fs from "node:fs"
 
 /**
  * @param {string} githubToken
@@ -98,8 +98,15 @@ async function fetchUserContent(githubToken, owner, pinnedItemsNum, calendarFrom
 
   /** @type {import("@octokit/graphql-schema").User} */
   const { pinnedItems, contributionsCollection } = user
-
-  fs.ensureDirSync('.contents')
-  fs.writeJsonSync('.contents/repository.json', pinnedItems.nodes || [])
-  fs.writeJsonSync('.contents/contributions.json', contributionsCollection)
+  if (!fs.existsSync(".contents")) {
+    fs.mkdirSync(".contents");
+  }
+  fs.writeFileSync(
+    ".contents/repository.json",
+    JSON.stringify(pinnedItems.nodes || [], null, 2)
+  );
+  fs.writeFileSync(
+    ".contents/contributions.json",
+    JSON.stringify(contributionsCollection, null, 2)
+  );
 })()

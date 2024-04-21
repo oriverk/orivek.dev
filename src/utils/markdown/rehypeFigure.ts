@@ -1,5 +1,5 @@
+import type { Root } from "hast";
 import type { Plugin } from "unified";
-import type {Root} from "hast"
 import { is } from "unist-util-is";
 import { visit } from "unist-util-visit";
 
@@ -14,7 +14,7 @@ export const rehypeFigure: Plugin<void[], Root> = () => {
 
           children[0].properties.loading = "lazy";
           children[0].properties.decoding = "async";
-          const caption = children[0].properties.title
+          const caption = children[0].properties.title;
 
           if (caption && typeof caption === "string") {
             children.push({

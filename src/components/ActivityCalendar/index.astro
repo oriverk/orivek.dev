@@ -1,11 +1,11 @@
 ---
+import Card from "@/components/ui/Card.astro";
 import {
   DEFAULT_COLORS,
   DEFAULT_MONTH_LABELS,
 } from "@/constants/activityCalendar";
 import type { Activity, ActivityCalendar } from "@/types/activityCalendar";
 import { parseContributionCalendarDay } from "@/utils/github/getActivityCalendar";
-import Card from "@/components/ui/Card.astro";
 import CalendarWeek from "./ActivityWeek.astro";
 import ColorsLegend from "./ColorLegend.astro";
 import MonthLegend from "./MonthLegend.astro";

@@ -1,8 +1,8 @@
-import type { Plugin } from "unified";
 import type { Root } from "hast";
+import type { Plugin } from "unified";
 import type { Parent } from "unist";
 import { visit } from "unist-util-visit";
-import { isAnchor, isParent, isBareLink } from "./isHastNode";
+import { isAnchor, isBareLink, isParent } from "./isHastNode";
 import { isTweetUrl } from "./urlMatcher";
 
 // biome-ignore lint/suspicious/noConfusingVoidType: <explanation>
@@ -16,12 +16,12 @@ export const rehypeAnchor: Plugin<void[], Root> = () => {
       if (!href.startsWith("http")) return;
       properties.target = "_blank";
       properties.rel = "noopener noreferrer";
-      
-      if(isBareLink(node, parent)){
-        if(isTweetUrl(href)){
-          properties["data-embed"] = "twitter"
+
+      if (isBareLink(node, parent)) {
+        if (isTweetUrl(href)) {
+          properties["data-embed"] = "twitter";
         } else {
-          properties["data-embed"] = "ogp"
+          properties["data-embed"] = "ogp";
         }
       }
     });

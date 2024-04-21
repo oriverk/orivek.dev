@@ -19,9 +19,9 @@ const blogItems = (await getBlog()).map((post) => {
   const dateMiliSeconds = new Date(isoDate).getTime();
   return {
     title,
-    contentSnipett: tags,
+    // contentSnippet: tags,
     link,
-    isoDate,
+    isoDate: isoDate.toString(),
     dateMiliSeconds,
   };
 });

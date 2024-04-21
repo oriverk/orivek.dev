@@ -1,6 +1,6 @@
 ---
+import EmbedTwitter from "@/components/markdown/EmbedTwitter.astro";
 import LinkCard from "@/components/markdown/LinkCard.astro";
-import EmbedTwitter from "@/components/markdown/EmbedTwitter.astro"
 
 interface Props {
   href: string;
@@ -10,9 +10,9 @@ interface Props {
   "data-embed": string;
 }
 
-const {href, ...restProps} = Astro.props;
+const { href, ...restProps } = Astro.props;
 const url = (href || "").toString();
-const embedType = restProps["data-embed"]
+const embedType = restProps["data-embed"];
 ---
 
 {embedType === "ogp" ? (

@@ -1,51 +1,57 @@
-import path from "node:path"
-import fs from "fs-extra"
+import fs from "node:fs";
+import type { CardLinkEmbedType } from "@/types/oembed";
 import fetchSiteMetadata from "fetch-site-metadata";
+import { getEmbedImageSrc } from "./getEmbedImageSrc";
 
-const linksPath = path.join(process.cwd(), ".contents/card-links.json");  
-await fs.ensureFile(linksPath)
-const linksJson: linksJson = await fs.readJson(linksPath) || {};
+const dir = "./.contents";
+const jsonPath = `${dir}/card-links.json`;
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir);
+}
+if (!fs.existsSync(jsonPath)) {
+  fs.writeFileSync(jsonPath, JSON.stringify({}, null, 2));
+}
 
-type linksJson = Record<string, {
-  title: string;
-  description: string;
-  image: string;
-}>
+const jsonString = fs.readFileSync("./.contents/card-links.json", {
+  encoding: "utf-8",
+});
+const linksJson: Record<string, CardLinkEmbedType> = JSON.parse(jsonString);
 
 export async function getSiteMetadata(url: string) {
-  let title = "";
-  let description = "";
-  let image = "";
-  
-  if(linksJson[url]){
-    title = linksJson[url].title;
-    description = linksJson[url].description
-    image = linksJson[url].image
-  } else {
-    const result = await fetchSiteMetadata(url);
-    title = result.title ?? "";
-    description = result.description ?? "";
-    image = result.image?.src ?? ""
+  let result: CardLinkEmbedType;
 
-    if(import.meta.env.PROD){
-      await fs.writeJson(linksPath, {
-        ...linksJson,
-        [url]: {
-          title,
-          description,
-          image
-        }
-      }, 
-      {
-        spaces: 2,
-      })
+  if (linksJson[url]) {
+    const { title, description, image } = linksJson[url];
+    result = {
+      title,
+      description,
+      image,
+    };
+  } else {
+    console.log("now fetching site metadata...");
+    const {
+      title = "",
+      description = "",
+      image,
+    } = await fetchSiteMetadata(url);
+    result = {
+      title,
+      description,
+      image: image?.src ?? "",
+    };
+
+    if (import.meta.env.PROD) {
+      linksJson[url] = result;
+      fs.writeFileSync(jsonPath, JSON.stringify(linksJson, null, 2));
     }
   }
 
+  // if(result.image){
+  //   const hoge = await getEmbedImageSrc(result.image)
+  // }
+
   return {
     src: url,
-    title,
-    description,
-    image
-  }
+    ...result,
+  };
 }
