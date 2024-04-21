@@ -1,5 +1,5 @@
-import path from "path"
-import fs from "fs-extra";
+import path from "node:path"
+import fs from "node:fs"
 import { remark } from "remark";
 import strip from "strip-markdown";
 import matter from "gray-matter";
@@ -30,8 +30,8 @@ function getAllFiles(dir) {
     const isDirectory = fs.statSync(name).isDirectory();
     // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
     return isDirectory ? [...files, ...getAllFiles(name)] : [...files, name];
-  }, []);
-  
+  }, [])
+
   return result;
 }
 
@@ -41,7 +41,7 @@ function getAllFiles(dir) {
  * @returns
  */
 async function getPost(localFilePath) {
-  const source = fs.readFileSync(localFilePath).toString();
+  const source = fs.readFileSync(localFilePath).toString()
   const { content, data } = matter(source);
   const {
     title,

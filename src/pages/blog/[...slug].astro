@@ -1,9 +1,10 @@
 ---
-import PostTag from "@/components/PostTag.svelte";
-import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
-import Details from "@/components/ui/Details.svelte";
-import Markdown from "@/components/ui/Markdown.svelte";
-import Toc from "@/components/ui/Toc/index.svelte";
+import PostTag from "@/components/PostTag.astro";
+import AstroLink from "@/components/markdown/AstroLink.astro";
+import ContentWrapper from "@/components/ui/ContentWrapper.astro";
+import Details from "@/components/ui/Details.astro";
+import Markdown from "@/components/ui/Markdown.astro";
+import Toc from "@/components/ui/Toc/index.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getBlog, getTocHierarchy } from "@/utils/getBlog";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
@@ -35,7 +36,11 @@ const date = lastModified.toLocaleDateString("ja-JP", {
 const isoDate = lastModified.toISOString();
 const { Content, headings } = await render();
 const toc = getTocHierarchy(headings);
-const ogImage = urlJoin(Astro.url.origin, "/api/og/blog", `${slug}.png`);
+const ogImage = urlJoin(Astro.url.origin, "/api/og/blog", slug);
+
+export const components = {
+  a: AstroLink,
+};
 ---
 
 <Layout {title} {description} {noindex} image={ogImage}>
@@ -62,12 +67,21 @@ const ogImage = urlJoin(Astro.url.origin, "/api/og/blog", `${slug}.png`);
           </Details>
         </nav>
         <Markdown>
-          <Content />
+          <Content {components} />
         </Markdown>
         </div>
     </ContentWrapper>
   </article>
 </Layout>
+
+<script is:inline>
+  if(document.getElementsByClassName("twitter-tweet").length){
+    const script = document.createElement("script");
+    script.src = "https://platform.twitter.com/widgets.js";
+    document.body.appendChild(script);
+    script.remove()
+  }
+</script>
 
 <style>
   .container {

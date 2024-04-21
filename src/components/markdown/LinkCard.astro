@@ -1,0 +1,115 @@
+---
+import { getFaviconSrcFromOrigin } from "@/utils/feed";
+import { getSiteMetadata } from "@/utils/getSiteMetadata";
+import clsx from "clsx";
+import Card from "../ui/Card.astro";
+
+interface Props {
+  href: string;
+  target: string;
+  rel: string;
+  class: string;
+  "data-embed": string;
+}
+
+const { href, class: className, ...restProps } = Astro.props;
+
+const { title, description, image } = await getSiteMetadata(href);
+const { origin, hostname } = new URL(href);
+const favicon = getFaviconSrcFromOrigin(origin);
+---
+
+<div>
+  <a {href} class={clsx("card", className)} {...restProps}>
+    <Card>
+      <div class="content">
+        <div class="left">
+          <h3 class="title">{title}</h3>
+          <p class="description">{description}</p>
+          <div class="info">
+            <img
+              src={favicon}
+              width="14"
+              height="14"
+              alt={hostname}
+            />
+            <span>{hostname}</span>
+          </div>
+        </div>
+        {image && (
+          <div class="ogimage">
+            <img src={image} alt={title} width={400} class="image" />
+          </div>
+        )}
+      </div>
+    </Card>
+  </a>
+</div>
+
+<style>
+  .card {
+    width: 100%;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .left {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title, .description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .title {
+    &::before {
+      content: revert;
+    }
+
+    font-weight: bold;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .description {
+    flex: 1;
+    justify-items: center;
+    font-size: 0.9rem;
+  }
+
+  .info {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    & > img {
+      width: revert;
+    }
+
+    & > span {
+      color: rgb(var(--color-lightgray));
+    }
+  }
+
+  .ogimage {
+    display: none;
+    min-width: 25%;
+    max-width: 25%;
+  }
+
+  @media (768px <= width) {
+    .ogimage {
+      display: block;
+    }
+  }
+</style>

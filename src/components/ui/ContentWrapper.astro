@@ -1,0 +1,22 @@
+---
+import clsx from "clsx";
+
+interface Props {
+  classNane?: string;
+  style?: string;
+}
+
+const { className, style } = Astro.props;
+---
+
+<div class={clsx('content-wrapper', className)} style={style}>
+  <slot />
+</div>
+
+<style>
+  .content-wrapper {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+</style>

@@ -1,0 +1,27 @@
+---
+import type { Hierarchy } from "@/utils/getBlog";
+
+interface Props {
+  heading: Hierarchy;
+}
+
+const { heading } = Astro.props;
+const { slug, text, subHeadings } = heading;
+---
+
+<li>
+  <a href={`#${slug}`}>{text}</a>
+  {!!subHeadings.length && (
+    <ol>
+      {subHeadings.map(heading => (
+        <Astro.self heading={heading} />
+      ))}
+    </ol>
+  )}
+</li>
+
+<style>
+  ol {
+    list-style: none;
+  }
+</style>

@@ -1,0 +1,29 @@
+---
+import type { Hierarchy } from "../../../utils/getBlog";
+import TocList from "./TocList.astro";
+
+interface Props {
+  toc: Hierarchy[];
+}
+
+const { toc } = Astro.props;
+---
+
+{!!toc.length && (
+  <nav>
+    <ol>
+      {toc.map(heading => (
+        <TocList {heading} />
+      ))}
+    </ol>
+  </nav>
+)}
+
+<style>
+  ol {
+    list-style: none;
+    margin: 0;
+    padding-block: 1rem;
+    padding-inline: 2rem;
+  }
+</style>

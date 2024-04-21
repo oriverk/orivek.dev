@@ -3,18 +3,26 @@ import type { SatoriOptions } from "satori";
 import satori from "satori";
 import sharp from "sharp";
 
+interface Options {
+  extension: "jpg" | "png" | "webp" | "avif";
+  quality: number;
+  debug: boolean;
+}
+
 /**
  * @param title hogehoge
  * @param debug ex. import.meta.env.DEV
  * @returns
  */
-export async function getOgImage(title: string, debug?: boolean) {
+export async function getOgImage(title: string, options?: Partial<Options>) {
   const notSansJp = await readFile(
-    "./src/pages/api/og/_fonts/noto-sans-jp-japanese-700-normal.woff",
+    "./src/assets/fonts/noto-sans-jp-japanese-700-normal.woff",
   );
 
-  const options: SatoriOptions = {
-    debug: debug ?? false,
+  const { extension = "webp", quality = 75, debug = false } = options || {};
+
+  const satoriOptions: SatoriOptions = {
+    debug,
     width: 1200,
     height: 630,
     fonts: [
@@ -111,12 +119,12 @@ export async function getOgImage(title: string, debug?: boolean) {
         ],
       },
     },
-    options,
+    satoriOptions,
   );
 
   const imgBuffer = await sharp(Buffer.from(svg))
-    .toFormat("png", {
-      quality: 75,
+    .toFormat(extension, {
+      quality,
     })
     .toBuffer();
 

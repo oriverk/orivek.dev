@@ -1,7 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
-import Markdown from "@/components/ui/Markdown.svelte";
+import AstroLink from "@/components/markdown/AstroLink.astro";
+import ContentWrapper from "@/components/ui/ContentWrapper.astro";
+import Markdown from "@/components/ui/Markdown.astro";
 import Layout from "@/layouts/Layout.astro";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
@@ -22,6 +23,10 @@ const { render, data } = post;
 const { title, create, description, update, noindex } = data;
 
 const { Content } = await render();
+
+export const components = {
+  a: AstroLink,
+};
 ---
 
 <Layout {title} {description} {noindex}>
@@ -36,7 +41,7 @@ const { Content } = await render();
           </div>
         </div>
         <Markdown>
-          <Content />
+          <Content {components} />
         </Markdown>
         </div>
     </ContentWrapper>

@@ -1,0 +1,47 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends Omit<HTMLAttributes<"details">, "class"> {
+  summary: string;
+  className?: string;
+}
+
+const { summary, className, ...restProps } = Astro.props;
+---
+
+<details class={className} {...restProps}>
+  {!!summary && (
+    <summary>
+      {summary}
+    </summary>
+  )}
+  <slot />
+</details>
+
+<style>
+  details {
+    background-color: rgba(var(--color-hover));
+
+    & > summary {
+      padding: 1rem;
+      font-size: .9rem;
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
+
+      &:hover{
+        background-color: rgba(0 0 0 / 0.3);
+      }
+    }
+  }
+
+  details[open] {
+    & > summary {
+      background-color: rgba(0 0 0 / 0.3);
+
+      &:hover {
+        background-color: rgba(var(--color-hover));
+      }
+    }
+  }
+</style>

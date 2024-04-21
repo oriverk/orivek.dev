@@ -22,5 +22,8 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-.contents
+.contents/posts.json
+.contents/contributions.json
+.contents/repository.json
+.contents/feed.json
 src/content/static/cv.md

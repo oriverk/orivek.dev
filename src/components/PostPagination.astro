@@ -1,0 +1,73 @@
+---
+import type { Page } from "astro";
+
+interface Props extends Omit<Page, "data"> {}
+const { start, end, total, currentPage, size, lastPage, url } = Astro.props;
+const { current, prev, next } = url;
+const maxPage = Math.ceil(total / size);
+const curr = (index: number) => (index === currentPage ? "page" : null);
+const tab = (index: number) => (index === currentPage ? -1 : 0);
+---
+
+<ol>
+  {!!prev && (
+    <>
+      <li>
+        <a href="/blog" data-astro-prefetch>&lt;&lt;</a>
+      </li>
+      <li>
+        <a href={prev} data-astro-prefetch>&lt;</a>
+      </li>
+    </>
+  )}
+  {size < total && (
+    <li>
+      <a href="/blog" aria-current={curr(1)} tabindex={tab(1)} data-astro-prefetch>1</a>
+    </li>
+  )}
+  {[...Array(maxPage - 1)].map((_, index) => (
+    <li>
+      <a href={`/blog/${index+2}`} aria-current={curr(index+2)} tabindex={tab(index+2)} data-astro-prefetch>{index+2}</a>
+    </li>
+  ))}
+  {!!next && (
+    <ol>
+      <li>
+        <a href={next} data-astro-prefetch>&gt;</a>
+      </li>
+      <li>
+        <a href={`/blog/${lastPage}`} data-astro-prefetch>&gt;&gt;</a>
+      </li>
+    </ol>
+  )}
+</ol>
+
+<style>
+  ol {
+    padding-inline: 0;
+    list-style: none;
+    display: flex;
+    gap: .5rem;
+
+    & > li > a {
+      text-decoration: none;
+      color: white;
+      width: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      aspect-ratio: 1;
+      border-radius: 0.5rem;
+      transition: background-color 100ms ease-in;
+      background-color: rgb(var(--color-hover));
+
+      &[aria-current="page"] {
+        pointer-events: none;
+      }
+
+      &:hover, &[aria-current="page"] {
+        background-color: rgba(0 0 0 / 0.3);
+      }
+    }
+  }
+</style>

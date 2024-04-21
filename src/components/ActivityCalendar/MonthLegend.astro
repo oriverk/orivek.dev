@@ -1,0 +1,34 @@
+---
+import type { Activity, ActivityCalendar } from "@/types/activityCalendar";
+import { getMonthLabels } from "@/utils/github/getActivityCalendar";
+
+interface Props
+  extends Pick<
+    ActivityCalendar,
+    "monthLabels" | "blockSize" | "blockMargin" | "fontSize"
+  > {
+  weeks: Activity[][];
+}
+
+const { weeks, monthLabels, blockSize, blockMargin, fontSize } = Astro.props;
+const labels = getMonthLabels(weeks, monthLabels);
+---
+<g>
+  {labels.map(({text, x}) => (
+    <text
+      x={(blockSize + blockMargin) * x}
+      y={0}
+      dominant-baseline="hanging"
+      font-size={fontSize}
+    >
+      {text}
+    </text>
+  ))}
+</g>
+
+<style>
+  text {
+    fill: rgb(var(--color-white));
+    user-select: none;
+  }
+</style>
