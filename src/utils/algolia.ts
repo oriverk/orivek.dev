@@ -2,19 +2,16 @@ import type { AlgoliaBlog } from "@/types/algolia";
 import type { SearchResponse } from "@algolia/client-search";
 import type { SearchClient, SearchIndex } from "algoliasearch";
 import algolia from "algoliasearch";
+import siteConfig from "site.config"
 
-const {
-  PUBLIC_ALGOLIA_APP_ID,
-  PUBLIC_ALGOLIA_SEARCH_KEY,
-  PUBLIC_ALGOLIA_INDEX_BLOG,
-} = import.meta.env;
+const {appId, apiKey, index} = siteConfig.algolia;
 
 const searchClient: SearchClient = algolia(
-  PUBLIC_ALGOLIA_APP_ID,
-  PUBLIC_ALGOLIA_SEARCH_KEY,
+  appId,
+  apiKey,
 );
 const searchIndex: SearchIndex = searchClient.initIndex(
-  PUBLIC_ALGOLIA_INDEX_BLOG,
+  index,
 );
 
 const emptyResults: SearchResponse<AlgoliaBlog> = {

@@ -4,6 +4,7 @@ update: '2019-12-12'
 title: 'プログラミングを2か月間、日本人エンジニアの下で学んできた'
 tags: [cebu]
 published: true
+nonidex: true
 ---
 
 from [Qiita: プログラミングを2か月間、日本人エンジニアの下でマンツーマンで学んできた](https://qiita.com/OriverK/items/30d8941c7799c9aa6dfd)

@@ -7,4 +7,9 @@ export default {
   docsGitHubRepositoryExpression: "HEAD:cv/index.md",
   zenn: 'oriverk',
   x: 'not_you_die',
+  algolia: {
+    appId: "WOHC62BVSP",
+    apiKey: "bae638093bc0fe3156732e769d096c41",
+    index: "rod_oriverkdev"
+  }
 }
