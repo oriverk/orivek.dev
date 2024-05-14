@@ -91,7 +91,7 @@ import Card from '../components/Card.astro';
 
 - Static Site である
 - GitHub の Pinned Repos と Contribution Calendar(GitHub 草)を表示できる
-- [blog.oriverk.dev](https://blog.oriverk.dev) のコンテンツを取得表示できる
+- blog.oriverk.dev のコンテンツを取得表示できる
 - Cloudflare Pages にデプロイし、サイトデータを自動で更新できる
 
 また、以前に [oriverk.dev](https://oriverk.dev) を React で作ったときの感じを踏襲したいとも考えていました。

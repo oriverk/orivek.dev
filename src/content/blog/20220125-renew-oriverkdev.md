@@ -9,7 +9,7 @@ published: true
 
 ## はじめに
 
-過去の投稿：『[Next.js でポートフォリオサイトを作成した](https://blog.oriverk.dev/entry/2020/20200526-next-portfolio/)』で言及した Next.js + TypeScript の構成を作り替えました。
+過去の投稿：『[Next.js でポートフォリオサイトを作成した](/blog/20200526-next-portfolio/)』で言及した Next.js + TypeScript の構成を作り替えました。
 
 ### 以前のサイト
 
