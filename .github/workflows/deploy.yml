@@ -33,15 +33,12 @@ jobs:
         env:
           MODE: production
           SECRET_GH_PAT: ${{ secrets.SECRET_GH_PAT }}
-          PUBLIC_ALGOLIA_APP_ID: ${{ secrets.ALGOLIA_APP_ID }}
-          PUBLIC_ALGOLIA_SEARCH_KEY: ${{ secrets.ALGOLIA_SEARCH_KEY }}
-          PUBLIC_ALGOLIA_INDEX_BLOG: ${{ secrets.ALGOLIA_INDEX_BLOG }}
       - name: deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: astro-site
+          projectName: ${{ secrets.CL_PROJECT_NAME }}
           directory: dist
           # Optional: Enable this if you want to have GitHub Deployments triggered
           # gitHubToken: ${{ secrets.SECRET_GH_PAT }}
