@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { AlgoliaBlog } from "@/types/algolia";
 import { searchAlgolia } from "@/utils/algolia";
-import type { Hit, SearchResponse } from "@algolia/client-search";
+import type { Hit, SearchResponse } from "node_modules/algoliasearch";
 import { onMount } from "svelte";
 // import Icon from "@/components/ui/Icon.astro";
 import BlogHit from "./BlogHit.svelte";
