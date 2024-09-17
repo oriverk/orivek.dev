@@ -1,0 +1,24 @@
+---
+import IconGenerator from "@/components/IconGenerator.svelte";
+import ContentWrapper from "@/components/ui/ContentWrapper.astro";
+import Layout from "@/layouts/Layout.astro";
+
+const title = "My Icon Generator";
+---
+
+<Layout {title}>
+  <article>
+    <ContentWrapper>
+      <h1>{title}</h1>
+      <IconGenerator client:only="svelte" />
+    </ContentWrapper>
+  </article>
+</Layout>
+<div class="border forNow" />
+
+<style>
+  h1 {
+    text-align: center;
+    margin-block-end: 2rem;
+  }
+</style>
