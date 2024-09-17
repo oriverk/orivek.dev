@@ -3,7 +3,8 @@ import Dialog from "@/components/ui/Dialog.svelte";
 import SearchIcon from "./SearchIcon.svelte";
 import Search from "./index.svelte";
 
-let dialog: HTMLDialogElement;
+let dialog = $state() as HTMLDialogElement;
+
 function openDialog() {
   dialog.showModal();
   dialog.addEventListener("keydown", (e) => {
@@ -24,14 +25,14 @@ function closeDialog() {
 }
 </script>
 
-<button type="button" on:click={openDialog} title="Search">
+<button type="button" onclick={openDialog} title="Search">
   <div class="content">
     <SearchIcon size="small" />
     <span>Search</span>
     <span class="sr-only">posts</span>
   </div>
 </button>
-<Dialog bind:dialog on:closeDialog={closeDialog} id="search-dialog">
+<Dialog bind:dialog oncloseDialog={closeDialog} id="search-dialog">
   <Search />
 </Dialog>
 

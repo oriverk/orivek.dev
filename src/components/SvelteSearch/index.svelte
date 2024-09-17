@@ -89,7 +89,7 @@ $: {
       rel="noopener noreferrer"
     >
       <!-- <Icon type="algolia" /> -->
-      <span class="icon alogolia" />
+      <span class="icon alogolia"></span>
     </a>
   </div>
   {#if !results?.nbHits}

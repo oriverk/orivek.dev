@@ -15,7 +15,7 @@ const blog = await getBlog();
 const extension: "jpg" | "png" | "webp" | "avif" = "webp";
 
 export function getOgImageSrc(origin: string, pathname: string) {
-  return urlJoin(origin, "api/og", `${pathname}.${extension}`)
+  return urlJoin(origin, "api/og", `${pathname}.${extension}`);
 }
 
 export const getStaticPaths = (async () => {
@@ -38,7 +38,9 @@ export const GET: APIRoute = async (context: APIContext) => {
   const { params, props } = context;
   const { path = "" } = params;
   const { title } = props as Props;
-  const post = blog.find((post) => `${post.collection}/${post.slug}.${extension}` === path);
+  const post = blog.find(
+    (post) => `${post.collection}/${post.slug}.${extension}` === path,
+  );
   if (!post || !title) return new Response("Page not found", { status: 404 });
 
   let imageBuffer: Buffer;

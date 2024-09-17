@@ -1,5 +1,5 @@
 <script lang="ts">
-import clsx from "clsx";
+import { clsx } from "clsx";
 
 interface Props {
   size?: "small" | "medium" | "large" | "xlarge";
@@ -12,7 +12,7 @@ export let color: Props["color"] = "white";
 export let style: Props["style"] = "";
 </script>
 
-<span class={clsx('icon', size, color)} {style} />
+<span class={clsx('icon', size, color)} {style}></span>
 
 <style>
   .icon {

@@ -24,9 +24,12 @@ export async function searchAlgolia(
 ): Promise<SearchResponse<AlgoliaBlog>> {
   if (!query) return emptyResults;
 
-  const results: SearchResponse<AlgoliaBlog> = await client.searchSingleIndex({
-    indexName: index,
-    searchParams: { query: query },
-  }, option);
+  const results: SearchResponse<AlgoliaBlog> = await client.searchSingleIndex(
+    {
+      indexName: index,
+      searchParams: { query: query },
+    },
+    option,
+  );
   return results;
 }

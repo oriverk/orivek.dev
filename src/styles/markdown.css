@@ -9,8 +9,8 @@ h2 {
 }
 
 h2::before {
-  content: '## ';
-  content: '## ' / '';
+  content: "## ";
+  content: "## " / "";
 }
 
 h3 {
@@ -19,8 +19,8 @@ h3 {
 }
 
 h3::before {
-  content: '### ';
-  content: '### ' / '';
+  content: "### ";
+  content: "### " / "";
 }
 
 h4 {
@@ -29,8 +29,8 @@ h4 {
 }
 
 h4::before {
-  content: '#### ';
-  content: '#### ' / '';
+  content: "#### ";
+  content: "#### " / "";
 }
 
 h5 {
@@ -62,15 +62,15 @@ code {
   border-radius: 0.25rem;
 }
 
-:not(pre)>code {
+:not(pre) > code {
   padding: 0;
   margin: 0 0.1rem;
 }
 
-:not(pre)>code::before,
-:not(pre)>code::after {
-  content: '`';
-  content: '`' / '';
+:not(pre) > code::before,
+:not(pre) > code::after {
+  content: "`";
+  content: "`" / "";
 }
 
 pre {
