@@ -42,14 +42,14 @@ export const components = {
 };
 ---
 
-<Layout {title} {description} {noindex} image={ogImage}>
+<Layout {title} {description} image={ogImage} pagefind={true} {noindex}>
   <article>
     <ContentWrapper>
       <div class="container">
         <div>
           <h1>{title}</h1>
           <div class="info">
-            <time datetime={isoDate}>{date}</time>
+            <time datetime={isoDate} data-pagefind-meta={`date:${isoDate}`}>{date}</time>
             {!!tags.length && (
               <>
                 <span>/</span>
