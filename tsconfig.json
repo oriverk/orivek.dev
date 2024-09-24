@@ -4,6 +4,7 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "allowJs": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@/*": [

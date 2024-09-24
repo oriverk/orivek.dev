@@ -6,9 +6,9 @@ import Details from "@/components/ui/Details.astro";
 import Markdown from "@/components/ui/Markdown.astro";
 import Toc from "@/components/ui/Toc/index.astro";
 import Layout from "@/layouts/Layout.astro";
+import { getOgImageSrc } from "@/pages/api/og/[...path]";
 import { getBlog, getTocHierarchy } from "@/utils/getBlog";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import { getOgImageSrc } from "@/pages/api/og/[...path]";
 
 export const getStaticPaths = (async () => {
   const blog = await getBlog();
@@ -24,8 +24,7 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { post } = Astro.props as Props;
 const { render, data } = post;
-const { title, description, tags, create, update, image, noindex } =
-  data;
+const { title, description, tags, create, update, image, noindex } = data;
 const lastModified = update || create;
 const date = lastModified.toLocaleDateString("ja-JP", {
   year: "numeric",
@@ -35,22 +34,22 @@ const date = lastModified.toLocaleDateString("ja-JP", {
 const isoDate = lastModified.toISOString();
 const { Content, headings } = await render();
 const toc = getTocHierarchy(headings);
-const { origin, pathname } = Astro.url
-const ogImage = getOgImageSrc(origin, pathname)
+const { origin, pathname } = Astro.url;
+const ogImage = getOgImageSrc(origin, pathname);
 
 export const components = {
   a: AstroLink,
 };
 ---
 
-<Layout {title} {description} {noindex} image={ogImage}>
+<Layout {title} {description} image={ogImage} pagefind={true} {noindex}>
   <article>
     <ContentWrapper>
       <div class="container">
         <div>
           <h1>{title}</h1>
           <div class="info">
-            <time datetime={isoDate}>{date}</time>
+            <time datetime={isoDate} data-pagefind-meta={`date:${isoDate}`}>{date}</time>
             {!!tags.length && (
               <>
                 <span>/</span>

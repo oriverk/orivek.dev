@@ -1,14 +1,18 @@
 <script lang="ts">
-import clsx from "clsx";
+import { clsx } from "clsx";
 import type { HTMLInputAttributes } from "svelte/elements";
 import SearchIcon from "./SearchIcon.svelte";
 
-interface $$Props extends Omit<HTMLInputAttributes, "class"> {
+interface Props extends Omit<HTMLInputAttributes, "class"> {
   className?: string;
 }
 
-let { className, value, placeholder = "検索" }: $$Props = $$props;
-export { className, value, placeholder };
+let {
+  className,
+  value = $bindable(),
+  placeholder = "検索",
+  ...restProps
+}: Props = $props();
 </script>
 
 <div class={clsx('search-input-container', className)}>
@@ -17,7 +21,7 @@ export { className, value, placeholder };
     <div class="search-icon">
       <SearchIcon size="small" />
     </div>
-    <input class="search-input" {placeholder} bind:value {...$$restProps} />
+    <input class="search-input" {placeholder} bind:value {...restProps} />
   </div>
 </div>
 

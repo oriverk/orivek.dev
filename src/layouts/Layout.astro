@@ -11,10 +11,11 @@ export interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  pagefind?: boolean;
 }
 
 const { href, hostname } = Astro.url;
-const { title, description, image, noindex } = Astro.props;
+const { title, description, image, noindex, pagefind } = Astro.props;
 const siteName = hostname;
 const siteTitle = title ? `${title} | ${siteName}` : siteName;
 const ogImage = image ?? defaultOgImage.src;
@@ -58,7 +59,7 @@ const rssHref = Astro.site
           <Header />
         </ContentWrapper>
       </header>
-      <main>
+      <main data-pagefind-body={!!pagefind && !noindex}>
         <slot />
       </main>
       <footer>
@@ -112,7 +113,7 @@ const rssHref = Astro.site
     --cubic-bezier: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  :where(*, *::before, *::after) {
+  :where(*, *::before, *::after):not(mark) {
     color: rgb(var(--color-white));
     border-width: 0;
     border-style: solid;

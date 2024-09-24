@@ -1,20 +1,19 @@
 <script lang="ts">
 import type { HTMLDialogAttributes } from "svelte/elements";
 
-interface $$Props extends Omit<HTMLDialogAttributes, "class"> {
+interface Props extends Omit<HTMLDialogAttributes, "class"> {
   className?: string;
   dialog: HTMLDialogElement;
 }
 
-let { id, className, dialog } = $$props as $$Props;
-export { dialog, id, className };
+let { id, className, dialog = $bindable(), ...restProps }: Props = $props();
 // const dispatch = createEventDispatcher();
 // function onClose(){
 //   dispatch('closeDialog')
 // }
 </script>
 
-<dialog bind:this={dialog} {id} class={className} {...$$restProps}>
+<dialog bind:this={dialog} {id} class={className} {...restProps}>
   <slot />
 </dialog>
 

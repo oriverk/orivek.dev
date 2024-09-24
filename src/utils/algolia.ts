@@ -1,19 +1,11 @@
 import type { AlgoliaBlog } from "@/types/algolia";
-import type { SearchResponse } from "@algolia/client-search";
-import type { SearchClient, SearchIndex } from "algoliasearch";
-import algolia from "algoliasearch";
-import siteConfig from "site.config"
+import type { SearchClient, SearchResponse } from "node_modules/algoliasearch";
+import { algoliasearch } from "node_modules/algoliasearch";
+import siteConfig from "site.config";
 
-const {appId, apiKey, index} = siteConfig.algolia;
+const { appId, apiKey, index } = siteConfig.algolia;
 
-const searchClient: SearchClient = algolia(
-  appId,
-  apiKey,
-);
-const searchIndex: SearchIndex = searchClient.initIndex(
-  index,
-);
-
+const client: SearchClient = algoliasearch(appId, apiKey);
 const emptyResults: SearchResponse<AlgoliaBlog> = {
   hits: [],
   nbHits: 0,
@@ -32,7 +24,12 @@ export async function searchAlgolia(
 ): Promise<SearchResponse<AlgoliaBlog>> {
   if (!query) return emptyResults;
 
-  const results: SearchResponse<AlgoliaBlog> =
-    await searchIndex.search<AlgoliaBlog>(query, option);
+  const results: SearchResponse<AlgoliaBlog> = await client.searchSingleIndex(
+    {
+      indexName: index,
+      searchParams: { query: query },
+    },
+    option,
+  );
   return results;
 }
