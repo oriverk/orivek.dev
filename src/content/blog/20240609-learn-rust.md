@@ -1,23 +1,28 @@
 ---
 create: '2024-06-09'
-update: '2024-06-09'
+update: '2024-06-18'
 title: 'Rust をやってみる'
 tags: [rust]
 published: true
-noindex: true
 ---
-
-同居人から風邪を貰い、熱や咳に鼻水と症状が続き、普段通りの生活が阻害されていたので、Rust を触ってみることにした。以前に [RustではじめるOpenGL | インプレス NextPublishing](https://nextpublishing.jp/book/11379.html) という本を読むにあたって、一度だけ Hello world までの初歩的なことはしていた。
 
 ## はじめに
 
-Rust を触ったら、案の定大変だった・分からなさ過ぎた。でも楽しかった。Rust を使って何かサービスを作る予定は全くないが、過去に勝った技術本を写経したり、画像処理をやるなどして Rust で遊びたい。　※メモ書きなので**他者が読んでも得るものはありません**。noindex を設定してすらいます。
+Rust を触ったら、大変だったが楽しかった。Rust を使って何かサービスを作る予定は全くないが、以前に購入していた技術本『[RustではじめるOpenGL | インプレス NextPublishing](https://nextpublishing.jp/book/11379.html)』を写経したり、画像処理をやるなどして遊びたい(やった)。
+
+### Zenn.dev
+
+https://zenn.dev/oriverk/articles/432f7c2f17b928
+
+大学卒論研究で扱った農作物列画像の画像処理の一部を Rust でやってみた。
+
+[![Image from Gyazo](https://i.gyazo.com/d75600f70282b94cfe9891ca63cdd600.jpg "input.png")](https://gyazo.com/d75600f70282b94cfe9891ca63cdd600)
+
+[![Image from Gyazo](https://i.gyazo.com/f5b0b2ed170f42cf7f15e97459b054bf.jpg "output.png")](https://gyazo.com/f5b0b2ed170f42cf7f15e97459b054bf)
 
 ## Rust とは
 
-安全性と高パフォーマンスを両立させたシステムプログラミング言語。メモリ安全性を保証し、並行処理も安全に行えるため、信頼性の高いソフトウェア開発に適しています。近年、Next.js や Biome といったフロントエンドの FW や開発ツールが Rust を採用し始めている。
-
-https://github.com/biomejs/biome
+安全性と高パフォーマンスを両立させたシステムプログラミング言語。メモリ安全性を保証し、並行処理も安全に行えるため、信頼性の高いソフトウェア開発に適しています。近年、[Next.js](https://nextjs.org/) や [biomejs/biome](https://github.com/biomejs/biome) といったフロントエンドの FW や開発ツールが Rust を採用し始めている。
 
 Web ブラウザ上で高速実行が可能で複雑な計算やゲーム開発・マルチメディア処理に適しているとされるバイナリ形式の命令セットで WebAssembly (Wasm) というものがあるが、これを作成するのに Rust などが用いられている。実際に AmazonPrimeVideo の動画再生のパフォーマンス改善に Rust コードから生成した Wasm が利用されたというニュースが2022年にあった。
 
@@ -101,7 +106,7 @@ fn get_fizz_buzz_match(num: u32) -> String {
 
 #### 統計っぽいこと
 
-Rust にも `as` があるんだと思った。JSDoc の様なドキュメンテーションコメントの書き方を知った。この Zenn の [Rustのドキュメンテーションコメントの書き方](https://zenn.dev/masaki_wk/articles/20230715-rust-doc-comment#%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%B3%E3%83%A1%E3%83%B3%E3%83%88%E3%81%AE%E7%A8%AE%E5%88%A5) が詳しかった。
+Rust にも `as` があるんだと思った。JSDoc の様なドキュメンテーションコメントの書き方を知った。この Zenn の [Rustのドキュメンテーションコメントの書き方](https://zenn.dev/masaki_wk/articles/20230715-rust-doc-comment#ドキュメンテーションコメントの種別) が詳しかった。
 
 ```rust:main.rs
 use std::collections::HashMap;
