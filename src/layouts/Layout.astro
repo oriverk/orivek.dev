@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from 'astro:transitions';
 import defaultOgImage from "@/assets/images/og.png";
 import ContentWrapper from "@/components/ui/ContentWrapper.astro";
 import urlJoin from "url-join";
@@ -50,7 +50,7 @@ const rssHref = Astro.site
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="og:image" content={ogImage} />
     <meta content="ja_JP" property="og:locale" />
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body>
     <div id="astro">
@@ -59,9 +59,15 @@ const rssHref = Astro.site
           <Header />
         </ContentWrapper>
       </header>
-      <main data-pagefind-body={!!pagefind && !noindex}>
-        <slot />
-      </main>
+      {!!pagefind && !noindex ? (
+        <main data-pagefind-body={true}>
+          <slot />
+        </main>
+      ) : (
+        <main>
+          <slot />
+        </main>
+      )}
       <footer>
         <ContentWrapper>
           <Footer />
