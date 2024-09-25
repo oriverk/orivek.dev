@@ -1,4 +1,5 @@
 ---
+import { render } from 'astro:content';
 import PostTag from "@/components/PostTag.astro";
 import AstroLink from "@/components/markdown/AstroLink.astro";
 import ContentWrapper from "@/components/ui/ContentWrapper.astro";
@@ -23,7 +24,7 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { post } = Astro.props as Props;
-const { render, data } = post;
+const { data } = post;
 const { title, description, tags, create, update, image, noindex } = data;
 const lastModified = update || create;
 const date = lastModified.toLocaleDateString("ja-JP", {
@@ -32,7 +33,7 @@ const date = lastModified.toLocaleDateString("ja-JP", {
   day: "numeric",
 });
 const isoDate = lastModified.toISOString();
-const { Content, headings } = await render();
+const { Content, headings } = await render(post);
 const toc = getTocHierarchy(headings);
 const { origin, pathname } = Astro.url;
 const ogImage = getOgImageSrc(origin, pathname);

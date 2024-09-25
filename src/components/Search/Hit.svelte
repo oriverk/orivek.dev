@@ -21,7 +21,7 @@ const { title, date } = meta;
 >
   <div>
     <p class="title">{title}</p>
-    <time class="date" datetime={date}>{date.split("T")[0]}</time>
+    <time class="date" datetime={date}>{date?.split("T")[0]}</time>
   </div>
 </a>
 <!-- {#if !!sub_results.length}
