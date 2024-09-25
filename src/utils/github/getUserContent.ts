@@ -13,14 +13,18 @@ if (!fs.existsSync(repositoryJsonPath)) {
   fs.writeFileSync(repositoryJsonPath, "[]");
 }
 
+type ContributionCalendar = Pick<
+  ContributionsCollection,
+  "contributionCalendar"
+>;
+
 export function getUserContent(): UserContent {
   const repositoryJson: UserContent["repositoryItems"] = JSON.parse(
     fs.readFileSync(repositoryJsonPath, { encoding: "utf-8" }),
   );
-  const contributionsJson: Pick<
-    ContributionsCollection,
-    "contributionCalendar"
-  > = JSON.parse(fs.readFileSync(contributionsJsonPath, { encoding: "utf-8" }));
+  const contributionsJson: ContributionCalendar = JSON.parse(
+    fs.readFileSync(contributionsJsonPath, { encoding: "utf-8" }),
+  );
 
   const repositoryItems: UserContent["repositoryItems"] = repositoryJson.filter(
     (repo) => !repo.isFork,

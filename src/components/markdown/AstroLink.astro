@@ -1,13 +1,13 @@
 ---
 import AstroEmbed from "@/components/markdown/AstroEmbed.astro";
 
-interface Props {
+type Props = {
   href: string;
   target: string;
   rel: string;
   class: string;
   "data-embed": string;
-}
+};
 
 const props = Astro.props;
 ---

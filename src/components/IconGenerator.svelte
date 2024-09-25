@@ -21,7 +21,7 @@ function handleOnChange(event: Event) {
 
 async function handleOnClick() {
   const target = document.getElementById("target");
-  if(!target) return;
+  if (!target) return;
 
   const dest = document.getElementById("dest");
   dest?.querySelector("img")?.remove();

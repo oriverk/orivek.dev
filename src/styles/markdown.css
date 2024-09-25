@@ -1,107 +1,144 @@
-h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-}
+.markdown {
+  & > :where(* + *) {
+    margin-block-start: 2rem;
+  }
 
-h2 {
-  font-size: 2rem;
-  font-weight: 700;
-}
+  & h2,
+  & h3 {
+    margin-block-start: 2rem;
+  }
 
-h2::before {
-  content: "## ";
-  content: "## " / "";
-}
+  & h4 {
+    margin-block-start: 1rem;
+  }
 
-h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
+  & h2,
+  & h3,
+  & h4 {
+    &[id] {
+      scroll-margin-top: 5rem;
+    }
 
-h3::before {
-  content: "### ";
-  content: "### " / "";
-}
+    &::before {
+      margin-inline-end: 1rem;
+      color: rgb(var(--color-miku));
+    }
+  }
 
-h4 {
-  font-size: 1.25rem;
-  font-weight: 700;
-}
+  & h2::before {
+    content: "##";
+    content: "##" / "";
+  }
 
-h4::before {
-  content: "#### ";
-  content: "#### " / "";
-}
+  & h3::before {
+    content: "###";
+    content: "###" / "";
+  }
 
-h5 {
-  font-size: 1rem;
-  font-weight: 700;
-}
+  & h4::before {
+    content: "####";
+    content: "####" / "";
+  }
 
-h6 {
-  font-size: 0.875rem;
-  font-weight: 700;
-  margin: 0;
-}
+  & hr {
+    border: 1px solid gray;
+  }
 
-p {
-  margin-top: 1.25em;
-  margin-top: 1.25em;
-}
+  & details {
+    background-color: rgba(var(--color-hover));
 
-blockquote {
-  padding: 0.5rem 1rem;
-  background-color: rgba(var(--color-gray) / 0.1);
-  border-left: 0.25rem solid rgb(var(--color-lightgray));
-}
+    & > summary {
+      padding: 1rem;
+      font-size: .9rem;
+      cursor: pointer;
+      user-select: none;
+      touch-action: manipulation;
 
-code {
-  font-family: monospace;
-  font-size: 0.875rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-}
+      &:hover {
+        background-color: rgba(0 0 0 / 0.3);
+      }
+    }
+  }
 
-:not(pre) > code {
-  padding: 0;
-  margin: 0 0.1rem;
-}
+  & details[open] {
+    & > summary {
+      background-color: rgba(0 0 0 / 0.3);
 
-:not(pre) > code::before,
-:not(pre) > code::after {
-  content: "`";
-  content: "`" / "";
-}
+      &:hover {
+        background-color: rgba(var(--color-hover));
+      }
+    }
+  }
 
-pre {
-  margin: 0;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-}
+  & table {
+    margin-inline: auto;
+    border-collapse: collapse;
 
-pre code {
-  font-size: 1rem;
-  padding: 0;
-}
+    & th,
+    & td {
+      padding-inline: 1rem;
+      padding-block: .5rem;
+      border: 1px solid gray;
+    }
+  }
 
-table {
-  margin: 0;
-  border-collapse: collapse;
-}
+  & figcaption {
+    text-align: center;
+    color: gray;
+  }
 
-th {
-  padding: 0.25rem 0.5rem;
-  border: 1px solid #ccc;
-  text-align: center;
-}
+  & *:has(> img) {
+    display: inline-block;
+    padding: 1rem 1.3rem;
+    border: 2px solid rgba(var(--color-hover));
+    border-radius: 0.6rem;
+    transition: border-color 100ms ease-in;
+  }
 
-td {
-  padding: 0.25rem 0.5rem;
-  border: 1px solid #ccc;
-}
+  & img {
+    max-width: 100%;
+  }
 
-caption {
-  color: rgb(var(--color-lightgray));
-  font-size: 1rem;
-  padding: 0.5rem 0;
+  & :not(pre) > code::before,
+  & :not(pre) > code::after {
+    content: "`";
+    content: "`" / "";
+  }
+
+  & blockquote {
+    padding-inline: 1rem;
+    border-left: none;
+    border: 1px solid gray;
+    border-radius: .5rem;
+
+    & > p::before {
+      content: "> ";
+      content: "> " / "";
+    }
+    & > blockquote {
+      border: none;
+    }
+    & > blockquote > p::before {
+      content: "> > ";
+      content: "> > " / "";
+    }
+  }
+
+  & strong::before,
+  & strong::after {
+    content: "**";
+    content: "**" / "";
+  }
+
+  & del::before,
+  & del::after {
+    content: "~~";
+    content: "~~" / "";
+  }
+
+  & em::before,
+  & em::after {
+    content: "_";
+    content: "_" / "";
+  }
 }

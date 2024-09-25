@@ -1,16 +1,16 @@
 ---
+import Card from "@/components/ui/Card.svelte";
 import { getFaviconSrcFromOrigin } from "@/utils/feed";
 import { getSiteMetadata } from "@/utils/getSiteMetadata";
 import { clsx } from "clsx";
-import Card from "../ui/Card.astro";
 
-interface Props {
+type Props = {
   href: string;
   target: string;
   rel: string;
   class: string;
   "data-embed": string;
-}
+};
 
 const { href, class: className, ...restProps } = Astro.props;
 

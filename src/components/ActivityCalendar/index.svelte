@@ -1,19 +1,18 @@
----
-import Card from "@/components/ui/Card.astro";
+<script lang="ts">
+import Card from "@/components/ui/Card.svelte";
 import {
   DEFAULT_COLORS,
   DEFAULT_MONTH_LABELS,
 } from "@/constants/activityCalendar";
 import type { Activity, ActivityCalendar } from "@/types/activityCalendar";
 import { parseContributionCalendarDay } from "@/utils/github/getActivityCalendar";
-import CalendarWeek from "./ActivityWeek.astro";
-import ColorsLegend from "./ColorLegend.astro";
-import MonthLegend from "./MonthLegend.astro";
+import CalendarWeek from "./ActivityWeek.svelte";
+import ColorsLegend from "./ColorLegend.svelte";
+import MonthLegend from "./MonthLegend.svelte";
 
-interface Props
-  extends Partial<Omit<ActivityCalendar, "contributionCalendar">> {
+type Props = Partial<Omit<ActivityCalendar, "contributionCalendar">> & {
   contributionCalendar: ActivityCalendar["contributionCalendar"];
-}
+};
 
 const {
   contributionCalendar,
@@ -24,7 +23,7 @@ const {
   hideMonthLabels = false,
   colors = DEFAULT_COLORS,
   monthLabels = DEFAULT_MONTH_LABELS,
-} = Astro.props;
+}: Props = $props();
 
 const { totalContributions, weeks } = contributionCalendar;
 const activityWeeks: Activity[][] = weeks.map((week) => {
@@ -37,7 +36,8 @@ const dimentions = {
   width: activityWeeks.length * (blockSize + blockMargin) - blockMargin,
   height: textHeight + (blockSize + blockMargin) * 7 - blockMargin,
 };
----
+</script>
+
 <Card className="activity" disabled>
   <div class="activity-inner">
     <p>{totalContributions} contributions in the last year</p>
@@ -48,7 +48,7 @@ const dimentions = {
         height={dimentions.height}
         viewBox={`0 0 ${dimentions.width} ${dimentions.height}`}
       >
-        {!hideMonthLabels && (
+        {#if !hideMonthLabels}
           <MonthLegend
             weeks={activityWeeks}
             {monthLabels}
@@ -56,8 +56,8 @@ const dimentions = {
             {blockMargin}
             {fontSize}
           />
-        )}
-        {activityWeeks.map((week, i) => (
+        {/if}
+        {#each activityWeeks as week, i}
           <CalendarWeek
             {week}
             {textHeight}
@@ -67,7 +67,7 @@ const dimentions = {
             translateX={i * (blockSize + blockMargin)}
             {colors}
           />
-        ))}
+        {/each}
       </svg>
     </div>
     <div class="information">

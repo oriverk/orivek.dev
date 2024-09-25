@@ -1,16 +1,15 @@
----
+<script lang="ts">
 import type { CollectionEntry } from "astro:content";
-import PostTag from "./PostTag.astro";
+import PostTag from "./PostTag.svelte";
 
-interface Props
-  extends Pick<
-    CollectionEntry<"blog">["data"],
-    "title" | "tags" | "create" | "update"
-  > {
+type Props = Pick<
+  CollectionEntry<"blog">["data"],
+  "title" | "tags" | "create" | "update"
+> & {
   href: string;
-}
+};
 
-const { title, tags = [], create, update, href } = Astro.props;
+const { title, tags = [], create, update, href }: Props = $props();
 export { title, tags, create, update, href };
 const lastModified = update || create;
 const date = lastModified.toLocaleDateString("ja-JP", {
@@ -19,9 +18,9 @@ const date = lastModified.toLocaleDateString("ja-JP", {
   day: "numeric",
 });
 const isoDate = lastModified.toISOString();
----
+</script>
 
-<article class="post-card" style={{"color": "red"}}>
+<article class="post-card">
   <a {href} class="thumbnail">
     <div>
       <h2>{title}</h2>
@@ -30,9 +29,9 @@ const isoDate = lastModified.toISOString();
   <div class="info">
     <time datetime={isoDate}>{date}</time>
     <div class="tags">
-      {tags.map(tag => (
+      {#each tags as tag}
         <PostTag {tag} href={`/blog/tags/${tag}`} />
-      ))}
+      {/each}
     </div>
   </div>
 </article>

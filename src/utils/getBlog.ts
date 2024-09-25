@@ -22,9 +22,9 @@ export async function getTags() {
   return [...new Set(tags)];
 }
 
-export interface Hierarchy extends MarkdownHeading {
-  subHeadings: MarkdownHeading[];
-}
+export type Hierarchy = MarkdownHeading & {
+  subHeadings?: MarkdownHeading[];
+};
 
 export function getTocHierarchy(headings: MarkdownHeading[]) {
   const result: Hierarchy[] = [];

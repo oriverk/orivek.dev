@@ -1,16 +1,16 @@
----
+<script lang="ts">
 import type { Activity, ActivityCalendar } from "@/types/activityCalendar";
 
-interface Props extends Pick<ActivityCalendar, "blockRadius" | "blockSize"> {
+type Props = Pick<ActivityCalendar, "blockRadius" | "blockSize"> & {
   day: Activity;
   color: string;
   y: number;
-}
+};
 
-const { day, color, y, blockRadius, blockSize } = Astro.props;
+const { day, color, y, blockRadius, blockSize }: Props = $props();
 const { date, level, count } = day;
 const label = `${count} contributions on ${date}`;
----
+</script>
 
 <rect
   x={0}

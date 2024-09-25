@@ -1,6 +1,6 @@
 ---
 import HeaderSearch from "@/components/Search/SearchButton.svelte";
-import Icon from "@/components/ui/Icon.astro";
+import Icon from "@/components/ui/Icon.svelte";
 const { pathname } = Astro.url;
 const subpath = pathname.match(/[^\/]+/g);
 const isActive = (href: string) =>

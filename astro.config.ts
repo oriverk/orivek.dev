@@ -20,6 +20,20 @@ export default defineConfig({
   prefetch: {
     prefetchAll: true
   },
+  markdown: {
+    remarkPlugins: [
+      remarkComment,
+      // remarkMath,
+      remarkFencedCodeBlock,
+      remarkGithubAlerts,
+    ],
+    rehypePlugins: [
+      rehypeAnchor,
+      rehypeFigure,
+      // rehypeKatex
+    ],
+    gfm: true,
+  },
   integrations: [
     svelte(),
     // NOTE: expressiveCode must be before mdx
@@ -36,18 +50,4 @@ export default defineConfig({
     }),
     mdx(),
   ],
-  markdown: {
-    remarkPlugins: [
-      remarkComment,
-      // remarkMath,
-      remarkFencedCodeBlock,
-      remarkGithubAlerts,
-    ],
-    rehypePlugins: [
-      rehypeAnchor,
-      rehypeFigure,
-      // rehypeKatex
-    ],
-    gfm: true,
-  },
 });

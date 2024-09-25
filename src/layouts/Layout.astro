@@ -1,18 +1,18 @@
 ---
-import { ClientRouter } from 'astro:transitions';
+import { ClientRouter } from "astro:transitions";
 import defaultOgImage from "@/assets/images/og.png";
-import ContentWrapper from "@/components/ui/ContentWrapper.astro";
+import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
 import urlJoin from "url-join";
 import Footer from "./Footer.astro";
 import Header from "./Header.astro";
 
-export interface Props {
+export type Props = {
   title?: string;
   description?: string;
   image?: string;
   noindex?: boolean;
   pagefind?: boolean;
-}
+};
 
 const { href, hostname } = Astro.url;
 const { title, description, image, noindex, pagefind } = Astro.props;
@@ -79,12 +79,12 @@ const rssHref = Astro.site
 
 <style is:global>
   /* TailwindCSS default breakpoints
-    xs => @media (min-width: 320px) { ... }
-    sm => @media (min-width: 640px) { ... }
-    md => @media (min-width: 768px) { ... }
-    lg => @media (min-width: 1024px) { ... }
-    xl => @media (min-width: 1280px) { ... }
-    2xl => @media (min-width: 1536px) { ... } */
+    xs => @media (320px <= width) { ... }
+    sm => @media (640px <= width) { ... }
+    md => @media (768px <= width) { ... }
+    lg => @media (1024px <= width) { ... }
+    xl => @media (1280px <= width) { ... }
+    2xl => @media (1536px <= width) { ... } */
 
   :root {
     --header-height: 4rem;

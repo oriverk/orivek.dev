@@ -1,8 +1,8 @@
 import { defineCollection, z } from "astro:content";
-import { glob } from 'astro/loaders';
+import { glob } from "astro/loaders";
 
 const staticCollection = defineCollection({
-  loader: glob({ pattern: '**\/[^_]*.mdx?', base: "./src/content/static" }),
+  loader: glob({ pattern: "**/[^_]*.mdx?", base: "./src/content/static" }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -14,7 +14,7 @@ const staticCollection = defineCollection({
 });
 
 const blogCollection = defineCollection({
-  loader: glob({ pattern: '**\/[^_]*.mdx?', base: "./src/content/blog" }),
+  loader: glob({ pattern: "**/[^_]*.mdx?", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),

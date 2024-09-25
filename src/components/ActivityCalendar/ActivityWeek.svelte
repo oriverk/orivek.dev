@@ -1,16 +1,15 @@
----
-import type { Activity, ActivityCalendar } from "../../types/activityCalendar";
-import ActivityDay from "./ActivityDay.astro";
+<script lang="ts">
+import type { Activity, ActivityCalendar } from "@/types/activityCalendar";
+import ActivityDay from "./ActivityDay.svelte";
 
-interface Props
-  extends Pick<
-    ActivityCalendar,
-    "colors" | "blockMargin" | "blockRadius" | "blockSize"
-  > {
+type Props = Pick<
+  ActivityCalendar,
+  "colors" | "blockMargin" | "blockRadius" | "blockSize"
+> & {
   week: Activity[];
   textHeight: number;
   translateX: number;
-}
+};
 
 const {
   colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
@@ -20,11 +19,11 @@ const {
   blockRadius,
   blockSize,
   translateX,
-} = Astro.props;
----
+}: Props = $props();
+</script>
 
 <g transform={`translate(${translateX}, 0)`}>
-  {week.map(({ date, level, count }, weekday) => (
+  {#each week as {date, level, count}, weekday}
     <ActivityDay
       day={{ date, level, count }}
       color={colors[level]}
@@ -32,5 +31,5 @@ const {
       {blockRadius}
       {blockSize}
     />
-  ))}
+  {/each}
 </g>

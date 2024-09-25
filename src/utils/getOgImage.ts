@@ -3,11 +3,11 @@ import type { SatoriOptions } from "satori";
 import satori from "satori";
 import sharp from "sharp";
 
-interface Options {
+type Options = {
   extension: "jpg" | "png" | "webp" | "avif";
   quality: number;
   debug: boolean;
-}
+};
 
 /**
  * @param title hogehoge

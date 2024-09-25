@@ -1,11 +1,11 @@
 <script lang="ts">
 import type { DataReturn } from "@/types/pagefind";
 
-interface Props {
+type Props = {
   data: DataReturn;
   selected: boolean;
   setActiveHit: () => void;
-}
+};
 
 const { data, selected, setActiveHit }: Props = $props();
 const { meta, raw_url, sub_results } = data;
