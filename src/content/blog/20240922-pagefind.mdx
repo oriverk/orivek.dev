@@ -9,11 +9,9 @@ noindex: true
 
 ## はじめに
 
-今までサイト内検索では Algolia を使用していたのですが、検索 API の実行アクセス回数が少ないために無効にされてしまったので、サイト内検索機能を全文検索ライブラリの Pagefind で置換しました。
+今までサイト内検索では [Algolia](https://www.algolia.com/) を使用していたのですが、検索 API の実行アクセス回数が少ないために無効にされてしまったので、サイト内検索機能を全文検索ライブラリの [Pagefind](https://pagefind.app/) で置換しました。
 
-- [Pagefind | Pagefind — Static low-bandwidth search at scale](https://pagefind.app/)
-  - [CloudCannon/pagefind: Static low-bandwidth search at scale](https://github.com/cloudcannon/pagefind)
-- [AI search that understands | Algolia](https://www.algolia.com/)
+https://pagefind.app/
 
 ## Pagefind とは
 
@@ -103,9 +101,9 @@ Pagefind はデフォルトで `<body>` 内にあるすべての要素をイン�
 
 Pagefind は各ページ中の各要素からメタデータを自動的に取得します。
 
-- title: <= h1
-- image: <= h1以降、最初の画像の src
-- image_alt: <= h1以降、最初の画像の alt
+- title: h1
+- image: h1以降、最初の画像の src
+- image_alt: h1以降、最初の画像の alt
 
 ```html title=example.html
 <h1 data-pagefind-meta="title">Hello World</h1>

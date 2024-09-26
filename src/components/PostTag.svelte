@@ -1,16 +1,16 @@
----
-interface Props {
+<script lang="ts">
+type Props = {
   tag: string;
   href?: string;
-}
-const { tag, href } = Astro.props;
----
+};
+const { tag, href }: Props = $props();
+</script>
 
-{!!href ? (
-  <a {href} class="tag">#{tag}</a>
-): (
-  <span class="tag">#{tag}</span>
-)}
+{#if !!href}
+<a {href} class="tag">#{tag}</a>
+{:else}
+<span class="tag">#{tag}</span>
+{/if}
 
 <style>
   .tag {

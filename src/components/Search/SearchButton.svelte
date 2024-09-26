@@ -1,23 +1,22 @@
 <script lang="ts">
 import Dialog from "@/components/ui/Dialog.svelte";
-import SearchIcon from "./SearchIcon.svelte";
+import Icon from "@/components/ui/Icon.svelte";
 import Search from "./index.svelte";
-// import PagefindSearch from "@/components/PagefindSearch/index.svelte"
 
 let dialog = $state() as HTMLDialogElement;
 
 function openDialog() {
+  if (!dialog) return;
+
   dialog.showModal();
   dialog.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      dialog?.close();
-    }
+    if (e.key !== "Escape") return;
+    dialog.close();
   });
 
   dialog.addEventListener("click", (e) => {
-    if (e.target === dialog) {
-      dialog?.close();
-    }
+    if (e.target !== dialog) return;
+    dialog.close();
   });
 }
 
@@ -28,12 +27,12 @@ function closeDialog() {
 
 <button type="button" onclick={openDialog} title="Search">
   <div class="content">
-    <SearchIcon size="small" />
+    <Icon type="search" size="small" />
     <span>Search</span>
     <span class="sr-only">posts</span>
   </div>
 </button>
-<Dialog bind:dialog on:closeDialog={closeDialog} id="search-dialog">
+<Dialog bind:dialog on:closeDialog={closeDialog}>
   <Search />
 </Dialog>
 

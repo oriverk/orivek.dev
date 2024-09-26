@@ -1,10 +1,11 @@
 ---
-import PostTag from "@/components/PostTag.astro";
+import { render } from "astro:content";
+import PostTag from "@/components/PostTag.svelte";
 import AstroLink from "@/components/markdown/AstroLink.astro";
-import ContentWrapper from "@/components/ui/ContentWrapper.astro";
-import Details from "@/components/ui/Details.astro";
-import Markdown from "@/components/ui/Markdown.astro";
-import Toc from "@/components/ui/Toc/index.astro";
+import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
+import Details from "@/components/ui/Details.svelte";
+import Markdown from "@/components/ui/Markdown.svelte";
+import Toc from "@/components/ui/Toc/index.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { getOgImageSrc } from "@/pages/api/og/[...path]";
 import { getBlog, getTocHierarchy } from "@/utils/getBlog";
@@ -23,7 +24,7 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { post } = Astro.props as Props;
-const { render, data } = post;
+const { data } = post;
 const { title, description, tags, create, update, image, noindex } = data;
 const lastModified = update || create;
 const date = lastModified.toLocaleDateString("ja-JP", {
@@ -32,7 +33,7 @@ const date = lastModified.toLocaleDateString("ja-JP", {
   day: "numeric",
 });
 const isoDate = lastModified.toISOString();
-const { Content, headings } = await render();
+const { Content, headings } = await render(post);
 const toc = getTocHierarchy(headings);
 const { origin, pathname } = Astro.url;
 const ogImage = getOgImageSrc(origin, pathname);
@@ -54,7 +55,7 @@ export const components = {
               <>
                 <span>/</span>
                 <div class="tags">
-                  {tags.map(tag => <PostTag {tag} />)}
+                  {tags.map(tag => <PostTag {tag} href={`/blog/tags/${tag}`} />)}
                 </div>
               </>
             )}

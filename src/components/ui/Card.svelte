@@ -1,16 +1,17 @@
----
-import { clsx } from "clsx";
+<script lang="ts">
+import type { Snippet } from "svelte";
 
-interface Props {
+type Props = {
+  children: Snippet;
   className?: string;
   disabled?: boolean;
-}
+};
 
-const { className, disabled = false } = Astro.props;
----
+const { children, className, disabled = false }: Props = $props();
+</script>
 
-<div class={clsx(className, disabled && 'disabled')}>
-  <slot />
+<div class={className} class:disabled={disabled}>
+  {@render children()}
 </div>
 
 <style>

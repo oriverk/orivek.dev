@@ -16,8 +16,24 @@ import {
 export default defineConfig({
   site: "https://oriverk.dev",
   publicDir: "./public",
-  // add data-astro-prefetch to anchor element
-  prefetch: true,
+  output: 'static',
+  prefetch: {
+    prefetchAll: true
+  },
+  markdown: {
+    remarkPlugins: [
+      remarkComment,
+      // remarkMath,
+      remarkFencedCodeBlock,
+      remarkGithubAlerts,
+    ],
+    rehypePlugins: [
+      rehypeAnchor,
+      rehypeFigure,
+      // rehypeKatex
+    ],
+    gfm: true,
+  },
   integrations: [
     svelte(),
     // NOTE: expressiveCode must be before mdx
@@ -34,18 +50,4 @@ export default defineConfig({
     }),
     mdx(),
   ],
-  markdown: {
-    remarkPlugins: [
-      remarkComment,
-      // remarkMath,
-      remarkFencedCodeBlock,
-      remarkGithubAlerts,
-    ],
-    rehypePlugins: [
-      rehypeAnchor,
-      rehypeFigure,
-      // rehypeKatex
-    ],
-    gfm: true,
-  },
 });

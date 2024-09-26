@@ -131,7 +131,7 @@ $effect(() => {
     gap: 0.5rem;
   }
 
-  @media (width < 768px) {
+  @media (width <= 768px) {
     .search-shorthand {
       display: none;
     }

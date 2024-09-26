@@ -1,9 +1,9 @@
 ---
-import ActivityCalendar from "@/components/ActivityCalendar/index.astro";
-import FeedList from "@/components/FeedList.astro";
-import Hero from "@/components/Hero.astro";
-import RepositoryList from "@/components/RepositoryList.astro";
-import ContentWrapper from "@/components/ui/ContentWrapper.astro";
+import ActivityCalendar from "@/components/ActivityCalendar/index.svelte";
+import FeedCard from "@/components/FeedCard.svelte";
+import Hero from "@/components/Hero.svelte";
+import RepositoryCard from "@/components/RepositoryCard.svelte";
+import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { getFeedItems } from "@/utils/feed";
 import { getBlog } from "@/utils/getBlog";
@@ -25,64 +25,61 @@ const blogItems = (await getBlog()).map((post) => {
     dateMiliSeconds,
   };
 });
-const items = [...feedItems, ...blogItems].sort(
-  (a, b) => b.dateMiliSeconds - a.dateMiliSeconds,
-);
+const displayItemsCount = 12;
+const items = [...feedItems, ...blogItems]
+  .sort((a, b) => b.dateMiliSeconds - a.dateMiliSeconds)
+  .slice(0, displayItemsCount);
 const { repositoryItems, contributionCalendar } = userContent;
 const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
 ---
 
 <Layout title="Home">
-  <section class="home-hero">
+  <section>
     <ContentWrapper>
       <div class="hero">
         <Hero />
       </div>
     </ContentWrapper>
   </section>
-  {
-    !!userContent && (
-      <section class="home-github">
-        <ContentWrapper>
-          <div class="github">
-            <h2 id="github">GitHub</h2>
-            {!!repositoryItems.length && (
-              <div class="github-repository">
-                <h3 id="repository">Repository</h3>
-                <RepositoryList repositoryItems={repositoryItems} />
-              </div>
-            )}
-            {!!contributionCalendar && (
-              <div class="github-contributions">
-                <h3 id="contributions">Contributions</h3>
-                <p>update once a week</p>
-                <ActivityCalendar
-                  blockMargin={3}
-                  blockRadius={2}
-                  blockSize={12}
-                  fontSize={14}
-                  colors={colors}
-                  contributionCalendar={contributionCalendar}
-                />
-              </div>
-            )}
-          </div>
-        </ContentWrapper>
-      </section>
-    )
-  }
-  {
-    !!items.length && (
-      <section class="home-feed">
-        <ContentWrapper>
-          <div class="feed">
-            <h2 id="feed">Feed</h2>
-            <FeedList {items} displayItemsCount={12} />
-          </div>
-        </ContentWrapper>
-      </section>
-    )
-  }
+  <section>
+    <ContentWrapper>
+      <div class="github">
+        <h2>GitHub</h2>
+        <div class="github-repository">
+          <h3>Repository</h3>
+          <ol class="grid">
+            {repositoryItems.map(item => (
+              <RepositoryCard {...item} />
+            ))}
+          </ol>
+        </div>
+        <div class="github-contributions">
+          <h3>Contributions</h3>
+          <p>update once a week</p>
+          <ActivityCalendar
+            blockMargin={3}
+            blockRadius={2}
+            blockSize={12}
+            fontSize={14}
+            colors={colors}
+            contributionCalendar={contributionCalendar}
+          />
+        </div>
+      </div>
+    </ContentWrapper>
+  </section>
+  <section>
+    <ContentWrapper>
+      <div class="feed">
+        <h2>Feed</h2>
+        <ol class="grid">
+          {items.map(item => (
+            <FeedCard {...item} />
+          ))}
+        </ol>
+      </div>
+    </ContentWrapper>
+  </section>
 </Layout>
 
 <style>
@@ -112,5 +109,20 @@ const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
 
   .github-repository {
     margin-bottom: 2rem;
+  }
+
+  .grid {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(1, 1fr);
+    list-style: none;
+  }
+
+  @media (640px <= width) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 </style>

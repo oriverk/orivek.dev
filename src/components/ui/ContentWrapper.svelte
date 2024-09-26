@@ -1,16 +1,18 @@
----
+<script lang="ts">
 import { clsx } from "clsx";
+import type { Snippet } from "svelte";
 
-interface Props {
+type Props = {
+  children: Snippet;
   className?: string;
   style?: string;
-}
+};
 
-const { className, style } = Astro.props;
----
+const { children, className, style }: Props = $props();
+</script>
 
 <div class={clsx('content-wrapper', className)} style={style}>
-  <slot />
+  {@render children()}
 </div>
 
 <style>

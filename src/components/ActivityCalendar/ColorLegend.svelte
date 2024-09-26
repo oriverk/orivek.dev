@@ -1,19 +1,18 @@
----
+<script lang="ts">
 import type { ActivityCalendar } from "@/types/activityCalendar";
 
-interface Props
-  extends Pick<
-    ActivityCalendar,
-    "colors" | "blockMargin" | "blockRadius" | "blockSize"
-  > {}
+type Props = Pick<
+  ActivityCalendar,
+  "colors" | "blockMargin" | "blockRadius" | "blockSize"
+>;
 
-const { colors, blockMargin, blockRadius, blockSize } = Astro.props;
+const { colors, blockMargin, blockRadius, blockSize }: Props = $props();
 
 const dimentions = {
   width: colors.length * (blockSize + blockMargin) - blockMargin,
   height: blockSize,
 };
----
+</script>
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +20,7 @@ const dimentions = {
   height={dimentions.height}
   viewBox={`0 0 ${dimentions.width} ${dimentions.height}`}
 >
-  {colors.map((color, i) => (
+  {#each colors as color, i}
     <rect
       x={i * (blockSize + blockMargin)}
       y={0}
@@ -31,7 +30,7 @@ const dimentions = {
       ry={blockRadius}
       style={`--color-fill: ${color}`}
     />
-  ))}
+  {/each}
 </svg>
 
 <style>

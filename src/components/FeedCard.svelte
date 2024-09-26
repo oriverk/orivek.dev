@@ -1,19 +1,19 @@
----
+<script lang="ts">
 import type { FeedItem } from "../types/feed";
 import { getFaviconSrcFromOrigin } from "../utils/feed";
 import { getTimeFromNow } from "../utils/getTimeFromNow";
-import Card from "./ui/Card.astro";
+import Card from "./ui/Card.svelte";
 
-interface Props extends Pick<FeedItem, "title" | "link" | "dateMiliSeconds"> {}
+type Props = Pick<FeedItem, "title" | "link" | "dateMiliSeconds">;
 
-const { title, link, dateMiliSeconds } = Astro.props;
+const { title, link, dateMiliSeconds }: Props = $props();
 const timeString = `${getTimeFromNow(dateMiliSeconds)} ago`;
 const isExternal = link.startsWith("http");
 const url = isExternal ? link : "https://oriverk.dev";
 const { hostname, origin } = new URL(url);
----
+</script>
 
-<a  href={link} target={isExternal ? "_blank" : ""} rel={isExternal ? "noopenner noreferrer" : ""} class="feed-card">
+<a href={link} target={isExternal ? "_blank" : ""} rel={isExternal ? "noopenner noreferrer" : ""} class="feed-card">
   <Card>
     <div class="feed">
       <time>{timeString}</time>

@@ -1,19 +1,24 @@
----
+<script lang="ts">
 import type { Language, Repository } from "@octokit/graphql-schema";
-import Card from "./ui/Card.astro";
-import Icon from "./ui/Icon.astro";
+import Card from "./ui/Card.svelte";
+import Icon from "./ui/Icon.svelte";
 
-interface Props
-  extends Pick<
-    Repository,
-    "name" | "description" | "url" | "stargazerCount" | "isArchived"
-  > {
+type Props = Pick<
+  Repository,
+  "name" | "description" | "url" | "stargazerCount" | "isArchived"
+> & {
   primaryLanguage: Pick<Language, "name" | "color">;
-}
+};
 
-const { name, description, url, stargazerCount, isArchived, primaryLanguage } =
-  Astro.props;
----
+const {
+  name,
+  description,
+  url,
+  stargazerCount,
+  isArchived,
+  primaryLanguage,
+}: Props = $props();
+</script>
 
 <a href={url} target="_blank" rel="noopener noreferrer" class="repository">
   <Card>
@@ -21,29 +26,29 @@ const { name, description, url, stargazerCount, isArchived, primaryLanguage } =
       <div class="title">
         <Icon type="repository" size="small" />
         <span>{name}</span>
-        {isArchived ? (
-          <span class="public archived">Public archive</span>
-        ): (
-          <span class="public">Public</span>
-        )}
+        {#if isArchived}
+        <span class="public archived">Public archive</span>
+        {:else}
+        <span class="public">Public</span>
+        {/if}
       </div>
       <p class="description">{description ?? ''}</p>
       <div class="information">
-        {!!primaryLanguage.name && (
+        {#if !!primaryLanguage.name}
           <div class="primaryLanguage">
             <span
               class="color"
               style={`--color-language: ${primaryLanguage.color}`}
-            />
+            ></span>
             <span class="name">{primaryLanguage.name}</span>
           </div>
-        )}
-        {!!stargazerCount && (
+        {/if}
+        {#if !!stargazerCount}
           <span class="stargazerCount">
             <Icon type="star" size="small" />
             {stargazerCount}
           </span>
-        )}
+        {/if}
       </div>
     </div>
   </Card>

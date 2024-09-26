@@ -1,8 +1,8 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import AstroLink from "@/components/markdown/AstroLink.astro";
-import ContentWrapper from "@/components/ui/ContentWrapper.astro";
-import Markdown from "@/components/ui/Markdown.astro";
+import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
+import Markdown from "@/components/ui/Markdown.svelte";
 import Layout from "@/layouts/Layout.astro";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
@@ -19,10 +19,9 @@ export const getStaticPaths = (async () => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { post } = Astro.props as Props;
-const { render, data } = post;
+const { data } = post;
 const { title, create, description, update, noindex } = data;
-
-const { Content } = await render();
+const { Content } = await render(post);
 
 export const components = {
   a: AstroLink,

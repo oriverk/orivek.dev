@@ -1,45 +1,42 @@
----
+<script lang="ts">
 import type { Page } from "astro";
 
-interface Props extends Omit<Page, "data"> {}
-const { start, end, total, currentPage, size, lastPage, url } = Astro.props;
+type Props = Omit<Page, "data">;
+
+const { start, end, total, currentPage, size, lastPage, url }: Props = $props();
 const { current, prev, next } = url;
 const maxPage = Math.ceil(total / size);
 const curr = (index: number) => (index === currentPage ? "page" : null);
 const tab = (index: number) => (index === currentPage ? -1 : 0);
----
+</script>
 
 <ol>
-  {!!prev && (
-    <>
-      <li>
-        <a href="/blog" data-astro-prefetch>&lt;&lt;</a>
-      </li>
-      <li>
-        <a href={prev} data-astro-prefetch>&lt;</a>
-      </li>
-    </>
-  )}
-  {size < total && (
+  {#if !!prev}
     <li>
-      <a href="/blog" aria-current={curr(1)} tabindex={tab(1)} data-astro-prefetch>1</a>
+      <a href="/blog">&lt;&lt;</a>
     </li>
-  )}
-  {[...Array(maxPage - 1)].map((_, index) => (
     <li>
-      <a href={`/blog/${index+2}`} aria-current={curr(index+2)} tabindex={tab(index+2)} data-astro-prefetch>{index+2}</a>
+      <a href={prev}>&lt;</a>
     </li>
-  ))}
-  {!!next && (
-    <ol>
-      <li>
-        <a href={next} data-astro-prefetch>&gt;</a>
-      </li>
-      <li>
-        <a href={`/blog/${lastPage}`} data-astro-prefetch>&gt;&gt;</a>
-      </li>
-    </ol>
-  )}
+  {/if}
+  {#if size < total}
+    <li>
+      <a href="/blog" aria-current={curr(1)} tabindex={tab(1)}>1</a>
+    </li>
+  {/if}
+  {#each [...Array(maxPage - 1)] as _, index}
+    <li>
+      <a href={`/blog/${index+2}`} aria-current={curr(index+2)} tabindex={tab(index+2)}>{index+2}</a>
+    </li>
+  {/each}
+  {#if !!next}
+    <li>
+      <a href={next}>&gt;</a>
+    </li>
+    <li>
+      <a href={`/blog/${lastPage}`}>&gt;&gt;</a>
+    </li>
+  {/if}
 </ol>
 
 <style>

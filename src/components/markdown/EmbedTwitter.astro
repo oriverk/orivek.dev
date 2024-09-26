@@ -1,17 +1,17 @@
 ---
-import Card from "@/components/ui/Card.astro";
+import Card from "@/components/ui/Card.svelte";
 import { getFaviconSrcFromOrigin } from "@/utils/feed";
 import { getTweet } from "@/utils/getTweet.ts";
 
-interface Props {
+type Props = {
   href: string;
   target: string;
   rel: string;
   class: string;
-  "data-embed": string;
-}
+  "data-embed"?: "ogp" | "twitter";
+};
 
-interface ResponseType {
+type ResponseType = {
   url: string;
   author_name: string;
   author_url: string;
@@ -23,7 +23,7 @@ interface ResponseType {
   provider_name: string;
   provider_url: string;
   version: string;
-}
+};
 
 const { href, class: className, ...restProps } = Astro.props;
 

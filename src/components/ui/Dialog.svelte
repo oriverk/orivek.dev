@@ -1,12 +1,20 @@
 <script lang="ts">
+import type { Snippet } from "svelte";
 import type { HTMLDialogAttributes } from "svelte/elements";
 
-interface Props extends Omit<HTMLDialogAttributes, "class"> {
+type Props = Omit<HTMLDialogAttributes, "class"> & {
+  children: Snippet;
   className?: string;
   dialog: HTMLDialogElement;
-}
+};
 
-let { id, className, dialog = $bindable(), ...restProps }: Props = $props();
+let {
+  children,
+  id,
+  className,
+  dialog = $bindable(),
+  ...restProps
+}: Props = $props();
 // const dispatch = createEventDispatcher();
 // function onClose(){
 //   dispatch('closeDialog')
@@ -14,7 +22,7 @@ let { id, className, dialog = $bindable(), ...restProps }: Props = $props();
 </script>
 
 <dialog bind:this={dialog} {id} class={className} {...restProps}>
-  <slot />
+  {@render children()}
 </dialog>
 
 <style>
@@ -31,13 +39,13 @@ let { id, className, dialog = $bindable(), ...restProps }: Props = $props();
     border-radius: 0.2em;
   }
 
-  @media (min-width: 640px) {
+  @media (640px <= width) {
     dialog {
       width: 50%;
     }
   }
 
-  @media (min-width: 768px) {
+  @media (768px <= width) {
     dialog {
       width: 60%;
     }

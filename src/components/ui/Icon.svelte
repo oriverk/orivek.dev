@@ -1,9 +1,10 @@
----
+<script lang="ts">
 import { clsx } from "clsx";
 
-interface Props {
+type Props = {
   type:
     | "oriver"
+    | "oriver rounded"
     | "github"
     | "zenn"
     | "x"
@@ -12,16 +13,17 @@ interface Props {
     | "magnifyingGlass"
     | "repository"
     | "star"
-    | "link-external";
+    | "link-external"
+    | "search";
   size?: "small" | "medium" | "large" | "xlarge";
   color?: "white" | "black" | "gray";
   style?: string;
-}
+};
 
-const { type, size, color, style } = Astro.props;
----
+const { type, size, color, style }: Props = $props();
+</script>
 
-<span class={clsx('icon', type, size, color)} {style} />
+<span class={clsx('icon', type, size, color)} {style}></span>
 
 <style>
   .icon {
@@ -34,27 +36,24 @@ const { type, size, color, style } = Astro.props;
     mask: no-repeat center;
     mask-size: contain;
     background-color: currentColor;
+    aspect-ratio: 1 / 1;
   }
 
   /* size */
   .small::before {
     width: 1rem;
-    height: 1rem;
   }
 
   .medium::before {
     width: 2rem;
-    height: 2rem;
   }
 
   .large::before {
     width: 3rem;
-    height: 3rem;
   }
 
   .xlarge::before {
     width: 4rem;
-    height: 4rem;
   }
 
   /* color */
@@ -78,6 +77,10 @@ const { type, size, color, style } = Astro.props;
     border: 1px solid transparent;
     border-radius: 30% 70% 59% 41% / 30% 26% 74% 70%;
     background-image: var(--accent-gradient);
+  }
+  
+  .oriver.rounded::before {
+    border-radius: 50%;
   }
 
   /* web service */
@@ -116,7 +119,11 @@ const { type, size, color, style } = Astro.props;
     mask-image: url('/assets/star.svg');
   }
 
-  .link-external {
+  .link-external::before {
     mask-image: url("/assets/link-external.svg")
+  }
+
+  .search::before {
+    mask-image: url('/assets/magnifyingGlass.svg');
   }
 </style>

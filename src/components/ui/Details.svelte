@@ -1,21 +1,22 @@
----
-import type { HTMLAttributes } from "astro/types";
+<script lang="ts">
+import type { Snippet } from "svelte";
+import type { HTMLDetailsAttributes } from "svelte/elements";
 
-interface Props extends Omit<HTMLAttributes<"details">, "class"> {
+type Props = Omit<HTMLDetailsAttributes, "class"> & {
+  children: Snippet;
   summary: string;
   className?: string;
-}
+};
 
-const { summary, className, ...restProps } = Astro.props;
----
-
+const { children, summary, className, ...restProps }: Props = $props();
+</script>
 <details class={className} {...restProps}>
-  {!!summary && (
+  {#if !!summary}
     <summary>
       {summary}
     </summary>
-  )}
-  <slot />
+  {/if}
+  {@render children()}
 </details>
 
 <style>

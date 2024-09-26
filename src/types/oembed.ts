@@ -1,11 +1,11 @@
-export interface CardLinkEmbedType {
+export type CardLinkEmbedType = {
   title: string;
   description: string;
   image: string;
-}
+};
 
 // ref: [oEmbed API | Docs | Twitter Developer Platform](https://developer.twitter.com/en/docs/twitter-for-websites/oembed-api#item1)
-export interface TweetOptionType {
+export type TweetOptionType = {
   // When set to true, links in a Tweet are not expanded to photo, video, or link previews.
   hide_media: boolean;
   // When set to true, a collapsed version of the previous Tweet in a conversation thread will not be displayed when the requested Tweet is in reply to another Tweet.
@@ -21,9 +21,9 @@ export interface TweetOptionType {
   theme: "dark" | "light";
   // When set to true, the Tweet and its embedded page on your site are not used for purposes that include personalized suggestions and personalized ads.
   dnt: boolean;
-}
+};
 
-export interface TweetResponseType {
+export type TweetResponseType = {
   url: string;
   author_name: string;
   author_url: string;
@@ -35,4 +35,4 @@ export interface TweetResponseType {
   provider_name: string;
   provider_url: string;
   version: string;
-}
+};

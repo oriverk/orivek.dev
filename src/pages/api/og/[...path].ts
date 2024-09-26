@@ -15,7 +15,11 @@ const blog = await getBlog();
 const extension: "jpg" | "png" | "webp" | "avif" = "webp";
 
 export function getOgImageSrc(origin: string, pathname: string) {
-  return urlJoin(origin, "api/og", `${pathname}.${extension}`);
+  return urlJoin(
+    origin,
+    "api/og",
+    `${pathname.replace(/\/$/, "")}.${extension}`,
+  );
 }
 
 export const getStaticPaths = (async () => {

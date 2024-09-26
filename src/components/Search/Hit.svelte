@@ -1,11 +1,11 @@
 <script lang="ts">
 import type { DataReturn } from "@/types/pagefind";
 
-interface Props {
+type Props = {
   data: DataReturn;
   selected: boolean;
   setActiveHit: () => void;
-}
+};
 
 const { data, selected, setActiveHit }: Props = $props();
 const { meta, raw_url, sub_results } = data;
@@ -21,7 +21,7 @@ const { title, date } = meta;
 >
   <div>
     <p class="title">{title}</p>
-    <time class="date" datetime={date}>{date.split("T")[0]}</time>
+    <time class="date" datetime={date}>{date?.split("T")[0]}</time>
   </div>
 </a>
 <!-- {#if !!sub_results.length}
