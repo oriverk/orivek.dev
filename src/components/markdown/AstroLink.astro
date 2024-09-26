@@ -1,23 +1,27 @@
 ---
-import AstroEmbed from "@/components/markdown/AstroEmbed.astro";
+import EmbedTwitter from "./EmbedTwitter.astro";
+import LinkCard from "./LinkCard.astro";
 
 type Props = {
   href: string;
   target: string;
   rel: string;
   class: string;
-  "data-embed": string;
+  "data-embed"?: "ogp" | "twitter";
 };
 
 const props = Astro.props;
+const embedType = !props["data-embed"] ? "link" : props["data-embed"]
 ---
 
-{
-  Object.hasOwn(props, "data-embed") ? (
-    <AstroEmbed {...props} />
-  ) : (
-    <a {...props}>
-      <slot />
-    </a>
-  )
-}
+{embedType === "link" ? (
+  <a {...props}>
+    <slot />
+  </a>
+) : embedType === "ogp" ? (
+  <LinkCard {...props} />
+) : embedType === "twitter" ? (
+  <EmbedTwitter {...props} />
+) : (
+  <p>hoge</p>
+)}

@@ -18,5 +18,40 @@
     "title": "Rick Astley - Never Gonna Give You Up (Official Music Video)",
     "description": "The official video for “Never Gonna Give You Up” by Rick Astley. The new album 'Are We There Yet?' is out now: Download here: https://RickAstley.lnk.to/AreWe...",
     "image": "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
+  },
+  "https://pagefind.app/": {
+    "title": "Pagefind | Pagefind — Static low-bandwidth search at scale",
+    "description": "Pagefind is a fully static search library that aims to perform well on large sites, while using as little of your users’ bandwidth as possible, and without hosting any infrastructure.",
+    "image": "https://pagefind.app/og.png"
+  },
+  "https://flutter.dev/": {
+    "title": "Flutter - Build apps for any screen",
+    "description": "Flutter transforms the entire app development process. Build, test, and deploy beautiful mobile, web, desktop, and embedded apps from a single codebase.",
+    "image": "https://storage.googleapis.com/cms-storage-bucket/70760bf1e88b184bb1bc.png"
+  },
+  "https://github.com/oriverk/learn_flutter": {
+    "title": "GitHub - oriverk/learn_flutter",
+    "description": "Contribute to oriverk/learn_flutter development by creating an account on GitHub.",
+    "image": "https://opengraph.githubassets.com/e9ddd51f9d7164eede64b11a742f9ff341c851ef4671c9550c948fad520d4927/oriverk/learn_flutter"
+  },
+  "https://www.publickey1.jp/blog/22/amazon_prime_videowebassemblywasm_vm.html": {
+    "title": "Amazon Prime Videoが動画再生にWebAssemblyを採用。再生デバイス上にWasm VMをデプロイ、高フレームレートなど実現",
+    "description": "Amazon.comは動画サービスのAmazon Prime Videoにおいて、テレビやFire TV、スマートフォンなどの再生デバイス上にWebAssemblyのランタイムをデプロイし、アプリケーションの一部にWebAssemblyを採...",
+    "image": "https://www.publickey1.jp/2022/primevideowasm01.gif"
+  },
+  "https://zenn.dev/oriverk/articles/432f7c2f17b928": {
+    "title": "Rustで作物列画像を二値化処理をする",
+    "description": "",
+    "image": "https://res.cloudinary.com/zenn/image/upload/s--bUnUkMNc--/c_fit%2Cg_north_west%2Cl_text:notosansjp-medium.otf_55:Rust%25E3%2581%25A7%25E4%25BD%259C%25E7%2589%25A9%25E5%2588%2597%25E7%2594%25BB%25E5%2583%258F%25E3%2582%2592%25E4%25BA%258C%25E5%2580%25A4%25E5%258C%2596%25E5%2587%25A6%25E7%2590%2586%25E3%2582%2592%25E3%2581%2599%25E3%2582%258B%2Cw_1010%2Cx_90%2Cy_100/g_south_west%2Cl_text:notosansjp-medium.otf_37:oriverk%2Cx_203%2Cy_121/g_south_west%2Ch_90%2Cl_fetch:aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2pWb1Vhc3I2TG1WZ2ZycnEtRlhNUVhya3VSdm85OWFMWkNtS2xEPXMyNTAtYw==%2Cr_max%2Cw_90%2Cx_87%2Cy_95/v1627283836/default/og-base-w1200-v2.png"
+  },
+  "https://github.blog/changelog/2023-12-14-new-markdown-extension-alerts-provide-distinctive-styling-for-significant-content/": {
+    "title": "New Markdown extension: Alerts provide distinctive styling for significant content · GitHub Changelog",
+    "description": "New Markdown extension: Alerts provide distinctive styling for significant content",
+    "image": "https://github.blog/wp-content/uploads/2023/12/290547405-0505deff-ff73-44f4-9f47-1d39b2f1d8cd.png?w=1024"
+  },
+  "https://biomejs.dev/": {
+    "title": "Biome",
+    "description": "Format, lint, and more in a fraction of a second.",
+    "image": "https://biomejs.dev/img/og.png?v=2"
   }
 }

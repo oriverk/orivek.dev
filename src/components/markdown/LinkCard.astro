@@ -9,7 +9,7 @@ type Props = {
   target: string;
   rel: string;
   class: string;
-  "data-embed": string;
+  "data-embed"?: "ogp" | "twitter";
 };
 
 const { href, class: className, ...restProps } = Astro.props;
