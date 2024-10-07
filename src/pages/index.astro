@@ -5,13 +5,21 @@ import Hero from "@/components/Hero.svelte";
 import RepositoryCard from "@/components/RepositoryCard.svelte";
 import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
 import Layout from "@/layouts/Layout.astro";
-import { getFeedItems } from "@/utils/feed";
 import { getBlog } from "@/utils/getBlog";
-import { getUserContent } from "@/utils/github/getUserContent";
+import { getContributionCallendar } from "@/utils/github/getUserContent";
+import { getCollection } from "astro:content";
 
-const userContent = getUserContent();
-const feedItems = getFeedItems();
-const blogItems = (await getBlog()).map((post) => {
+const contributionCalendar = getContributionCallendar();
+const repositoryCollection = await getCollection("repository", ({data}) => !data.isFork)
+const feedCollection = await getCollection("feed");
+const blogCollection = await getBlog();
+
+const feedItems = feedCollection.map(({data}) => {
+  const {id, ...rest} = data;
+  return rest
+});
+
+const blogItems = blogCollection.map((post) => {
   const { slug, data } = post;
   const { title, tags, create, update } = data;
   const link = `/blog/${slug}`;
@@ -26,10 +34,9 @@ const blogItems = (await getBlog()).map((post) => {
   };
 });
 const displayItemsCount = 12;
-const items = [...feedItems, ...blogItems]
+const items = feedItems.concat(blogItems)
   .sort((a, b) => b.dateMiliSeconds - a.dateMiliSeconds)
   .slice(0, displayItemsCount);
-const { repositoryItems, contributionCalendar } = userContent;
 const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
 ---
 
@@ -48,8 +55,8 @@ const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
         <div class="github-repository">
           <h3>Repository</h3>
           <ol class="grid">
-            {repositoryItems.map(item => (
-              <RepositoryCard {...item} />
+            {repositoryCollection.map(({data}) => (
+              <RepositoryCard {...data} />
             ))}
           </ol>
         </div>

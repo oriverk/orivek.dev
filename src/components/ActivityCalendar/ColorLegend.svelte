@@ -7,18 +7,15 @@ type Props = Pick<
 >;
 
 const { colors, blockMargin, blockRadius, blockSize }: Props = $props();
-
-const dimentions = {
-  width: colors.length * (blockSize + blockMargin) - blockMargin,
-  height: blockSize,
-};
+const width = colors.length * (blockSize + blockMargin) - blockMargin;
+const height = blockSize;
 </script>
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  width={dimentions.width}
-  height={dimentions.height}
-  viewBox={`0 0 ${dimentions.width} ${dimentions.height}`}
+  {width}
+  {height}
+  viewBox={`0 0 ${width} ${height}`}
 >
   {#each colors as color, i}
     <rect

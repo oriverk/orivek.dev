@@ -7,8 +7,7 @@ import Icon from "./ui/Icon.svelte";
 
 const { github, zenn, x, qiita } = siteConfig;
 
-// @ts-ignore
-type Link = Pick<ComponentProps<IconType>, "type" | "size"> & {
+type Link = Pick<ComponentProps<typeof IconType>, "type" | "size"> & {
   href: string;
   title: string;
 };

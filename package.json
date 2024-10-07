@@ -19,9 +19,9 @@
   "scripts": {
     "clean": "rm -r ./contents/*.json ./src/content/static/cv.md",
     "script": "run-s script:*",
-    "script:feed": "node script/getFeed.mjs",
-    "script:github": "node -r dotenv/config script/getGitHubUserContent.mjs",
-    "script:cv": "node -r dotenv/config script/getGitHubRepositoryContent.mjs",
+    "script:feed": "tsx script/getFeed.mts",
+    "script:github": "tsx --env-file=.env script/getGitHubUserContent.mts",
+    "script:cv": "tsx --env-file=.env script/getGitHubRepositoryContent.mts",
     "astro": "astro",
     "sync": "astro sync",
     "dev": "astro dev",
@@ -50,7 +50,6 @@
     "astro-expressive-code": "^0.37.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
-    "dotenv": "^16.4.5",
     "fetch-site-metadata": "^0.2.0",
     "gray-matter": "^4.0.3",
     "hast": "^1.0.0",
@@ -75,7 +74,6 @@
     "@biomejs/biome": "1.9.2",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
-    "@octokit/graphql-schema": "^15.25.0",
     "@proofdict/textlint-rule-proofdict": "^3.1.2",
     "@textlint/textlint-plugin-markdown": "^14.2.0",
     "@types/fs-extra": "^11.0.4",
@@ -94,7 +92,7 @@
     "textlint-rule-period-in-list-item": "^1.0.1",
     "textlint-rule-preset-ja-spacing": "^2.4.3",
     "textlint-rule-preset-ja-technical-writing": "^10.0.1",
-    "ts-node": "^10.9.2"
+    "tsx": "^4.19.1"
   },
   "overrides": {
     "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6"

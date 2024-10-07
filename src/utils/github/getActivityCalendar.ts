@@ -1,9 +1,9 @@
 import type { Activity } from "@/types/activityCalendar";
-import type { ContributionCalendarDay } from "@octokit/graphql-schema";
+import type { ContributionDay } from "@/types/github";
 import { getMonth, parseISO } from "date-fns";
 
 export function parseContributionCalendarDay(
-  day: ContributionCalendarDay,
+  day: ContributionDay,
 ): Activity {
   const { contributionCount = 0, contributionLevel, date } = day;
   let level: Activity["level"] = 0;
