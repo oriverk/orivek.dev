@@ -1,21 +1,25 @@
 import fs from "node:fs";
 import Parser from 'rss-parser'
 
-/**
- * @typedef {Object} Source
- * @property {string} id
- * @property {string} url
- * @property {string} includeUrlRegex
- */
+type Source = {
+  id: string;
+  url: string;
+  includeUrlRegex?: string;
+}
 
-/**
- * @typedef {Object} FeedItem
- * @property {string} title
- * @property {string} link
- * @property {string} contentSnippet
- * @property {string} isoDate
- * @property {number} dateMiliSeconds
- */
+// [rbren/rss-parser: A lightweight RSS parser, for Node and the browser](https://github.com/rbren/rss-parser?tab=readme-ov-file#typescript)
+type CustomFeed = {
+  foo: string;
+}
+
+type FeedItem = {
+  id: string;
+  title: string;
+  link: string;
+  contentSnippet: string;
+  isoDate: string;
+  dateMiliSeconds: number;
+}
 
 const sources = [
   {
@@ -24,11 +28,7 @@ const sources = [
   },
 ];
 
-/**
- * @param {string} url
- * @returns {boolean}
- */
-function isValidUrl(url) {
+function isValidUrl(url: string) {
   try {
     const {protocol} = new URL(url);
     return protocol === 'http:' || protocol === 'https:';
@@ -37,20 +37,19 @@ function isValidUrl(url) {
   }
 }
 
-const parser = new Parser();
 
-/**
- * @param {string} url
- * @returns {FeedItem[]}
- */
-async function fetchFeedItems(url) {
+const parser: Parser<CustomFeed,FeedItem> = new Parser();
+
+async function fetchFeedItems(url: string) {
   const feed = await parser.parseURL(url);
   
   if(!feed?.items?.length) return []
 
-  return feed.items
+  const results = feed.items
+    .filter(({link}) => link && isValidUrl(link))
     .map(({ title, contentSnippet, link, isoDate }) => {
       return {
+        id: link,
         title,
         contentSnippet: contentSnippet?.replace(/\n/g, ""),
         link,
@@ -58,26 +57,21 @@ async function fetchFeedItems(url) {
         dateMiliSeconds: isoDate ? new Date(isoDate).getTime() : 0,
       };
     })
-    .filter(
-      ({ title, link }) => title && link && isValidUrl(link)
-    )
+  
+    return results
 }
 
-/**
- * @param {Source[]} sources
- * @returns {FeedItem[]}
- */
-async function getFeedItemsFromSources(sources) {
+async function getFeedItemsFromSources(sources: Source[]) {
   if (!sources.length) return [];
 
-  let feedItems = [];
+  let feedItems: FeedItem[] = [];
   for (const source of sources) {
     const { url, includeUrlRegex } = source;
     let items = await fetchFeedItems(url);
     
     if (includeUrlRegex) {
       items = items.filter(item => {
-        return item.link.match(new RegExp(includeUrlRegex))
+        return item.link?.match(new RegExp(includeUrlRegex))
       })
     }
 

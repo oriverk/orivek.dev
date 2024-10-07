@@ -12,7 +12,7 @@ type Props = Pick<
 };
 
 const {
-  colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
+  colors,
   week,
   textHeight,
   blockMargin,
@@ -24,10 +24,12 @@ const {
 
 <g transform={`translate(${translateX}, 0)`}>
   {#each week as {date, level, count}, weekday}
+    {@const y = textHeight + (blockSize + blockMargin) * weekday}
+    {@const color = colors[level]}
     <ActivityDay
       day={{ date, level, count }}
-      color={colors[level]}
-      y={textHeight + (blockSize + blockMargin) * weekday}
+      {color}
+      {y}
       {blockRadius}
       {blockSize}
     />

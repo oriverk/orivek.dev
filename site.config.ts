@@ -7,4 +7,5 @@ export default {
   docsGitHubRepositoryExpression: "HEAD:cv/index.md",
   zenn: 'oriverk',
   x: 'not_you_die',
+  qiita: 'OriverK'
 }

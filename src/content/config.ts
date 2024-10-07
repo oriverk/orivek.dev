@@ -1,5 +1,32 @@
 import { defineCollection, z } from "astro:content";
-import { glob } from "astro/loaders";
+import { file, glob } from "astro/loaders";
+
+const repositoryCollection = defineCollection({
+  loader: file(".contents/repository.json"),
+  schema: z.object({
+    id: z.string(),
+    name: z.string(),
+    description: z.string().nullable().default(""),
+    url: z.string().url(),
+    isFork: z.boolean(),
+    stargazerCount: z.number(),
+    primaryLanguage: z.object({
+      name: z.string(),
+      color: z.string()
+    })
+  })
+})
+
+const feedCollection = defineCollection({
+  loader:  file(".contents/feed.json"),
+  schema: z.object({
+    id: z.string(),
+    title: z.string(),
+    link: z.string(),
+    isoDate: z.string(),
+    dateMiliSeconds: z.number()
+  })
+})
 
 const staticCollection = defineCollection({
   loader: glob({ pattern: "**/[^_]*.mdx?", base: "./src/content/static" }),
@@ -28,6 +55,8 @@ const blogCollection = defineCollection({
 });
 
 export const collections = {
+  repository: repositoryCollection,
+  feed: feedCollection,
   static: staticCollection,
   blog: blogCollection,
 };

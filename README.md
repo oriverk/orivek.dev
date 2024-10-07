@@ -7,7 +7,6 @@
   - Svelte
   - unified, remark, rehype ...
   - @octokit/graphql
-  - algoliasearch
 - devDependencies
   - husky
   - biomejs

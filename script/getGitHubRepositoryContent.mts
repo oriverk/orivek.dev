@@ -3,10 +3,10 @@ import { format } from 'date-fns'
 import fs from "node:fs"
 
 /**
- * @param {string} birthdate '2020-01-01'
- * @returns {number}
+ * @param birthdate '2020-01-01'
+ * @returns 
  */
-function getAge(birthdate) {
+function getAge(birthdate: string) {
   const today = new Date()
   const birthDate = new Date(birthdate)
   let age = today.getFullYear() - birthDate.getFullYear()
@@ -17,37 +17,30 @@ function getAge(birthdate) {
   return age
 }
 
-/**
- * @param {string} githubToken
- * @param {string} owner userid
- * @param {number} pinnedItemsNum
- * @param {string} calendarFrom new Date().toISOString().split(".")[0]
- * @param {string} calendarTo "2023-04-01T00:00:00"
- * @returns {import("@octokit/graphql-schema").Repository}
- */
-async function fetchRepositoryContent(githubToken, owner, repo, expression) {
-  try {
-    if (!githubToken) {
-      throw new Error('Token is Not Found')
+type Content = {
+  repository: {
+    object: {
+      text: string;
     }
+  }
+}
 
-    const { repository } = await graphql(`
+/**
+ * @param githubToken
+ * @param owner userid
+ * @param repo userid-docs
+ * @param expression HEAD:cv/index.md
+ * @returns 
+ */
+async function fetchRepositoryContent(githubToken: string, owner: string, repo: string, expression: string) {
+  try {
+    const { repository } = await graphql<Content>(`
         query content($owner: String!, $repo: String!, $expression: String!) {
           repository(owner: $owner, name: $repo) {
             object(expression: $expression) {
               ... on Blob {
                 text
               }
-              # ... on Tree {
-              #   entries {
-              #     name
-              #     object {
-              #       ... on Blob {
-              #         text
-              #       }
-              #     }
-              #   }
-              # }
             }
           }
         }
@@ -84,9 +77,9 @@ async function fetchRepositoryContent(githubToken, owner, repo, expression) {
   }
 
   const repository = await fetchRepositoryContent(token, owner, repositoryName, repositoryExpression)
-  /** @type import("@octokit/graphql-schema").Blob */
-  const { text } = repository.object;
-  
+  if(!repository) return;
+
+  const { text } = repository.object
   const replacedMd = text
     .replace('{{ age }}', getAge('1993-09-11').toString())
     .replace('{{ date }}', format(new Date(), 'yyyy年MM月dd日'))
