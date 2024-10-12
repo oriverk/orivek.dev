@@ -17,13 +17,18 @@ jobs:
     name: build and deploy to Cloudflare Pages
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Run a build step here if your project requires
       - name: setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+
+      - name: create dotenv
+        run: |
+          touch .env
+          echo "SECRET_GH_PAT={{ secrets.SECRET_GH_PAT }}" >> .env
 
       - name: install packages and build
         run: |
@@ -33,6 +38,7 @@ jobs:
         env:
           MODE: production
           SECRET_GH_PAT: ${{ secrets.SECRET_GH_PAT }}
+  
       - name: deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
