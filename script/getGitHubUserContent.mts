@@ -1,22 +1,30 @@
 import { graphql, GraphqlResponseError } from '@octokit/graphql'
 import { subYears, startOfWeek, format } from 'date-fns'
 import fs from "node:fs"
+import type { PinnedItem, ContributionCalendar } from '@/types/github';
+
+type UserContent = {
+  user: {
+    pinnedItems: {
+      nodes: PinnedItem[]
+    };
+    contributionsCollection: {
+      contributionCalendar: ContributionCalendar;
+    };
+  };
+};
 
 /**
- * @param {string} githubToken
- * @param {string} owner userid
- * @param {number} pinnedItemsNum
- * @param {string} calendarFrom new Date().toISOString().split(".")[0]
- * @param {string} calendarTo "2023-04-01T00:00:00"
- * @returns {import("@octokit/graphql-schema").User}
+ * @param githubToken
+ * @param owner userid
+ * @param pinnedItemsNum
+ * @param calendarFrom new Date().toISOString().split(".")[0]
+ * @param calendarTo "2023-04-01T00:00:00"
+ * @returns
  */
-async function fetchUserContent(githubToken, owner, pinnedItemsNum, calendarFrom, calendarTo,) {
+async function fetchUserContent(githubToken: string, owner: string, pinnedItemsNum: number, calendarFrom: string, calendarTo: string) {
   try {
-    if (!githubToken) {
-      throw new Error('githubToken is not defined')
-    }
-
-    const { user } = await graphql(`
+    const { user } = await graphql<UserContent>(`
         query userContent($owner: String!, $pinnedItemsNum: Int = 4, $calendarFrom: DateTime!, $calendarTo: DateTime!) {
           user(login: $owner) {
             pinnedItems(first: $pinnedItemsNum) {
@@ -38,7 +46,6 @@ async function fetchUserContent(githubToken, owner, pinnedItemsNum, calendarFrom
             contributionsCollection(from: $calendarFrom, to: $calendarTo) {
               contributionCalendar {
                 totalContributions
-                isHalloween
                 weeks {
                   firstDay
                   contributionDays {
@@ -79,12 +86,11 @@ async function fetchUserContent(githubToken, owner, pinnedItemsNum, calendarFrom
 
 ;(async () => {
   const token = process.env.SECRET_GH_PAT || "";
-  const owner = "oriverk"
-
   if (!token) {
     return console.log('Env is Not Found.')
   }
 
+  const owner = "oriverk"
   const lastYear = subYears(new Date(), 1)
   const start = startOfWeek(lastYear, { weekStartsOn: 0 })
   const from = `${format(start, 'yyyy-MM-dd')}T00:00:00`
@@ -96,14 +102,22 @@ async function fetchUserContent(githubToken, owner, pinnedItemsNum, calendarFrom
     return;
   }
 
-  /** @type {import("@octokit/graphql-schema").User} */
   const { pinnedItems, contributionsCollection } = user
   if (!fs.existsSync(".contents")) {
     fs.mkdirSync(".contents");
   }
+
+  const repositories = []
+  for (const {url, ...rest} of pinnedItems.nodes) {
+    repositories.push({
+      id: url,
+      url,
+      ...rest
+    })
+  }
   fs.writeFileSync(
     ".contents/repository.json",
-    JSON.stringify(pinnedItems.nodes || [], null, 2)
+    JSON.stringify(repositories, null, 2)
   );
   fs.writeFileSync(
     ".contents/contributions.json",

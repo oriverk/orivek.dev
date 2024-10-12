@@ -1,17 +1,27 @@
 ---
+import { getCollection } from "astro:content";
 import PostCard from "@/components/PostCard.svelte";
 import PostPagination from "@/components/PostPagination.svelte";
 import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
 import Layout from "@/layouts/Layout.astro";
-import { getBlog } from "@/utils/getBlog";
-import type { GetStaticPaths } from "astro";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const blog = await getBlog();
-  return paginate(blog, { pageSize: 12 });
+  const blogCollection = await getCollection("blog", ({ data }) => {
+    return import.meta.env.PROD ? data.published : true;
+  });
+
+  const posts = blogCollection.sort((a, b) => {
+    return (
+      new Date(b.data.update ?? b.data.create).getTime() -
+      new Date(a.data.update ?? a.data.create).getTime()
+    );
+  });
+  return paginate(posts, { pageSize: 12 });
 }) satisfies GetStaticPaths;
 
-const { page } = Astro.props;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { page } = Astro.props as Props;
 const { data, ...rest } = page;
 ---
 
@@ -22,10 +32,9 @@ const { data, ...rest } = page;
       <PostPagination {...rest} />
     </div>
     <div class="blog">
-      {data.map(post => {
-        const {slug, data} = post
+      {data.map(({id, data}) => {
         const { update, ...rest } = data;
-        const href = `/blog/${slug}`
+        const href = `/blog/${id}`
         return (
           <PostCard {href} update={update} {...rest} />
         )

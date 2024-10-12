@@ -1,28 +1,30 @@
-import type {
-  ContributionCalendar,
-  ContributionCalendarWeek,
-  Repository,
-} from "@octokit/graphql-schema";
-
-export type PinnedItem = Pick<
-  Repository,
-  "name" | "url" | "isFork" | "isArchived" | "stargazerCount"
-> & {
+export type PinnedItem = {
+  name: string;
+  url: string;
   description: string;
+  isFork: boolean;
+  isArchived: boolean;
+  stargazerCount: number;
   primaryLanguage: {
     name: string;
     color: string;
   };
 };
 
-type CustomContributionCalendar = Pick<
-  ContributionCalendar,
-  "isHalloween" | "totalContributions"
-> & {
-  weeks: ContributionCalendarWeek[];
+export type ContributionDay = {
+  date: string;
+  color: string;
+  contributionCount: number;
+  contributionLevel: string;
+  weekday: number;
 };
 
-export type UserContent = {
-  repositoryItems: PinnedItem[];
-  contributionCalendar: CustomContributionCalendar;
+export type Week = {
+  firstDay: string;
+  contributionDays: ContributionDay[];
+};
+
+export type ContributionCalendar = {
+  totalContributions: number;
+  weeks: Week[];
 };

@@ -1,35 +1,45 @@
 ---
+import { getCollection } from "astro:content";
 import ActivityCalendar from "@/components/ActivityCalendar/index.svelte";
 import FeedCard from "@/components/FeedCard.svelte";
 import Hero from "@/components/Hero.svelte";
 import RepositoryCard from "@/components/RepositoryCard.svelte";
 import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
 import Layout from "@/layouts/Layout.astro";
-import { getFeedItems } from "@/utils/feed";
-import { getBlog } from "@/utils/getBlog";
-import { getUserContent } from "@/utils/github/getUserContent";
+import { getContributionCallendar } from "@/utils/github/getUserContent";
 
-const userContent = getUserContent();
-const feedItems = getFeedItems();
-const blogItems = (await getBlog()).map((post) => {
-  const { slug, data } = post;
-  const { title, tags, create, update } = data;
-  const link = `/blog/${slug}`;
+const displayItemsCount = 12;
+const contributionCalendar = getContributionCallendar();
+const repositoryCollection = await getCollection(
+  "repository",
+  ({ data }) => !data.isFork,
+);
+const feedCollection = await getCollection("feed");
+const blogCollection = await getCollection("blog", ({ data }) => {
+  return import.meta.env.PROD ? data.published : true;
+});
+
+const posts = blogCollection.map(({ id, data }) => {
+  const { title, create, update } = data;
   const isoDate = update ?? create;
   const dateMiliSeconds = new Date(isoDate).getTime();
   return {
     title,
     // contentSnippet: tags,
-    link,
+    link: `/blog/${id}`,
     isoDate: isoDate.toString(),
     dateMiliSeconds,
   };
 });
-const displayItemsCount = 12;
-const items = [...feedItems, ...blogItems]
+
+const feeds = feedCollection
+  .map(({ data }) => {
+    const { id, ...rest } = data;
+    return rest;
+  })
+  .concat(posts)
   .sort((a, b) => b.dateMiliSeconds - a.dateMiliSeconds)
   .slice(0, displayItemsCount);
-const { repositoryItems, contributionCalendar } = userContent;
 const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
 ---
 
@@ -48,9 +58,11 @@ const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
         <div class="github-repository">
           <h3>Repository</h3>
           <ol class="grid">
-            {repositoryItems.map(item => (
-              <RepositoryCard {...item} />
-            ))}
+            {
+              repositoryCollection.map(({ data }) => (
+                <RepositoryCard {...data} />
+              ))
+            }
           </ol>
         </div>
         <div class="github-contributions">
@@ -73,9 +85,7 @@ const colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
       <div class="feed">
         <h2>Feed</h2>
         <ol class="grid">
-          {items.map(item => (
-            <FeedCard {...item} />
-          ))}
+          {feeds.map((item) => <FeedCard {...item} />)}
         </ol>
       </div>
     </ContentWrapper>

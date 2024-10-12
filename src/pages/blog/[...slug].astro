@@ -1,5 +1,6 @@
 ---
 import { render } from "astro:content";
+import { getCollection } from "astro:content";
 import PostTag from "@/components/PostTag.svelte";
 import AstroLink from "@/components/markdown/AstroLink.astro";
 import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
@@ -8,14 +9,17 @@ import Markdown from "@/components/ui/Markdown.svelte";
 import Toc from "@/components/ui/Toc/index.svelte";
 import Layout from "@/layouts/Layout.astro";
 import { getOgImageSrc } from "@/pages/api/og/[...path]";
-import { getBlog, getTocHierarchy } from "@/utils/getBlog";
+import { getTocHierarchy } from "@/utils/getBlog";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 
 export const getStaticPaths = (async () => {
-  const blog = await getBlog();
-  const result = blog.map((post) => {
+  const blogCollection = await getCollection("blog", ({ data }) => {
+    return import.meta.env.PROD ? data.published : true;
+  });
+
+  const result = blogCollection.map((post) => {
     return {
-      params: { slug: post.slug },
+      params: { slug: post.id },
       props: { post },
     };
   });
@@ -23,6 +27,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
 const { post } = Astro.props as Props;
 const { data } = post;
 const { title, description, tags, create, update, image, noindex } = data;

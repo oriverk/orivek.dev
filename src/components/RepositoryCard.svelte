@@ -1,14 +1,9 @@
 <script lang="ts">
-import type { Language, Repository } from "@octokit/graphql-schema";
+import type { PinnedItem } from "@/types/github";
 import Card from "./ui/Card.svelte";
 import Icon from "./ui/Icon.svelte";
 
-type Props = Pick<
-  Repository,
-  "name" | "description" | "url" | "stargazerCount" | "isArchived"
-> & {
-  primaryLanguage: Pick<Language, "name" | "color">;
-};
+type Props = PinnedItem;
 
 const {
   name,

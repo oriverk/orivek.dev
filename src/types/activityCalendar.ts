@@ -1,4 +1,4 @@
-import type { UserContent } from "./github";
+import type { ContributionCalendar } from "./github";
 
 export type Activity = {
   date: string;
@@ -7,7 +7,7 @@ export type Activity = {
 };
 
 export type ActivityCalendar = {
-  contributionCalendar: UserContent["contributionCalendar"];
+  contributionCalendar: ContributionCalendar;
   blockMargin: number;
   blockRadius: number;
   blockSize: number;

@@ -1,26 +1,4 @@
-import { getCollection } from "astro:content";
 import type { MarkdownHeading } from "astro";
-
-export async function getBlog() {
-  const collection = await getCollection("blog", ({ data }) => {
-    return import.meta.env.PROD ? data.published : true;
-  });
-
-  const posts = collection.sort((a, b) => {
-    return (
-      new Date(b.data.update ?? b.data.create).getTime() -
-      new Date(a.data.update ?? a.data.create).getTime()
-    );
-  });
-
-  return posts;
-}
-
-export async function getTags() {
-  const posts = await getBlog();
-  const tags = posts.flatMap((post) => post.data.tags ?? []);
-  return [...new Set(tags)];
-}
 
 export type Hierarchy = MarkdownHeading & {
   subHeadings?: MarkdownHeading[];

@@ -10,9 +10,7 @@ import CalendarWeek from "./ActivityWeek.svelte";
 import ColorsLegend from "./ColorLegend.svelte";
 import MonthLegend from "./MonthLegend.svelte";
 
-type Props = Partial<Omit<ActivityCalendar, "contributionCalendar">> & {
-  contributionCalendar: ActivityCalendar["contributionCalendar"];
-};
+type Props = ActivityCalendar;
 
 const {
   contributionCalendar,

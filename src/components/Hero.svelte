@@ -5,9 +5,9 @@ import siteConfig from "../../site.config";
 import type IconType from "./ui/Icon.svelte";
 import Icon from "./ui/Icon.svelte";
 
-const { github, zenn, x } = siteConfig;
+const { github, zenn, x, qiita } = siteConfig;
 
-type Link = Pick<ComponentProps<IconType>, "type" | "size"> & {
+type Link = Pick<ComponentProps<typeof IconType>, "type" | "size"> & {
   href: string;
   title: string;
 };
@@ -67,6 +67,16 @@ const links: Link[] = [
     {#each links as args}
       {@render link(args)}
     {/each}
+    <a
+      class="hero-link qiita"
+      href={urlJoin("https://qiita.com", qiita)}
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Qiita"
+    >
+      <img src="/assets/qiita-icon.png" alt="logo" />
+      <span class="sr-only">Qiita link</span>
+    </a>
   </div>
 </div>
 
@@ -119,6 +129,9 @@ const links: Link[] = [
     &:hover {
       background-color: rgba(0 0 0 / 0.3);
     }
-  }
 
+    &.qiita > img {
+      width: 2rem;
+    }
+  }
 </style>
