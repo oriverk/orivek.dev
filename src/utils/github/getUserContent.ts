@@ -4,8 +4,8 @@ import type { ContributionCalendar } from "@/types/github";
 const contributionsJsonPath = "./.contents/contributions.json";
 
 type Result = {
-  contributionCalendar: ContributionCalendar
-}
+  contributionCalendar: ContributionCalendar;
+};
 
 export function getContributionCallendar() {
   const contributionsJson: Result = JSON.parse(
@@ -13,5 +13,5 @@ export function getContributionCallendar() {
   );
 
   const { contributionCalendar } = contributionsJson;
-  return contributionCalendar
+  return contributionCalendar;
 }

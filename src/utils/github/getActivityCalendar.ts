@@ -2,9 +2,7 @@ import type { Activity } from "@/types/activityCalendar";
 import type { ContributionDay } from "@/types/github";
 import { getMonth, parseISO } from "date-fns";
 
-export function parseContributionCalendarDay(
-  day: ContributionDay,
-): Activity {
+export function parseContributionCalendarDay(day: ContributionDay): Activity {
   const { contributionCount = 0, contributionLevel, date } = day;
   let level: Activity["level"] = 0;
   switch (contributionLevel) {

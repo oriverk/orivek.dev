@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import * as nodePath from "node:path";
-import { getBlog } from "@/utils/getBlog";
+import { getCollection, getEntry } from "astro:content";
 import { getOgImage } from "@/utils/getOgImage";
 import { hashStringToSHA256 } from "@/utils/hashStringToSHA256";
 import type {
@@ -11,7 +11,6 @@ import type {
 } from "astro";
 import urlJoin from "url-join";
 
-const blog = await getBlog();
 const extension: "jpg" | "png" | "webp" | "avif" = "webp";
 
 export function getOgImageSrc(origin: string, pathname: string) {
@@ -23,7 +22,8 @@ export function getOgImageSrc(origin: string, pathname: string) {
 }
 
 export const getStaticPaths = (async () => {
-  const results = [...blog].map((post) => {
+  const blogCollection = await getCollection("blog");
+  const results = blogCollection.map((post) => {
     const { collection, slug, data } = post;
     const path = `${collection}/${slug}.${extension}`;
     return {
@@ -33,7 +33,7 @@ export const getStaticPaths = (async () => {
       },
     };
   });
-  return [...results];
+  return results;
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
@@ -42,9 +42,7 @@ export const GET: APIRoute = async (context: APIContext) => {
   const { params, props } = context;
   const { path = "" } = params;
   const { title } = props as Props;
-  const post = blog.find(
-    (post) => `${post.collection}/${post.slug}.${extension}` === path,
-  );
+  const post = await getEntry("blog", path.replace(/\.\w+$/, ""));
   if (!post || !title) return new Response("Page not found", { status: 404 });
 
   let imageBuffer: Buffer;
@@ -63,7 +61,7 @@ export const GET: APIRoute = async (context: APIContext) => {
     imageBuffer = result;
 
     if (import.meta.env.PROD) {
-      fs.writeFileSync(imagePath, imageBuffer);
+      fs.writeFileSync(imagePath, new Uint8Array(imageBuffer));
     }
   }
 

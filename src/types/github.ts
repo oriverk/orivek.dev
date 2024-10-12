@@ -8,8 +8,8 @@ export type PinnedItem = {
   primaryLanguage: {
     name: string;
     color: string;
-  }
-}
+  };
+};
 
 export type ContributionDay = {
   date: string;
@@ -17,14 +17,14 @@ export type ContributionDay = {
   contributionCount: number;
   contributionLevel: string;
   weekday: number;
-}
+};
 
 export type Week = {
   firstDay: string;
-  contributionDays: ContributionDay[]
-}
+  contributionDays: ContributionDay[];
+};
 
 export type ContributionCalendar = {
   totalContributions: number;
-  weeks: Week[]
-}
+  weeks: Week[];
+};

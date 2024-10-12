@@ -3,7 +3,7 @@ import type { PinnedItem } from "@/types/github";
 import Card from "./ui/Card.svelte";
 import Icon from "./ui/Icon.svelte";
 
-type Props = PinnedItem
+type Props = PinnedItem;
 
 const {
   name,

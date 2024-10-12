@@ -1,23 +1,40 @@
 ---
+import { getCollection } from "astro:content";
 import PostCard from "@/components/PostCard.svelte";
 import PostPagination from "@/components/PostPagination.svelte";
 import ContentWrapper from "@/components/ui/ContentWrapper.svelte";
 import Layout from "@/layouts/Layout.astro";
-import { getBlog, getTags } from "@/utils/getBlog";
-import type { GetStaticPaths } from "astro";
+import type {
+  GetStaticPaths,
+  InferGetStaticParamsType,
+  InferGetStaticPropsType,
+} from "astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const blog = await getBlog();
-  const tags = await getTags();
-  return tags.flatMap((tag) => {
-    const blogWithTag = blog.filter((post) => post.data.tags.includes(tag));
+  const blogCollection = await getCollection("blog", ({ data }) => {
+    return import.meta.env.PROD ? data.published : true;
+  });
+
+  const posts = blogCollection.sort((a, b) => {
+    return (
+      new Date(b.data.update ?? b.data.create).getTime() -
+      new Date(a.data.update ?? a.data.create).getTime()
+    );
+  });
+
+  const tags = posts.flatMap((post) => post.data.tags ?? []);
+  return [...new Set(tags)].flatMap((tag) => {
+    const blogWithTag = posts.filter((post) => post.data.tags.includes(tag));
     return paginate(blogWithTag, { params: { tag }, pageSize: 12 });
   });
 }) satisfies GetStaticPaths;
 
-const { page } = Astro.props;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+
+const { page } = Astro.props as Props;
+const { tag } = Astro.params as Params;
 const { data, ...rest } = page;
-const { tag } = Astro.params;
 ---
 
 <Layout title={`#${tag} blog`}>
@@ -27,14 +44,14 @@ const { tag } = Astro.params;
       <PostPagination {...rest} />
     </div>
     <div class="blog">
-      {data.map(post => {
-        const {slug, data} = post
-        const { update, ...rest } = data;
-        const href = `/blog/${slug}`
-        return (
-          <PostCard {href} update={update} {...rest} />
-        )
-      })}
+      {
+        data.map((post) => {
+          const { id, slug, data } = post;
+          const { update, ...rest } = data;
+          const href = `/blog/${id}`;
+          return <PostCard {href} update={update} {...rest} />;
+        })
+      }
     </div>
     <div class="pagination">
       <PostPagination {...rest} />
@@ -50,7 +67,7 @@ const { tag } = Astro.params;
   .blog {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(auto-fill,minmax(256px,1fr));
+    grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
   }
 
   .pagination {
@@ -58,5 +75,3 @@ const { tag } = Astro.params;
     justify-content: space-evenly;
   }
 </style>
-
-

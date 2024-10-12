@@ -10,7 +10,7 @@ import CalendarWeek from "./ActivityWeek.svelte";
 import ColorsLegend from "./ColorLegend.svelte";
 import MonthLegend from "./MonthLegend.svelte";
 
-type Props = ActivityCalendar
+type Props = ActivityCalendar;
 
 const {
   contributionCalendar,

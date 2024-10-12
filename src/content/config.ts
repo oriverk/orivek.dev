@@ -12,24 +12,24 @@ const repositoryCollection = defineCollection({
     stargazerCount: z.number(),
     primaryLanguage: z.object({
       name: z.string(),
-      color: z.string()
-    })
-  })
-})
+      color: z.string(),
+    }),
+  }),
+});
 
 const feedCollection = defineCollection({
-  loader:  file(".contents/feed.json"),
+  loader: file(".contents/feed.json"),
   schema: z.object({
     id: z.string(),
     title: z.string(),
     link: z.string(),
     isoDate: z.string(),
-    dateMiliSeconds: z.number()
-  })
-})
+    dateMiliSeconds: z.number(),
+  }),
+});
 
 const staticCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.mdx?", base: "./src/content/static" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/static" }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
@@ -41,7 +41,7 @@ const staticCollection = defineCollection({
 });
 
 const blogCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.mdx?", base: "./src/content/blog" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
