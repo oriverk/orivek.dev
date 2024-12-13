@@ -97,6 +97,8 @@
 
   & img {
     max-width: 100%;
+    object-fit: scale-down;
+    max-height: 500px;
   }
 
   & :not(pre) > code::before,
