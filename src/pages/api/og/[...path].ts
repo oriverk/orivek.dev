@@ -24,8 +24,8 @@ export function getOgImageSrc(origin: string, pathname: string) {
 export const getStaticPaths = (async () => {
   const blogCollection = await getCollection("blog");
   const results = blogCollection.map((post) => {
-    const { collection, slug, data } = post;
-    const path = `${collection}/${slug}.${extension}`;
+    const { collection, id, data } = post;
+    const path = `${collection}/${id}.${extension}`;
     return {
       params: { path },
       props: {
